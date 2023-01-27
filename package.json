@@ -9,9 +9,11 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "firebase": "^9.16.0",
     "pinia": "^2.0.28",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
+    "vuefire": "^3.0.1",
     "vuetify": "^3.1.1"
   },
   "devDependencies": {
