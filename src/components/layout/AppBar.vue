@@ -46,7 +46,7 @@
 
 <script setup>
 
-const links = ['All','Favourites','Forum']
+const links = ['Home','Recommended','Properties','Favourites','Compare Properties']
 
   
 </script>
