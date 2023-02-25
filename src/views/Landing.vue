@@ -19,7 +19,10 @@
     </v-container>
     </template>
   
-  <script setup>
+  <script 
+  setup
+  src="https://cdn.jsdelivr.net/npm/vue-horizontal/dist/vue-horizontal.esm.min.js"
+  >
   import Card from "@/components/Card.vue"
   import { ref } from 'vue'
   
