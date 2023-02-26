@@ -45,12 +45,74 @@
                     v-model="listingData.leaseCommencementDate"
                 ></VueDatePicker>
 
+                <v-file-input
+                    label="Add Images"
+                    variant="filled"
+                    prepend-icon="mdi-camera"
+                    v-model="listingData.imageUrls"
+                ></v-file-input>
+
                 <v-textarea
                     v-model="listingData.description"
                     label="Description"
                 />
-
-                
+                <v-row class="my-0">
+                    <v-col
+                        cols="6"
+                        class="my-0 py-0"
+                    >
+                        <v-text-field
+                            v-model="listingData.floorSize"
+                            label="Floor Size"
+                        />
+                    </v-col>
+                    <v-col
+                        cols="6"
+                        class="my-0 py-0"
+                    >
+                        <v-text-field
+                            v-model="listingData.storeyRange"
+                            label="Storey Range"
+                        />
+                    </v-col>
+                </v-row>
+                <v-row class="my-0">
+                    <v-col
+                        cols="6"
+                        class="my-0 py-0"
+                    >
+                        <v-text-field
+                            v-model="listingData.noOfRoom"
+                            label="No. of Bedroom"
+                        />
+                    </v-col>
+                    <v-col
+                        cols="6"
+                        class="my-0 py-0"
+                    >
+                        <v-text-field
+                            v-model="listingData.noOfToilet"
+                            label="No. of Toilet"
+                        />
+                    </v-col>
+                </v-row>
+                <v-text-field
+                    v-model="listingData.price"
+                    label="Price of Listing"
+                />
+                <!-- TODO: add help icon and functionality -->
+                <v-row>
+                    <p>Estimated Value: ${{ estimatedPrice }} </p>
+                </v-row>
+                <v-row class="my-8">
+                    <v-btn
+                        class="ml-auto"
+                        @click="submitForm()"
+                        size="large"
+                    >
+                        submit
+                    </v-btn>
+                </v-row>
             </v-form>
         </v-col>
     </v-row>
@@ -79,7 +141,7 @@ const listingData = ref({
     town: "",
     streetName: "",
     remainingLease: null,
-    leaseCommencementDate: null,
+    leaseCommencementDate: "",
     description: "",
     floorSize: null,
     storeyRange: "",
@@ -88,6 +150,9 @@ const listingData = ref({
     price: null,
     imageUrls: []
 })
+
+// TODO: get estimated price from database
+const estimatedPrice = ref(696969)
 
 // TODO: Add dropdown options
 const flatTypes = [
