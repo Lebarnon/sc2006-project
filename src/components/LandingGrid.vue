@@ -14,7 +14,7 @@
             :key="card.title"
             :cols="card.flex"
           >
-            <v-card>
+            <v-card :to="'/'">
               <v-img
                 :src="card.src"
                 class="justify-center"
