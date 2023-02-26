@@ -10,8 +10,8 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import '@mdi/font/css/materialdesignicons.css'
 
-import { VueFire, VueFireAuth } from 'vuefire'
-import { firebaseApp } from './firebase/firebaseConfig'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const app = createApp(App)
 
@@ -21,11 +21,7 @@ app.use(createVuetify({
   components, 
   directives,
 }));
-app.use(VueFire, {
-  firebaseApp,
-  modules:[
-    VueFireAuth
-  ]
-})
+
+app.component('VueDatePicker', VueDatePicker);
 
 app.mount('#app')

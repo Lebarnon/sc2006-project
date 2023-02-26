@@ -21,33 +21,52 @@
       v-for="link in links"
       size="large"
     >
-      {{ link}}
+      {{ link }}
     </v-btn>
   
     <hr role="separator" aria-orientation="vertical" class="mx-6 my-auto v-divider v-divider--inset v-divider--vertical theme--light" style="height: 16px;">
-    
-    <v-btn
-      text
-      class="text-capitalize"
-      size="large"
-    >
-      Log In
-    </v-btn>
-    <v-btn
-      class="text-capitalize"
-      variant="tonal"
-      color="blue-darken-4"
-      size="large"
-    >
-      Sign Up
-    </v-btn>
+    <div v-if="!userStore.isAuthenticated">
+      <v-btn
+        class="text-capitalize"
+        size="large"
+        :to="'/login'"
+      >
+        Log In
+      </v-btn>
+      <v-btn
+        class="text-capitalize"
+        variant="tonal"
+        color="blue-darken-4"
+        size="large"
+        :to="'/signup'"
+        
+      >
+        Sign Up
+      </v-btn>
+    </div>
+    <div v-else>
+      <v-btn 
+        class="text-capitalize"
+        size="large"
+        :to="'/create-listing'"
+      >
+        Create Listing
+      </v-btn>
+      <v-btn
+        @click="userStore.signOut()"
+      >
+        Sign Out
+      </v-btn>
+
+    </div>
   </v-app-bar>
 </template>
 
 <script setup>
+import {useUserStore} from '@/stores/user.js'
 
 const links = ['All','Favourites','Forum']
-
+const userStore = useUserStore()
   
 </script>
 

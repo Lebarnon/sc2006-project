@@ -3,7 +3,7 @@
     class="text-center d-flex flex-column minh"
   >
     <div>
-      {{ new Date().getFullYear() }} — <strong>TechyMatchy</strong>
+      {{ new Date().getFullYear() }} — <strong>HomelyHub</strong>
     </div>
   </v-footer>
 </template>
