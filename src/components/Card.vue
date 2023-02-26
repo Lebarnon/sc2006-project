@@ -3,12 +3,11 @@
     :loading="isLoading"
     :to="'/'"
     class="mx-auto"
-    max-width="374"
+    max-width="370"
   >
     <template v-slot:loader="{ isActive }">
       <v-progress-linear
         :active="isActive"
-        color="deep-purple"
         height="4"
         indeterminate
       ></v-progress-linear>
@@ -16,15 +15,15 @@
 
     <v-img
       cover
-      height="250"
-      src="https://picsum.photos/250"
+      height="200"
+      :src="houseData.imageUrl"
     ></v-img>
 
     <v-card-item>
-      <v-card-title>HDB House</v-card-title>
+      <v-card-title>{{houseData.streetName}}</v-card-title>
 
       <v-card-subtitle>
-        <span class="me-1">Popular Area</span>
+        <span class="me-1">Value Buy</span>
 
         <v-icon
           color="error"
@@ -34,30 +33,15 @@
       </v-card-subtitle>
     </v-card-item>
 
-    <v-card-text>
-      <v-row
-        class="mx-0"
-      >
-        <v-rating
-          :model-value="4.5"
-          color="amber"
-          density="compact"
-          half-increments
-          readonly
-          size="small"
-        ></v-rating>
-
-        <div class="text-grey ms-4">
-          4.5 (413)
-        </div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">
-        $ 699999
-      </div>
-
-      <div>Lorem ipsum dolor sit amet elit. Molestiae, non! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, excepturi?</div>
+    <v-card-text class="my-4 text-subtitle-1">
+        ${{ houseData.price }}
     </v-card-text>
+
+    <v-row>
+      <v-col>
+      
+      </v-col>
+    </v-row>
 
     <v-divider class="mx-4 mb-1"></v-divider>
 
@@ -76,6 +60,16 @@
 import { ref, onMounted } from 'vue';
 
 const isLoading = ref(true)
+const houseData = {
+    imageUrl: "https://picsum.photos/200",
+    streetName: "33 Chai Chee Avenue, Singapore 461033",
+    price: "590693",
+    noOfToilets: "4",
+    noOfRooms: "5",
+    owner: "Jenny Wilson",
+    valueBuy: true
+  }
+
 
 onMounted (()=> {
   setTimeout(() => {

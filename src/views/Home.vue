@@ -3,7 +3,7 @@
     <v-row>
       <v-col 
         v-for="i in [...Array(numOfCards).keys()]"
-        cols="3"
+        cols="4"
       >
         <Card  />
       </v-col>
