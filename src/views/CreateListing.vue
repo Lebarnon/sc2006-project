@@ -49,7 +49,8 @@
                     label="Add Images"
                     variant="filled"
                     prepend-icon="mdi-camera"
-                    v-model="listingData.imageUrls"
+                    v-model="listingData.imageFiles"
+                    multiple
                 ></v-file-input>
 
                 <v-textarea
@@ -107,8 +108,9 @@
                 <v-row class="my-8">
                     <v-btn
                         class="ml-auto"
-                        @click="submitForm()"
+                        @click="handleSubmit()"
                         size="large"
+                        :loading = isLoading
                     >
                         submit
                     </v-btn>
@@ -120,19 +122,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Gallery from '@/components/gallery.vue'
+import { useListingStore } from '../stores/listing';
 
-
-const imageUrls = ref([
-    "https://picsum.photos/id/1/400",
-    "https://picsum.photos/id/2/400",
-    "https://picsum.photos/id/3/400",
-    "https://picsum.photos/id/4/400",
-    "https://picsum.photos/id/5/400",
-    "https://picsum.photos/id/6/400",
-    "https://picsum.photos/id/7/400",
-])
+const isLoading = ref(false)
 
 const listingData = ref({
     name: "",
@@ -148,8 +142,24 @@ const listingData = ref({
     noOfRoom: null,
     noOfToilet: null,
     price: null,
-    imageUrls: []
+    imageFiles: []
 })
+
+const imageUrls = computed(() => {
+    var imageUrls = []
+    for(var imageFile of listingData.value.imageFiles){
+        imageUrls.push(URL.createObjectURL(imageFile))
+    }
+    return imageUrls
+})
+
+
+const listingStore = useListingStore()
+async function handleSubmit(){
+    isLoading.value = true  
+    await listingStore.createListing(listingData.value)
+    isLoading.value = false
+}
 
 // TODO: get estimated price from database
 const estimatedPrice = ref(696969)

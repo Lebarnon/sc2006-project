@@ -19,6 +19,11 @@ export const useUserStore = defineStore('user', {
       loading: false
     }
   },
+  getters: {
+    getUserId: (state) => {
+      return state.user.uid ?? null
+    }
+  },
   actions: {
     setUser() {
       this.loading = true
