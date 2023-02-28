@@ -1,7 +1,7 @@
 <template>
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-calculator-variant-outline" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-calculator-variant-outline" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -17,7 +17,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-ruler" :size="48"></v-icon>
+            <v-icon icon="straighten" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -40,7 +40,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-map" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-map" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -56,7 +56,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-sign-direction" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-sign-direction" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -72,7 +72,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-bed-double-outline" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-bed-double-outline" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -88,7 +88,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-home-outline" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-home-outline" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -104,7 +104,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-clock-time-five-outline" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-clock-time-five-outline" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -120,7 +120,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-calendar-blank-outline" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-calendar-blank-outline" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
@@ -136,7 +136,7 @@
 
       <v-card-item>
         <div style="text-align:center;">
-            <v-icon icon="mdi-stairs" :size="48"></v-icon>
+            <v-icon icon="mdi:mdi-stairs" :size="48"></v-icon>
         </div>
         <v-card-title>
             <p class="text-center">
