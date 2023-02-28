@@ -22,7 +22,7 @@
     watch:{
       location(newLocation, oldLocation){
         if(newLocation != "Select From Your Favourites"){
-          this.$emit('open')
+          this.$emit('onFavouriteSelected', newLocation)
         }
       }
     }
