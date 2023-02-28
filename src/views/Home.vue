@@ -27,8 +27,7 @@ const numOfCards = ref(5)
 
 function loadMore() {
   numOfCards.value += 1
-}
-  
+} 
 </script>
 <style scoped>
 
