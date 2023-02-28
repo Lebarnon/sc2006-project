@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-//import Home from '../views/Home.vue'
+import Home from '../views/Home.vue'
 import Compare from "../views/Compare.vue"
+import Detail from "../views/Detail.vue"
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -12,9 +13,12 @@ const router = createRouter({
       //path: "/",
       //name: "home",
       //component: Home,
+      //path: "/",
+      //name: "compare",
+      //component: Compare,
       path: "/",
-      name: "compare",
-      component: Compare,
+      name: "detail",
+      component: Detail,
     },
   ]
 })
