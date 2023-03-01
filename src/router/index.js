@@ -10,16 +10,20 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      //path: "/",
-      //name: "home",
-      //component: Home,
-      //path: "/",
-      //name: "compare",
-      //component: Compare,
       path: "/",
+      name: "home",
+      component: Home,
+    },
+    {
+      path: "/detail",
       name: "detail",
       component: Detail,
     },
+    {
+      path: "/compare",
+      name: "compare",
+      component: Compare,
+    }
   ]
 })
 
