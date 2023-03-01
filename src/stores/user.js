@@ -1,15 +1,19 @@
 import { defineStore } from 'pinia'
-import { firebaseApp } from "@/firebase/firebaseConfig";
+import { storage, db} from "@/firebase/firebaseConfig";
 import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword ,
   signOut
 } from "firebase/auth";
+import { ref } from 'firebase/storage';
 import router from '../router';
+import {doc, setDoc} from "firebase/firestore"; 
 
 
 const auth = getAuth()
+const storageRef = ref(storage)
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -50,6 +54,21 @@ export const useUserStore = defineStore('user', {
         console.log(error.message);
         return error.code
       })
+      return true
+    },
+    async signUp(userInfo){
+      const {email, password, ...otherInfo} = userInfo
+      otherInfo.ownListingIds = []
+      createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
+          await setDoc(doc(db, "users", userCredential.user.uid), {email, ...otherInfo})
+      }).catch((err) => {
+        console.log(error.code);
+        console.log(error.message);
+        return error.code
+      })
+      router.push("/")
+      return true
+
     },
     async signOut () {
       try {

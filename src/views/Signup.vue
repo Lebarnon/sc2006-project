@@ -1,12 +1,12 @@
 <template>
     <v-sheet width="300" class="mx-auto">
-      <v-form validate-on="submit" @submit.prevent="submit">
+      <v-form validate-on="submit" @submit.prevent="userStore.signUp(userInfo)">
         <v-text-field
-          v-model="email"
+          v-model="userInfo.email"
           label="email"
         ></v-text-field>
         <v-text-field
-          v-model="password"
+          v-model="userInfo.password"
           label="password"
         ></v-text-field>
         <v-btn type="submit" block class="mt-2">Signup</v-btn>
@@ -16,11 +16,14 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useUserStore } from '../stores/user';
 
-const email = ref("")
-const password = ref("")
+const userStore = useUserStore()
+const userInfo = ref({
+  email: null,
+  password: null
+  //TODO: add other fields
+})
 
 const rules = []
-
-
 </script>
