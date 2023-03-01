@@ -14,6 +14,26 @@ export const useListingStore = defineStore('listing', {
       listings: []
     }
   },
+  getters: {
+    async getListingById(listingId) {
+      // check if listing exist in state first
+      var listing = this.listings.find(e => e.id == listingId)
+      if(listing) return listing
+      // else get it from db
+      const docRef = doc(db, "listings", listingId);
+      const snapshot = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        listing = {id: snapshot.id, ...snapshot.data()}
+        this.listings.push(listing)
+        return listing
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No document with id:", id);
+        return null
+      }
+    }
+  },
   actions: {
     async setListings(){
       // getListings from db and store it in state
@@ -34,7 +54,7 @@ export const useListingStore = defineStore('listing', {
       const userId = userStore.getUserId
       if(!userId){
         console.log("user not logged in")
-        return false
+        return null
       } 
       // upload images and get firebase storage url 
       const imageUrls = []
