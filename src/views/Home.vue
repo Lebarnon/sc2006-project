@@ -5,7 +5,6 @@
         v-for="i in [...Array(numOfCards).keys()]"
         cols="4"
       >
-        <Card  />
       </v-col>
     </v-row>
     <v-row class="justify-center my-8">
@@ -20,7 +19,6 @@
 </template>
 
 <script setup>
-import Card from "@/components/Card.vue"
 import { ref } from 'vue'
 
 const numOfCards = ref(5)

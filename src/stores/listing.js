@@ -4,20 +4,29 @@ import { } from "firebase/auth";
 import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
-import { doc, collection, addDoc, updateDoc, arrayUnion } from "firebase/firestore"; 
+import { doc, collection, addDoc, getDocs, updateDoc, arrayUnion } from "firebase/firestore"; 
 
 const storageRef = ref(storage)
 
 export const useListingStore = defineStore('listing', {
   state: () => {
     return {
-      listings: null
+      listings: []
     }
   },
   actions: {
-    setListings(){
-      // subscribe to listing collection
-      // store incoming values in the state
+    async setListings(){
+      // getListings from db and store it in state
+      const querySnapshot = await getDocs(collection(db, "listings"));
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        this.listings.push(
+          {
+            id: doc.id,
+            ...doc.data()
+          }
+        )
+      })
     },
     async createListing(newListing) {
       // receives a listing object

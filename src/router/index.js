@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import CreateListing from '../views/CreateListing.vue'
+import Listings from '../views/Listings.vue'
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -29,6 +30,11 @@ const router = createRouter({
       path: "/create-listing",
       name: "create-listing",
       component: CreateListing,
+    },
+    {
+      path: "/listings",
+      name: "listings",
+      component: Listings,
     },
   ]
 })
