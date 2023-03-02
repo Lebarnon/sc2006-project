@@ -1,29 +1,29 @@
 <template>
-  <v-card
-    class="text-center"
+  <!-- Search Bar -->
+  <v-toolbar 
     flat
-    height="90px"
-    width="1600px"
-    img="https://cdn.vuetifyjs.com/images/toolbar/map.jpg"
-  >
-    <v-toolbar
-      dense
-      floating
+    width="300px"
     >
-      <v-text-field
-        hide-details
-        prepend-icon="mdi-magnify"
-        single-line
-      ></v-text-field>
-    </v-toolbar>
-  </v-card>
+    <v-toolbar-title class="text-grey">
+      Title
+    </v-toolbar-title>
 
+    <v-spacer></v-spacer>
+
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+
+  </v-toolbar>
+
+  <!-- Description -->
   <div
     class="text-center">
     <h1>Properties by Area</h1>
     <p>Lorem ipsum dolor sit amet elit. Molestiae, non! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, excepturi?</p>
   </div>
 
+  <!-- Grid -->
   <v-container class="justify-center">
     <v-row>
       <v-col 
@@ -43,36 +43,53 @@
     </v-row>
   </v-container>
 
-  <vue-horizontal>
-    <div class="item">
-      <h3>HTML Tag</h3>
-      <p>As you can see these are just html elements.</p>
-    </div>
-    <section>
-      <h4>Don't have to be the same tag</h4>
-      <p>I used a h4 instead of a h3</p>
-    </section>
-    <section>
-      <h3>Navigation Button</h3>
-      <p>The navigation button will appear if there is an overflow.</p>
-    </section>
-    <section>
-      <h3>Scroll</h3>
-      <p>You can just trackpad to scroll still!</p>
-    </section>
-    <section>
-      <h3>Touch screen</h3>
-      <p>Touch screen works too!</p>
-    </section>
-    <section v-for="item in items" :key="item.i">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.content }}</p>
-    </section>
-    <section>
-      <h3>Last item?</h3>
-      <p>Maybe you want to display something different at the end?</p>
-    </section>
-  </vue-horizontal>
+  <!-- Carousell -->
+  <v-container>
+    <v-sheet
+      class="mx-auto"
+      elevation="8"
+      max-width="800"
+    >
+      <v-slide-group
+        v-model="model"
+        class="pa-4"
+        center-active
+        show-arrows
+      >
+        <v-slide-group-item
+          v-for="n in 15"
+          :key="n"
+          v-slot="{ isSelected, toggle }"
+        >
+          <v-card
+            :color="isSelected ? 'primary' : 'grey-lighten-1'"
+            class="ma-4"
+            height="200"
+            width="100"
+            @click="toggle"
+          >
+            <div class="d-flex fill-height align-center justify-center">
+              <v-scale-transition>
+                <v-icon
+                  v-if="isSelected"
+                  color="white"
+                  size="48"
+                  icon="mdi-close-circle-outline"
+                ></v-icon>
+              </v-scale-transition>
+            </div>
+          </v-card>
+        </v-slide-group-item>
+      </v-slide-group>
+    </v-sheet>
+
+    <v-btn
+        @click="loadMore()"
+        size="large"
+      >
+        View All
+      </v-btn>
+  </v-container>
 
 
 </template>
@@ -90,16 +107,16 @@ function loadMore() {
 </script>
 
 <script>
-export default {
-  data() {
-    return {
-      // E.g: creates 5 array items...
-      items: [...Array(5).keys()].map((i) => {
-        return {i, title: `v-for: ${i}`, content: `🚀 Paragraph ${i}`};
-      }),
-    }
-  }
-}
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'WrapAround',
+  components: {
+    Carousel,
+    Slide,
+    Navigation,
+  },
+})
 </script>
 
 <style scoped>
