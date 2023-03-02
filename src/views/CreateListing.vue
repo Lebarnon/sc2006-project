@@ -158,29 +158,32 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Gallery from '@/components/gallery.vue'
 import { useListingStore } from '../stores/listing';
-
-
 
 const isLoading = ref(false)
 
 const listingData = ref({
-    name: "",
+    name: null,
     flatType: null,
     flatModel: null,
-    town: "",
-    streetName: "",
+    town: null,
+    streetName: null,
     remainingLease: null,
-    leaseCommencementDate: "",
-    description: "",
+    leaseCommencementDate: null,
+    description: null,
     floorSize: null,
-    storeyRange: "",
+    storeyRange: null,
     noOfRoom: null,
     noOfToilet: null,
     price: null,
     imageFiles: []
+})
+
+watch(() => listingData.value.leaseCommencementDate, (newDate, _) =>{
+    const remainingLease = 99 - (new Date(Date.now()).getFullYear() - new Date(newDate).getFullYear())
+    listingData.value.remainingLease = remainingLease
 })
 
 const imageUrls = computed(() => {
