@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    class="text-center d-flex flex-column minh"
+    class="text-center d-flex flex-column maxh"
   >
     <div>
       {{ new Date().getFullYear() }} — <strong>HomelyHub</strong>
@@ -13,5 +13,8 @@
 </script>
 
 <style scooped>
+.maxh{
+  max-height: 75px;
+}
 
 </style>
