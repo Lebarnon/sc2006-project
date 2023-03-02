@@ -1,20 +1,23 @@
 <template>
   <!-- Search Bar -->
-  <v-toolbar 
+  <v-container text-xs-center
+    class="justify-center"
     flat
-    width="300px"
+    height="60px"
+  >
+    <v-toolbar
+      floating
+      max-width="1000px"
     >
-    <v-toolbar-title class="text-grey">
-      Title
-    </v-toolbar-title>
-
-    <v-spacer></v-spacer>
-
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-
-  </v-toolbar>
+      <v-text-field
+        hide-details
+        single-line
+      ></v-text-field>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-container>
 
   <!-- Description -->
   <div
@@ -45,10 +48,14 @@
 
   <!-- Carousell -->
   <v-container>
+    <div
+      class="text-center">
+      <h1>Recommended Properties</h1>
+    </div>
     <v-sheet
       class="mx-auto"
       elevation="8"
-      max-width="800"
+      max-width="2000"
     >
       <v-slide-group
         v-model="model"
@@ -65,7 +72,7 @@
             :color="isSelected ? 'primary' : 'grey-lighten-1'"
             class="ma-4"
             height="200"
-            width="100"
+            width="120"
             @click="toggle"
           >
             <div class="d-flex fill-height align-center justify-center">
@@ -83,12 +90,14 @@
       </v-slide-group>
     </v-sheet>
 
-    <v-btn
+    <v-row class="justify-center my-8">
+      <v-btn
         @click="loadMore()"
         size="large"
       >
         View All
       </v-btn>
+    </v-row>
   </v-container>
 
 
@@ -107,16 +116,8 @@ function loadMore() {
 </script>
 
 <script>
-import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'WrapAround',
-  components: {
-    Carousel,
-    Slide,
-    Navigation,
-  },
-})
+
 </script>
 
 <style scoped>
