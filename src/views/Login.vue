@@ -1,6 +1,6 @@
 <template>
     <v-sheet width="300" class="mx-auto">
-      <v-form @submit.prevent :disabled = isLoading>
+      <v-form @submit.prevent :disabled = userStore.isLoading>
         <v-text-field
           v-model="email"
           label="email"
@@ -13,8 +13,8 @@
             type="submit" 
             block 
             class="mt-2"
-            :loading="isLoading"
-            :disabled="isLoading"
+            :loading="userStore.isLoading"
+            :disabled="userStore.isLoading"
             @click = "handleLogin()"
         >
         Login
@@ -32,6 +32,8 @@ const email = ref("")
 const password = ref("")
 
 const userStore = useUserStore()
+
+
 
 async function handleLogin(){
     await userStore.signInWithEmail(email.value, password.value)
