@@ -4,6 +4,8 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import CreateListing from '../views/CreateListing.vue'
 import Listings from '../views/Listings.vue'
+import Compare from "../views/Compare.vue"
+import Detail from "../views/Detail.vue"
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -36,6 +38,16 @@ const router = createRouter({
       name: "listings",
       component: Listings,
     },
+    {
+      path: "/detail",
+      name: "detail",
+      component: Detail,
+    },
+    {
+      path: "/compare",
+      name: "compare",
+      component: Compare,
+    }
   ]
 })
 
