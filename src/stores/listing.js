@@ -78,7 +78,6 @@ export const useListingStore = defineStore('listing', {
       console.log("Document written with ID: ", docRef.id)
 
       // add listingId to user document
-      console.l
       await updateDoc(doc(db,"users", userId), {
         ownListingIds: arrayUnion(docRef.id)
       })
