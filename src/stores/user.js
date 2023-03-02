@@ -34,6 +34,7 @@ export const useUserStore = defineStore('user', {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           console.log('User Store: user signed in...')
+          // get user info from firestore
           const { displayName, email, photoURL, emailVerified, uid } = user // get what you need from the user object
           this.user = { displayName, email, photoURL, emailVerified, uid }
           this.isAuthenticated = true
@@ -59,12 +60,13 @@ export const useUserStore = defineStore('user', {
     async signUp(userInfo){
       const {email, password, ...otherInfo} = userInfo
       otherInfo.ownListingIds = []
+      otherInfo.favListingIds = []
       createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
           await setDoc(doc(db, "users", userCredential.user.uid), {email, ...otherInfo})
       }).catch((err) => {
-        console.log(error.code);
-        console.log(error.message);
-        return error.code
+        console.log(err.code);
+        console.log(err.message);
+        return err.code
       })
       router.push("/")
       return true
