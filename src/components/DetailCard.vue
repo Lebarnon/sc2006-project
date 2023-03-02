@@ -173,9 +173,10 @@
 </template>
   
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineProps } from 'vue';
 
 const isLoading = ref(true)
+const props = defineProps(["data"])
 
 const data = ref({
     address: "13 Novena Terrace, Singapore 307909",
@@ -193,7 +194,6 @@ const data = ref({
     town: "Chai Chee",
     street: "Chai Chee Avenue",
     pricePerSquareFeet: 114,
-
 })
 
 </script>

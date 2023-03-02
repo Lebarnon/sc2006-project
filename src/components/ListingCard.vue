@@ -1,7 +1,6 @@
 <template>
   <v-card
-    :loading="isLoading"
-    :to="'/'"
+    :to="`/detail/${listing.id}`"
     class="mx-auto"
     max-width="370"
   >

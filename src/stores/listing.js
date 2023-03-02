@@ -4,7 +4,7 @@ import { } from "firebase/auth";
 import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
-import { doc, collection, addDoc, getDocs, updateDoc, arrayUnion } from "firebase/firestore"; 
+import { doc, collection, addDoc, getDocs, updateDoc, arrayUnion, getDoc } from "firebase/firestore"; 
 
 const storageRef = ref(storage)
 
@@ -15,22 +15,25 @@ export const useListingStore = defineStore('listing', {
     }
   },
   getters: {
-    async getListingById(listingId) {
-      // check if listing exist in state first
-      var listing = this.listings.find(e => e.id == listingId)
-      if(listing) return listing
-      // else get it from db
-      const docRef = doc(db, "listings", listingId);
-      const snapshot = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        listing = {id: snapshot.id, ...snapshot.data()}
-        this.listings.push(listing)
-        return listing
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No document with id:", id);
-        return null
+    getListingById: (state) => {
+      return async (listingId) => {
+        console.log("Fired")
+        // check if listing exist in state first
+        var listing = state.listings.find(e => e.id == listingId)
+        if(listing) return listing
+        // else get it from db
+        const docRef = doc(db, "listings", listingId);
+        const snapshot = await getDoc(docRef);
+  
+        if (snapshot.exists()) {
+          listing = {id: snapshot.id, ...snapshot.data()}
+          state.listings.push(listing)
+          return listing
+        } else {
+          // snapshot.data() will be undefined in this case
+          console.log("No document with id:", id);
+          return null
+        }
       }
     }
   },

@@ -61,7 +61,7 @@
                 <v-file-input
                     label="Add Images"
                     variant="filled"
-                    prepend-icon="mdi-camera"
+                    prepend-icon="mdi:mdi-camera"
                     v-model="listingData.imageFiles"
                     multiple
                 ></v-file-input>
@@ -134,7 +134,7 @@
                     <p>Estimated Value: ${{ estimatedPrice }} </p>
                     <v-tooltip activator="parent" location="start">
                         <template v-slot:activator="{on}">
-                    <v-icon icon="mdi-help-circle-outline"></v-icon>
+                    <v-icon icon="mdi:mdi-help-circle-outline"></v-icon>
                     </template>
                     <span>This is our estimated on the value for this unit</span>
                     <br>
