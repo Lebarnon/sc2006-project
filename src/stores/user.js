@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { ref } from 'firebase/storage';
 import router from '../router';
-import {doc, setDoc, getDoc, arrayRemove, arrayUnion} from "firebase/firestore"; 
+import {doc, getDoc, updateDoc, arrayRemove, arrayUnion} from "firebase/firestore"; 
 
 
 const auth = getAuth()
@@ -28,6 +28,13 @@ export const useUserStore = defineStore('user', {
     },
     isAuthenticated: (state) => {
       return state.user != null
+    },
+    getFavListingIds: (state) => {
+      if(state.user == null) return null
+      return state.user.favListingIds
+    },
+    isFavListing: (state) => {
+      return (listingId) => state.user && state.user.favListingIds.includes(listingId)
     }
   },
   actions: {
@@ -87,19 +94,23 @@ export const useUserStore = defineStore('user', {
         console.error(err)
       }
     },
-    async favouriteListing(listingId){
+    async toggleFavListing(listingId){
+      console.log("fired")
       if(!this.isAuthenticated) return null // show error message
       const docRef = doc(db, "users", this.user.id)
-      if(this.user.favListingIds.includes(listingId)){
+      let index = this.user.favListingIds.indexOf(listingId)
+      if(index > -1){
         // Unfavourite this listing
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           favListingIds: arrayRemove(listingId)
         })
+        this.user.favListingIds.splice(index,1)
       }else{
         // add this listing id
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           favListingIds: arrayUnion(listingId)
         })
+        this.user.favListingIds.push(listingId)
       }
     }
   }
