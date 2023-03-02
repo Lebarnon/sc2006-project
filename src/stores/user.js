@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { ref } from 'firebase/storage';
 import router from '../router';
-import {doc, setDoc} from "firebase/firestore"; 
+import {doc, setDoc, getDoc} from "firebase/firestore"; 
 
 
 const auth = getAuth()
@@ -18,32 +18,39 @@ const storageRef = ref(storage)
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
-      user: {},
-      isAuthenticated: false,
-      loading: false
+      user: null,
+      isloading: false
     }
   },
   getters: {
     getUserId: (state) => {
       return state.user.uid ?? null
+    },
+    isAuthenticated: (state) => {
+      return state.user != null
     }
   },
   actions: {
     setUser() {
-      this.loading = true
+      this.isloading = true
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           console.log('User Store: user signed in...')
           // get user info from firestore
-          const { displayName, email, photoURL, emailVerified, uid } = user // get what you need from the user object
-          this.user = { displayName, email, photoURL, emailVerified, uid }
-          this.isAuthenticated = true
-          this.loading = false
+          const docRef = doc(db, "users", user.uid);
+          const snapshot = await getDoc(docRef);
+
+          if (snapshot.exists()) {
+            this.user = {id: snapshot.id, ...snapshot.data()}
+          } else {
+            console.log("This user should not exist", id);
+            this.user = {...user}
+          }
+          this.isloading = false
         } else {
           console.log('User Store: user not logged in or created yet')
-          this.user = {}
-          this.isAuthenticated = false
-          this.loading = false
+          this.user = null
+          this.isloading = false
         }
       })
     },
@@ -75,6 +82,7 @@ export const useUserStore = defineStore('user', {
     async signOut () {
       try {
         await auth.signOut()
+        router.push("/")
       } catch (err) {
         console.error(err)
       }

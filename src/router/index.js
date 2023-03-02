@@ -6,6 +6,8 @@ import CreateListing from '../views/CreateListing.vue'
 import Listings from '../views/Listings.vue'
 import Compare from "../views/Compare.vue"
 import Detail from "../views/Detail.vue"
+import { useUserStore } from '../stores/user'
+import { setUserLogHandler } from '@firebase/logger'
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -50,5 +52,19 @@ const router = createRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const privatePages = ["/create-listing", "/compare"]; 
+  //check if the "to" path is a public page or not
+  const authRequired = privatePages.includes(to.path); 
+
+  //page require auth and not authenticated
+  if (authRequired && !useUserStore().isAuthenticated) {
+    //return the user to the login to force the user to login
+    return next("/login"); 
+  }
+  //The conditional is false, then send the user to the right place
+  return next();
+});
 
 export default router
