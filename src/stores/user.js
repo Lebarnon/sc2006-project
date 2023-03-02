@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { ref } from 'firebase/storage';
 import router from '../router';
-import {doc, setDoc, getDoc} from "firebase/firestore"; 
+import {doc, setDoc, getDoc, arrayRemove, arrayUnion} from "firebase/firestore"; 
 
 
 const auth = getAuth()
@@ -89,9 +89,17 @@ export const useUserStore = defineStore('user', {
     },
     async favouriteListing(listingId){
       if(!this.isAuthenticated) return null // show error message
+      const docRef = doc(db, "users", this.user.id)
       if(this.user.favListingIds.includes(listingId)){
         // Unfavourite this listing
-        const docRef = doc(db, "users", this.user.id)
+        await setDoc(docRef, {
+          favListingIds: arrayRemove(listingId)
+        })
+      }else{
+        // add this listing id
+        await setDoc(docRef, {
+          favListingIds: arrayUnion(listingId)
+        })
       }
     }
   }

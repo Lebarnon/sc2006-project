@@ -7,11 +7,7 @@
       >
         <ListingCard  :listing = "listing"/>
       </v-col>
-    </v-row>
-    <v-btn
-      @click="sbStore.display('test')"
-      >test</v-btn>
-   
+    </v-row>   
   </v-container>
 </template>
 
