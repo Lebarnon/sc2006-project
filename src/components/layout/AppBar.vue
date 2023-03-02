@@ -1,16 +1,19 @@
 <template>
   <v-app-bar
     class="px-3"
-    color="white"
+    color="#2C3A61"
     flat
   >
-    <router-link to="/">
-      <img
-        class="mx-2 mt-2 logo rounded"
-        src="https://picsum.photos/50"
-        contain
-      />
-
+    <router-link to="/" class="text-decoration-none">
+      <div class="d-flex no-wrap align-center">
+        <img
+          class="logo mr-2"
+          :src="HomelyHubIcon"
+          contain
+          color="white"
+        />
+        <p class="text-white font-weight-medium logo-text">HomelyHub</p>
+      </div>
     </router-link>
 
     <v-spacer></v-spacer>
@@ -18,10 +21,12 @@
     <v-btn
       text
       class="text-capitalize"
-      v-for="link in links"
+      v-for="route in routes"
+      :to="route.link"
       size="large"
+      color="white"
     >
-      {{ link }}
+      {{ route.name }}
     </v-btn>
   
     <hr role="separator" aria-orientation="vertical" class="mx-6 my-auto v-divider v-divider--inset v-divider--vertical theme--light" style="height: 16px;">
@@ -49,11 +54,15 @@
         class="text-capitalize"
         size="large"
         :to="'/create-listing'"
+        color="white"
       >
         Create Listing
       </v-btn>
       <v-btn
+        class="text-capitalize"
+        size="large"
         @click="userStore.signOut()"
+        color="white"
       >
         Sign Out
       </v-btn>
@@ -64,14 +73,36 @@
 
 <script setup>
 import {useUserStore} from '@/stores/user.js'
+import HomelyHubIcon from '@/assets/homelyHubIcon.png'
 
-const links = ['All','Favourites','Forum']
+const routes = [
+  {
+    name: 'All',
+    link: '/listings'
+  },
+  {
+    name: 'Favourites',
+    link: '/'
+  },
+  {
+    name: 'Compare',
+    link: '/compare'
+  },
+  {
+    name: 'Forum',
+    link: '/'
+  }
+]
 const userStore = useUserStore()
   
 </script>
 
 <style scoped>
 .logo{
-  max-width: 100px;
+  max-width: 35px;
+}
+
+.logo-text{
+  letter-spacing: 2px;
 }
 </style>
