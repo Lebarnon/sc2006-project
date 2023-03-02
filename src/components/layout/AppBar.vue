@@ -19,7 +19,6 @@
     <v-spacer></v-spacer>
     
     <v-btn
-      text
       class="text-capitalize"
       v-for="route in routes"
       :to="route.link"
@@ -29,9 +28,11 @@
       {{ route.name }}
     </v-btn>
   
-    <hr role="separator" aria-orientation="vertical" class="mx-6 my-auto v-divider v-divider--inset v-divider--vertical theme--light" style="height: 16px;">
+    <hr role="separator" aria-orientation="vertical" class="mx-6 my-auto v-divider v-divider--inset v-divider--vertical seperator" style="height: 16px;">
     <div v-if="!userStore.isAuthenticated">
       <v-btn
+        color="white"
+        variant="outlined"
         class="text-capitalize"
         size="large"
         :to="'/login'"
@@ -40,8 +41,7 @@
       </v-btn>
       <v-btn
         class="text-capitalize"
-        variant="tonal"
-        color="blue-darken-4"
+        color="blue-lighten-4"
         size="large"
         :to="'/signup'"
         
@@ -82,7 +82,7 @@ const routes = [
   },
   {
     name: 'Favourites',
-    link: '/'
+    link: ''
   },
   {
     name: 'Compare',
@@ -90,7 +90,7 @@ const routes = [
   },
   {
     name: 'Forum',
-    link: '/'
+    link: ''
   }
 ]
 const userStore = useUserStore()
@@ -104,5 +104,9 @@ const userStore = useUserStore()
 
 .logo-text{
   letter-spacing: 2px;
+}
+
+.seperator{
+  color: white;
 }
 </style>
