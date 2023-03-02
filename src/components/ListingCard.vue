@@ -12,27 +12,35 @@
 
     <v-card-item>
       <v-card-title>{{listing.streetName}}</v-card-title>
-
-      <v-card-subtitle>
-        <span class="me-1">Value Buy</span>
-
-        <v-icon
-          color="error"
-          icon="mdi-fire-circle"
-          size="small"
-        ></v-icon>
-      </v-card-subtitle>
+      <div class="d-flex justify-space-between">
+        <v-card-subtitle class="d-flex align-center">
+          <span class="mr-1">Value Buy</span>
+           <v-icon
+            color="error"
+            icon="whatshot"
+            size="small"
+          ></v-icon>
+        </v-card-subtitle>
+        <v-btn
+        color="red-darken-4"
+        :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
+        size="large"
+        variant = "text"
+        @click.prevent="onFavouriteClicked"
+        />
+      </div>
     </v-card-item>
-
+    
     <v-card-text class="my-4 text-subtitle-1">
-        ${{ listing.price }}
+      ${{ listing.price }}
     </v-card-text>
-
+    
     <v-row>
       <v-col>
-      
+        
       </v-col>
     </v-row>
+    
 
     <v-divider class="mx-4 mb-1"></v-divider>
 
@@ -48,17 +56,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { useUserStore } from '../stores/user';
+const props = defineProps(['listing', 'isFavListing'])
+const emit = defineEmits(['onFavClicked'])
+const userStore = useUserStore()
 
-const props = defineProps(['listing'])
+async function onFavouriteClicked() {
+  emit('onFavClicked', props.listing.id)
+}
 
-// const listing = {
-//     imageUrl: "https://picsum.photos/200",
-//     streetName: "33 Chai Chee Avenue, Singapore 461033",
-//     price: "590693",
-//     noOfToilets: "4",
-//     noOfRooms: "5",
-//     owner: "Jenny Wilson",
-//     valueBuy: true
-//   }  
+
 </script>
