@@ -86,6 +86,13 @@ export const useUserStore = defineStore('user', {
       } catch (err) {
         console.error(err)
       }
+    },
+    async favouriteListing(listingId){
+      if(!this.isAuthenticated) return null // show error message
+      if(this.user.favListingIds.includes(listingId)){
+        // Unfavourite this listing
+        const docRef = doc(db, "users", this.user.id)
+      }
     }
   }
 })

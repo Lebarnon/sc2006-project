@@ -3,6 +3,7 @@
     <AppBar/>
     <v-main class="bg-grey-lighten-3">
       <RouterView/>
+      <Snackbar />
     </v-main>
     <Footer/>
   </v-app>
@@ -15,6 +16,7 @@ import { RouterView } from 'vue-router'
 
 import AppBar from "./components/layout/AppBar.vue";
 import Footer from "./components/layout/Footer.vue";
+import Snackbar from "./components/Snackbar.vue"
 
 const userStore = useUserStore()
 
