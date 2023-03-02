@@ -40,6 +40,7 @@ export const useListingStore = defineStore('listing', {
   actions: {
     async setListings(){
       // getListings from db and store it in state
+      this.listings = []
       const querySnapshot = await getDocs(collection(db, "listings"));
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
