@@ -1,3 +1,11 @@
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+
+import AppBar from "./components/layout/AppBar.vue";
+import Footer from "./components/layout/Footer.vue";
+
+</script>
+
 <template>
   <v-app>
     <AppBar/>
