@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     class="px-3"
-    color="#2C3A61"
+    :color="isLanding ? '#2C3A61' + opacity : '#2C3A61'"
     flat
   >
     <router-link to="/" class="text-decoration-none">
@@ -74,6 +74,17 @@
 <script setup>
 import {useUserStore} from '@/stores/user.js'
 import HomelyHubIcon from '@/assets/homelyHubIcon.png'
+
+defineProps({
+  isLanding: {
+    type: Boolean,
+    default: false
+  },
+  opacity: {
+    type: String,
+    default: "00"
+  }
+})
 
 const routes = [
   {
