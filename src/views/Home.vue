@@ -1,32 +1,115 @@
 <template>
+  <!-- Search Bar -->
+  <v-container text-xs-center
+    class="justify-center"
+    flat
+    height="60px"
+  >
+    <v-toolbar
+      floating
+      max-width="1000px"
+    >
+      <v-text-field
+        hide-details
+        single-line
+      ></v-text-field>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+    </v-toolbar>
+  </v-container>
+
+  <!-- Description -->
+  <div
+    class="text-center">
+    <h1>Properties by Area</h1>
+    <p>Lorem ipsum dolor sit amet elit. Molestiae, non! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, excepturi?</p>
+  </div>
+
+  <!-- Grid -->
   <v-container class="justify-center">
     <v-row>
       <v-col 
-        v-for="i in [...Array(numOfCards).keys()]"
-        cols="4"
+        cols="15"
       >
+        <Card/>
       </v-col>
     </v-row>
     <v-row class="justify-center my-8">
       <v-btn
-        @click="loadMore()"
+        @click=""
         size="large"
       >
-        Load More
+        View More
       </v-btn>
     </v-row>
   </v-container>
+
+  <!-- Carousell -->
+  <v-container>
+    <div
+      class="text-center">
+      <h1>Recommended Properties</h1>
+    </div>
+    <v-sheet
+      class="mx-auto"
+      elevation="8"
+      max-width="2000"
+    >
+      <v-slide-group
+        v-model="model"
+        class="pa-4"
+        center-active
+        show-arrows
+      >
+        <v-slide-group-item
+          v-for="n in 15"
+          :key="n"
+          v-slot="{ isSelected, toggle }"
+        >
+          <v-card
+            :color="isSelected ? 'primary' : 'grey-lighten-1'"
+            class="ma-4"
+            height="200"
+            width="120"
+            @click="toggle"
+          >
+            <div class="d-flex fill-height align-center justify-center">
+              <v-scale-transition>
+                <v-icon
+                  v-if="isSelected"
+                  color="white"
+                  size="48"
+                  icon="mdi-close-circle-outline"
+                ></v-icon>
+              </v-scale-transition>
+            </div>
+          </v-card>
+        </v-slide-group-item>
+      </v-slide-group>
+    </v-sheet>
+
+    <v-row class="justify-center my-8">
+      <v-btn
+        @click=""
+        size="large"
+      >
+        View All
+      </v-btn>
+    </v-row>
+  </v-container>
+
+
 </template>
 
 <script setup>
+import Card from "@/components/LandingGrid.vue"
 import { ref } from 'vue'
 
-const numOfCards = ref(5)
-
-function loadMore() {
-  numOfCards.value += 1
-} 
 </script>
+
+
 <style scoped>
+
 
 </style>

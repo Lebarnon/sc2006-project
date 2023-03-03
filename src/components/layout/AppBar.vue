@@ -77,6 +77,10 @@ import HomelyHubIcon from '@/assets/homelyHubIcon.png'
 
 const routes = [
   {
+    name: 'Recommended',
+    link: ''
+  }, 
+  {
     name: 'All',
     link: '/listings'
   },
