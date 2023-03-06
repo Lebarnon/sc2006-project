@@ -1,6 +1,6 @@
 <template>
     <v-img
-        :src="imageUrls[curImgIndex]"
+        :src="imageUrls.length > 0 ? imageUrls[0] : ImagePlaceholder "
         height="400"
         width="400"
         cover
@@ -22,9 +22,10 @@
             width="100"
             @click="onImageSelect(n-1)"
             >
-            <v-img :src="imageUrls[n-1]">
+            <v-img 
+                :src="imageUrls[n-1]"
+                cover/>
                 
-            </v-img>
             </v-card>
         </v-slide-group-item>
     </v-slide-group>
@@ -32,6 +33,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import ImagePlaceholder from '@/assets/image-placeholder.jpeg'
 
 const props = defineProps(['imageUrls'])
 const curImgIndex = ref(0)
