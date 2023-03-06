@@ -7,7 +7,7 @@ import Listings from '../views/Listings.vue'
 import Compare from "../views/Compare.vue"
 import Detail from "../views/Detail.vue"
 import { useUserStore } from '../stores/user'
-import { setUserLogHandler } from '@firebase/logger'
+import { useSnackbarStore } from '../stores/snackbar'
 
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
@@ -60,6 +60,8 @@ router.beforeEach((to, from, next) => {
 
   //page require auth and not authenticated
   if (authRequired && !useUserStore().isAuthenticated) {
+    // show error
+    useSnackbarStore().show("You need to be logged in to access!")
     //return the user to the login to force the user to login
     return next("/login"); 
   }
