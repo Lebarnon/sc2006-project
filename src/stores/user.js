@@ -1,4 +1,4 @@
-import { defineStore } from '`pinia`'
+import { defineStore } from 'pinia'
 import { storage, db} from "@/firebase/firebaseConfig";
 import {
   getAuth,
@@ -10,12 +10,10 @@ import {
 import { ref } from 'firebase/storage';
 import router from '../router';
 import {doc, getDoc, updateDoc, arrayRemove, arrayUnion} from "firebase/firestore"; 
-import { useListingStore } from './listing';
-
+import { useListingStore } from './listing.js';
 
 const auth = getAuth()
 const storageRef = ref(storage)
-const listingStore = useListingStore()
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
@@ -37,7 +35,7 @@ export const useUserStore = defineStore('user', {
     getFavListings: async (state) => {
       var favListings = []
       for( id of this.getFavListingIds){
-        var listing = await listingStore.getListingById(id)
+        var listing = await useListingStore().getListingById(id)
         if(listing){
           favListings.push(listing)
         }
