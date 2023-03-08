@@ -2,7 +2,7 @@
     <div class="text-left">
         <p>
         <h1>
-            {{ data.address }}
+            {{ data.name }}
         </h1>
         </p>
     </div>
@@ -46,12 +46,12 @@
         <v-col cols="auto">
             <v-icon icon="mdi:mdi-bed">
             </v-icon>
-            {{ data.bed }}
+            {{ data.noOfRoom }}
         </v-col>
         <v-col cols="auto">
             <v-icon icon="mdi:mdi-bathtub">
             </v-icon>
-            {{ data.bathtub }}
+            {{ data.noOfToilet }}
         </v-col>
 
     </v-row>
@@ -67,7 +67,7 @@
                 Flat Type
             </p>
             <p>
-                {{ data.flatType }} Room
+                {{ data.flatType }}
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -77,7 +77,7 @@
                 Flat Model
             </p>
             <p>
-                Model {{ data.flatModel }}
+                {{ data.flatModel }}
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -87,7 +87,7 @@
                 Floor Size
             </p>
             <p>
-                {{ data.squareFeet }}
+                {{ data.floorSize }} sq ft
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -99,7 +99,7 @@
                 Remaining Lease
             </p>
             <p>
-                {{ data.lease }}
+                {{ data.remainingLease }} Years
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -109,7 +109,7 @@
                 Lease Commence Date
             </p>
             <p>
-                {{ data.leaseDate }}
+                {{ data.leaseCommencementDate.toDate().getFullYear() }}
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -119,7 +119,7 @@
                 Storey Range
             </p>
             <p>
-                {{ data.lowerStoreyRange }} TO {{ data.upperStoreyRange }}
+                {{ data.storeyRange }}
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -141,7 +141,7 @@
                 Street Name
             </p>
             <p>
-                {{ data.street }}
+                {{ data.streetName }}
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -151,7 +151,7 @@
                 Price Per SqFt
             </p>
             <p>
-                {{ data.pricePerSquareFeet }}
+                {{ (data.price / data.floorSize).toFixed(2) }}
             </p>
             <v-divider></v-divider>
         </v-col>
@@ -177,23 +177,5 @@ import { ref, onMounted, defineProps } from 'vue';
 
 const isLoading = ref(true)
 const props = defineProps(["data"])
-
-const data = ref({
-    address: "13 Novena Terrace, Singapore 307909",
-    price: 590693,
-    bed: 4,
-    bathtub: 4,
-    description: "Lorem ipsum dolor sit amet",
-    flatType: 4,
-    flatModel: "A",
-    squareFeet: 5000,
-    lease: 78,
-    leaseDate: 2002,
-    lowerStoreyRange: 4,
-    upperStoreyRange: 6,
-    town: "Chai Chee",
-    street: "Chai Chee Avenue",
-    pricePerSquareFeet: 114,
-})
 
 </script>

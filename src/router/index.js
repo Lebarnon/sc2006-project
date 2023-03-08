@@ -6,6 +6,7 @@ import CreateListing from '../views/CreateListing.vue'
 import Listings from '../views/Listings.vue'
 import Compare from "../views/Compare.vue"
 import Detail from "../views/Detail.vue"
+import ResetPassword from "../views/ResetPassword.vue"
 import { useUserStore } from '../stores/user'
 import { useSnackbarStore } from '../stores/snackbar'
 
@@ -49,6 +50,11 @@ const router = createRouter({
       path: "/compare",
       name: "compare",
       component: Compare,
+    },
+    {
+      path: "/resetPassword",
+      name: "resetPassword",
+      component: ResetPassword,
     }
   ]
 })
