@@ -7,7 +7,7 @@
                 </v-col>
                 <v-col align-self="center">
                     <div class="text-center">
-                        <v-icon size="70" icon="mdi:mdi-home"></v-icon>
+                        <img width="60" height="60" :src="HomelyHubIconBlue" />
                     </div>
                     <h1 class="text-center">
                         Reset Password
@@ -17,7 +17,7 @@
                     </p>
                     <v-form class="mt-10" @submit.prevent :disabled=userStore.isLoading>
                         <v-responsive class="mx-auto" max-width="344">
-                            <v-text-field max-width="500" v-model="email" label="email"></v-text-field>
+                            <v-text-field v-model="email" label="email"></v-text-field>
                             <v-btn color="primary" variant="outlined" type="submit" block class="mt-4"
                                 :loading="userStore.isLoading" :disabled="userStore.isLoading" @click="handleLogin()">
                                 <!-- // TODO: Change button above to send the email instead-->
@@ -37,6 +37,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/user.js'
+import HomelyHubIconBlue from '@/assets/homelyHubIconBlue.png'
 
 const email = ref("")
 const password = ref("")
