@@ -1,8 +1,9 @@
 <template>
-    <v-container class="justify-center">
-      <v-row>
+    <v-container class="justify-center text-center">
+      <LoadingOverlay :is-loading="isLoading"></LoadingOverlay>
+      <v-row v-if="favListings.length > 0">
         <v-col 
-          v-for="listing of listingStore.listings"
+          v-for="listing of favListings"
           :key="listing.id"
           cols="4"
         >
@@ -13,21 +14,27 @@
           />
         </v-col>
       </v-row>   
+      <v-row v-else >
+        <p>You have no favourite listing</p>
+      </v-row>
     </v-container>
   </template>
   
   <script setup>
   import ListingCard from "@/components/ListingCard.vue"
+  import LoadingOverlay from "../components/LoadingOverlay.vue";
   import { ref, onBeforeMount} from 'vue'
-  import { useListingStore } from "../stores/listing";
   import { useUserStore } from "../stores/user";
   
-  const listingStore = useListingStore()
+  const favListings = ref([])
   const userStore = useUserStore()
   const isLoading = ref(true)
   
   onBeforeMount(() => {
-    userStore.getFavListings().then(() => isLoading.value = true)
+    userStore.getFavListings().then((result) => {
+      favListings.value = result
+      isLoading.value = false
+    })
   })
   
   function handleFavClicked(listingId){

@@ -97,7 +97,7 @@ const routes = [
   },
   {
     name: 'Favourites',
-    link: ''
+    link: '/favourites'
   },
   {
     name: 'Compare',
