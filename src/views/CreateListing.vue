@@ -132,6 +132,14 @@
                 <!-- TODO: add help icon and functionality -->
                 <v-row>
                     <p>Estimated Value: ${{ estimatedPrice }} </p>
+                    <v-btn
+                        class="ml-auto"
+                        @click="handleRefresh()"
+                        size="large"
+                        :loading = isLoading
+                    >
+                        Refresh
+                    </v-btn>
                     <v-tooltip activator="parent" location="start">
                         <template v-slot:activator="{on}">
                     <v-icon icon="mdi:mdi-help-circle-outline"></v-icon>
@@ -202,8 +210,15 @@ async function handleSubmit(){
     isLoading.value = false
 }
 
+const pricingStore = usePricingStore()
+async function handleRefresh(){
+    isLoading.value = true  
+    const estimated = await pricingStore.getEstimatedPrice(listingData.value)
+    isLoading.value = false
+}
+
 // TODO: get estimated price from database
-const estimatedPrice = ref(696969)
+const estimatedPrice = ref(estimated)
 
 // TODO: Add dropdown options
 const flatTypes = [
