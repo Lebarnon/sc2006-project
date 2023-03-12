@@ -2,7 +2,7 @@
   <v-card
     :to="`/detail/${listing.id}`"
     class="mx-auto"
-    max-width="370"
+    width="370"
   >
     <v-img
       cover
@@ -22,6 +22,7 @@
           ></v-icon>
         </v-card-subtitle>
         <v-btn
+        :disabled = "isOwnListing"
         color="red-darken-4"
         :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
         size="large"
@@ -57,7 +58,7 @@
 
 <script setup>
 import { useUserStore } from '../stores/user';
-const props = defineProps(['listing', 'isFavListing'])
+const props = defineProps(['listing', 'isFavListing', 'isOwnListing'])
 const emit = defineEmits(['onFavClicked'])
 const userStore = useUserStore()
 
