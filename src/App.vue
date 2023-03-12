@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="!userStore.isloading">
     <AppBar :isLanding="isLanding" :opacity="opacity"/>
     <v-main class="bg-grey-lighten-3">
       <RouterView/>
@@ -7,17 +7,20 @@
     </v-main>
     <Footer/>
   </v-app>
+  <v-app v-else>
+    <LoadingOverlay />
+  </v-app>
 </template>
 
 <script setup>
 import { onBeforeMount, onMounted,onBeforeUnmount, ref, watch } from 'vue'
-import { useUserStore } from '@/stores/user'
 import { RouterView } from 'vue-router'
-
+import LoadingOverlay from './components/LoadingOverlay.vue';
 import AppBar from "./components/layout/AppBar.vue";
 import Footer from "./components/layout/Footer.vue";
 import Snackbar from "./components/Snackbar.vue"
 import { useRoute } from 'vue-router';
+import {useUserStore} from './stores/user.js'
 
 const userStore = useUserStore()
 const route = useRoute()
@@ -29,7 +32,7 @@ watch(() => route.path, (newpath, _) => {
 })
 
 onBeforeMount(() => {
-  userStore.setUser() 
+  // userStore.setUser()
 })
 onMounted(() => {
   isLanding.value = route.path == '/'
