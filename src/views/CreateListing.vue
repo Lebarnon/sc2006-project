@@ -132,14 +132,6 @@
                 <!-- TODO: add help icon and functionality -->
                 <v-row>
                     <p>Estimated Value: ${{ estimatedPrice }} </p>
-                    <v-btn
-                        class="ml-auto"
-                        @click="handleRefresh()"
-                        size="large"
-                        :loading = isLoading
-                    >
-                        Refresh
-                    </v-btn>
                     <v-tooltip activator="parent" location="start">
                         <template v-slot:activator="{on}">
                     <v-icon icon="mdi:mdi-help-circle-outline"></v-icon>
@@ -148,6 +140,14 @@
                     <br>
                     <span>Our estimated is based on: Price History, Location, Size, Age, etc.</span>
                     </v-tooltip>
+                    <v-btn
+                        class="ml-auto"
+                        @click="handleRefresh()"
+                        size="large"
+                        :loading = isLoading
+                    >
+                        Refresh
+                    </v-btn>
                 </v-row>
                 <v-row class="my-8">
                     <v-btn
@@ -169,6 +169,7 @@
 import { ref, computed, watch } from 'vue';
 import Gallery from '@/components/gallery.vue'
 import { useListingStore } from '../stores/listing';
+import { usePricingStore } from '../stores/pricing';
 
 const isLoading = ref(false)
 
@@ -209,16 +210,15 @@ async function handleSubmit(){
     await listingStore.createListing(listingData.value)
     isLoading.value = false
 }
-
+const estimatedPrice = ref(0)
 const pricingStore = usePricingStore()
 async function handleRefresh(){
     isLoading.value = true  
-    const estimated = await pricingStore.getEstimatedPrice(listingData.value)
+    estimatedPrice.value = await pricingStore.getEstimatedPrice(listingData.value)
     isLoading.value = false
 }
 
 // TODO: get estimated price from database
-const estimatedPrice = ref(estimated)
 
 // TODO: Add dropdown options
 const flatTypes = [

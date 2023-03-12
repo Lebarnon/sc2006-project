@@ -4,7 +4,7 @@ import { } from "firebase/auth";
 import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
-import { doc, collection, addDoc, getDocs, updateDoc, arrayUnion, getDoc } from "firebase/firestore"; 
+import { doc, collection, query, where, getDocs, getDoc } from "firebase/firestore"; 
 import { mdiTagPlus } from '@mdi/js';
 
 const storageRef = ref(storage)
@@ -16,19 +16,6 @@ export const usePricingStore = defineStore('pricing', {
     }
   },
   getters: {
-    getEstimatedPrice: (state) => {
-        return async (listingData) => {
-            console.log("OK")
-            const querySnapshot = query(collection(db, 'grouped_data'), 
-            where('FlatModel', '==', querySnapshot.flatModel));
-            
-            if (querySnapshot){
-                console.log({OKOK})
-                return querySnapshot.estimatedPrice
-            }
-
-        }
-      }
     
   },
   methods: {
@@ -42,5 +29,21 @@ export const usePricingStore = defineStore('pricing', {
     // async setPrice(){
     //     this.estimatedPrice = querySnap.resalePrice
     // }
+    async getEstimatedPrice(listingData) {
+
+            console.log("OK")
+            console.log(listingData.flatModel)
+            const q = await query(collection(db, 'grouped_data'), 
+            where('flatModel', '==', listingData.flatModel));
+            
+            const querySnapshot = await getDocs(q);
+            var a=0;
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                a = doc.data().resalePrice
+            });
+            return a;
+      }
   }
 })
