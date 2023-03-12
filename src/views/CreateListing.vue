@@ -158,6 +158,16 @@
                         submit
                     </v-btn>
                 </v-row>
+                <!-- <v-row class="my-8">
+                    <v-btn
+                        class="ml-auto"
+                        @click="handleGenerateData()"
+                        size="large"
+                        :loading = isLoading
+                    >
+                        Generate Data
+                    </v-btn>
+                </v-row> -->
             </v-form>
         </v-col>
     </v-row>
@@ -206,6 +216,40 @@ const listingStore = useListingStore()
 async function handleSubmit(){
     isLoading.value = true  
     await listingStore.createListing(listingData.value)
+    isLoading.value = false
+}
+
+async function handleGenerateData(){
+    var flatTypeInd = Math.floor(Math.random() * flatTypes.length)
+    var flatModelInd = Math.floor(Math.random() * flatModel.length)
+    var storeyRangeInd = Math.floor(Math.random() * storeyRange.length)
+    var townsInd = Math.floor(Math.random() * towns.length)
+    var streetsInd = Math.floor(Math.random() * streets.length)
+    var price = Math.floor(Math.random() * 250000) + 500000
+    var leaseCommencementDate = Math.floor(Math.random() * 50) + 1950
+    var remainingLease = 99 - (new Date(Date.now()).getFullYear() - leaseCommencementDate)
+    var numOfRoom = Math.floor(Math.random() * 3) + 3
+    var floorSize = Math.floor(Math.random() * 10 + numOfRoom * 20 + 25)
+
+    var randomListingData = {
+        name: streets[streetsInd],
+        flatType: flatTypes[flatTypeInd],
+        flatModel: flatModel[flatModelInd],
+        town: towns[townsInd],
+        streetName: streets[streetsInd],
+        remainingLease: remainingLease,
+        leaseCommencementDate: leaseCommencementDate,
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        floorSize: floorSize,
+        storeyRange: storeyRange[storeyRangeInd],
+        noOfRoom: numOfRoom,
+        noOfToilet: numOfRoom,
+        price: price,
+        imageFiles: listingData.value.imageFiles
+    }
+    isLoading.value = true  
+    // await listingStore.createListing(randomListingData)
+    // console.log(randomListingData)
     isLoading.value = false
 }
 
