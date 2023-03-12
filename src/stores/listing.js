@@ -86,6 +86,11 @@ export const useListingStore = defineStore('listing', {
       router.push('/')
       return true
 
+    },
+
+    async searchListing(searchValue){
+      console.log(searchValue)
+      // TODO: Kane
     }
   }
 })

@@ -27,9 +27,11 @@
         variant="outlined"
         class="mb-n4"
         label="Search for your dream property"
+        v-model="searchValue"
       >
         <template v-slot:append>
           <v-btn 
+            @click="listingStore.searchListing(searchValue)"
             class="mt-n2 text-white text-capitalize" 
             color="#2C3A61"
             >
@@ -126,8 +128,11 @@
 <script setup>
 import LandingCoverImg from "../assets/landing-cover.jpg"
 import CategoryGrid from "@/components/CategoryGrid.vue"
+import { useListingStore } from "../stores/listing";
 import { ref } from 'vue'
 
+const listingStore = useListingStore()
+const searchValue = ref("")
 </script>
 
 
