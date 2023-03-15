@@ -15,6 +15,7 @@
                     label="Name of Listing"
                     variant="solo"
                     bg-color="#E8E9EB"
+                    :rules="[requiredRule, nameRule]"
                 />
                 <p>About the Listing</p>
                 <v-select 
@@ -23,6 +24,7 @@
                     label="Flat Type"
                     variant="solo"
                     bg-color="#E8E9EB"
+                    :rules="[requiredRule]"
                 />
                 <v-select 
                     v-model="listingData.flatModel"
@@ -30,18 +32,21 @@
                     label="Flat Model"
                     variant="solo"
                     bg-color="#E8E9EB"
+                    required 
                 />
                 <v-text-field
                     v-model="listingData.town"
                     label="Town"
                     variant="solo"
                     bg-color="#E8E9EB"
+                    :rules="[requiredRule]"
                 />
                 <v-text-field
                     v-model="listingData.streetName"
                     label="Street Name"
                     variant="solo"
                     bg-color="#E8E9EB"
+                    :rules="[requiredRule]"
                 />
                 <v-text-field
                     v-model="listingData.remainingLease"
@@ -56,6 +61,7 @@
                     label="Lease Commencement Date"
                     v-model="listingData.leaseCommencementDate"
                     placeholder="Lease Commencement Date"
+                    :disabled-dates="disabledDates"
                 ></VueDatePicker>
 
                 <v-file-input
@@ -71,6 +77,7 @@
                     label="Description"
                     variant="solo"
                     bg-color="#E8E9EB"
+                    :rules="[requiredRule,descRule]"
                 />
                 <v-row class="my-0">
                     <v-col
@@ -83,6 +90,7 @@
                             suffix="SQFT"
                             variant="solo"
                             bg-color="#E8E9EB"
+                            :rules="[requiredRule,numberRule,positivenumRule]"
                         />
                     </v-col>
                     <v-col
@@ -108,6 +116,7 @@
                             label="No. of Bedroom"
                             variant="solo"
                             bg-color="#E8E9EB"
+                            :rules="[requiredRule,numberRule,positivenumRule]"
                         />
                     </v-col>
                     <v-col
@@ -119,6 +128,7 @@
                             label="No. of Toilet"
                             variant="solo"
                             bg-color="#E8E9EB"
+                            :rules="[requiredRule,numberRule,positivenumRule]"
                         />
                     </v-col>
                 </v-row>
@@ -128,6 +138,7 @@
                     variant="solo"
                     bg-color="#E8E9EB"
                     prefix="S$"
+                    :rules="[requiredRule,numberRule,positivenumRule]"
                 />
                 <!-- TODO: add help icon and functionality -->
                 <v-row>
@@ -141,7 +152,9 @@
                     <span>Our estimated is based on: Price History, Location, Size, Age, etc.</span>
                     </v-tooltip>
                 </v-row>
+                
                 <v-row class="my-8">
+                    <span v-if="hasError">{{ error }}</span>
                     <v-btn
                         class="ml-auto"
                         @click="handleSubmit()"
@@ -161,6 +174,9 @@
 import { ref, computed, watch } from 'vue';
 import Gallery from '@/components/gallery.vue'
 import { useListingStore } from '../stores/listing';
+import { list } from '@firebase/storage';
+
+
 
 const isLoading = ref(false)
 
@@ -195,12 +211,27 @@ const imageUrls = computed(() => {
 })
 
 
+
+
 const listingStore = useListingStore()
 async function handleSubmit(){
-    isLoading.value = true  
-    await listingStore.createListing(listingData.value)
-    isLoading.value = false
+    if (isEmpty.value) {
+        error.value = 'Please fill up all fields';
+    } else {
+        error.value = 'Submitted';
+        //isLoading.value = true  
+        //await listingStore.createListing(listingData.value)
+        //isLoading.value = false
+    }
+    
 }
+
+
+
+
+const hasError = computed(() => {
+    return error.value.length >0;
+});
 
 // TODO: get estimated price from database
 const estimatedPrice = ref(696969)
@@ -242,5 +273,52 @@ const storeyRange = [
     "22 to 24",
     "25 to 27"
 ]
+
+
+//For Rules
+const text = ref('')
+const requiredRule = (v) => !!v || 'Field is required';
+const nameRule = (v) => (v && v.length <=100) || 'Text must be less than 100 characters'
+const descRule = (v) => (v && v.length <=255) || 'Text must be less than 255 characters'
+const numberRule = (v) => !isNaN(v) || 'Value must be a number'
+const positivenumRule = (v) => v >= 0 || 'Value must be a positive number'
+
+const disabledDates = (date) => {
+    const day=date.getDay();
+    const today=new Date();
+    return day === 0 || day === 8 || date > today;
+}
+
+//For validation
+const error = ref('');
+const isEmpty = computed(() => {
+    return listingData.value.name === null ||
+    listingData.value.name === '' || 
+    listingData.value.flatType === null ||
+    listingData.value.flatType === '' || 
+    listingData.value.flatModel === null ||
+    listingData.value.flatModel === '' ||
+    listingData.value.town === null ||
+    listingData.value.town === '' ||
+    listingData.value.streetName === null ||
+    listingData.value.streetName === '' ||
+    listingData.value.leaseCommencementDate === null ||
+    listingData.value.imageFiles.length === 0 ||
+    listingData.value.description === null ||
+    listingData.value.description === '' ||
+    listingData.value.floorSize === null ||
+    listingData.value.floorSize === '' ||
+    isNaN(parseFloat(listingData.value.floorSize)) ||
+    listingData.value.storeyRange === null ||
+    listingData.value.noOfRoom === null ||
+    listingData.value.noOfRoom === '' ||
+    isNaN(parseFloat(listingData.value.noOfRoom)) ||
+    listingData.value.noOfToilet === null ||
+    listingData.value.noOfToilet === '' ||
+    isNaN(parseFloat(listingData.value.noOfToilet)) ||
+    listingData.value.price === null ||
+    listingData.value.price === '' ||
+    isNaN(parseFloat(listingData.value.price));
+});
 
 </script>
