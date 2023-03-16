@@ -1,12 +1,15 @@
 <template>
     <v-container class="justify-center">
+    <LoadingOverlay :is-loading="isLoading"/>
     <v-row justify = "center">
       <v-col
-        v-for="i in [...Array(numOfEntries).keys()]"
+        v-for="i in [...Array(numOfCompareCards).keys()]"
         cols="3"
         :key = "i"
       >
-        <DropdownMenu @on-favourite-selected="(e) => handleFavouriteSelected(e, i)" />
+        <DropdownMenu 
+          :locations="locations"
+          @on-favourite-selected="(e) => handleFavouriteSelected(e, i)" />
       </v-col>
     </v-row>
   </v-container>
@@ -14,13 +17,11 @@
   <v-container>
     <v-row justify = "center">
       <v-col 
-        v-for="i in [...Array(numOfEntries).keys()]"
+        v-for="i in [...Array(numOfCompareCards).keys()]"
         cols="3"
         :key="i"
       >
-        <!-- suppose to pass this information to simplified card but showing this as an example now -->
-        <!-- <SimplifiedCard /> -->
-        <p class="text-center">{{ selectedListings[i] ?? "None Selected"}}</p>  
+        <CompareListingCard :listing="selectedListings[i]"/>
       </v-col>
     </v-row>
   </v-container>
@@ -38,13 +39,11 @@
   <v-container>
     <v-row justify = "center">
       <v-col
-        v-for="i in [...Array(numOfEntries).keys()]"
+        v-for="i in [...Array(numOfCompareCards).keys()]"
         cols="3"
         :key = "i"
       >
-      <!-- TODO: pass the listing details into simplifiedCardDetail so for eg: <SimplifiedCardDetail :listing="selectedListing[i]" -->
-        <!-- ofcus u must code simplifiedcarddetail to receive the data thats passed to it. -->
-      <SimplifiedCardDetail />
+      <CompareDetailCard :listing="selectedListings[i]"/>
         </v-col>
       </v-row>
   </v-container>
@@ -52,12 +51,14 @@
 </template>
 
 <script setup>
+import LoadingOverlay from "../components/LoadingOverlay.vue"
 import DropdownMenu from "@/components/DropdownMenu.vue"
-import SimplifiedCard from "@/components/SimplifiedCard.vue"
-import SimplifiedCardDetail from "@/components/SimplifiedCardDetail.vue"
-import { ref } from 'vue'
+import CompareListingCard from "@/components/CompareListingCard.vue"
+import CompareDetailCard from "@/components/CompareDetailCard.vue"
+import { ref, onBeforeMount, computed} from 'vue'
+import { useUserStore } from "../stores/user";
 
-const numOfEntries = ref(3)
+const numOfCompareCards = ref(3)
 
 const selectedListings = ref([
   null,
@@ -65,14 +66,26 @@ const selectedListings = ref([
   null
 ])
 
-//e contains the payload, index is for which column
-function handleFavouriteSelected(e, index) {
-  console.log("handleFavouriteSelected Fired", e, index)
-  // TODO: get listing object from listingStore
-  // TODO: update selectedListings
+const favListings = ref([])
+const locations = computed(() => {
+  return favListings.value.map(e => e.name)
+})
+const userStore = useUserStore()
+const isLoading = ref(true)
+  
+onBeforeMount(() => {
+  userStore.getFavListings().then((result) => {
+    favListings.value = result
+    isLoading.value = false
+  })
+})
+  
 
-  // this is a placeholder for now
-  selectedListings.value[index] = e
+//e contains the payload, index is for which column
+function handleFavouriteSelected(name, index) {
+  // e is the listing name
+  // index is which card is this selection for
+  selectedListings.value[index] = favListings.value.find(e => e.name == name)
 }
 const data = ref({
   showListing: false

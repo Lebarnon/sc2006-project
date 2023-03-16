@@ -1,6 +1,6 @@
 <template>
     <v-img
-        :src="imageUrls.length > 0 ? imageUrls[0] : ImagePlaceholder "
+        :src="imageUrls.length > 0 ? imageUrls[curImgIndex] : ImagePlaceholder "
         height="400"
         width="400"
         cover
@@ -23,6 +23,8 @@
             @click="onImageSelect(n-1)"
             >
             <v-img 
+                height="100"
+                width="100"
                 :src="imageUrls[n-1]"
                 cover/>
                 

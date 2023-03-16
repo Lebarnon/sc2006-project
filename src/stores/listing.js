@@ -17,7 +17,6 @@ export const useListingStore = defineStore('listing', {
   getters: {
     getListingById: (state) => {
       return async (listingId) => {
-        console.log("Fired")
         // check if listing exist in state first
         var listing = state.listings.find(e => e.id == listingId)
         if(listing) return listing
