@@ -160,6 +160,8 @@ const phonenumRule = (v) => v >= 0 || 'Value must be a valid phone number';
 const lengthRule = (v) => v.length >= 8 || 'Please enter a valid phone number';
 const addressRule = (v) => (v && v.length<=255) || 'Text must be less than 255 characters';
 const ageRule = (v) => v>=0 || 'Value must be a valid age';
+const characterToCheck = '@';
+const emailRule = (v) => (v && v.indexOf(characterToCheck) !== -1) || 'Please enter a valid email address'
 
 
 
