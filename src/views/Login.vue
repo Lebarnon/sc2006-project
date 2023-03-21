@@ -23,14 +23,19 @@
                   v-model="email" 
                   label="Email"
                   variant="solo"
-                  bg-color="#E8E9EB">
+                  bg-color="#E8E9EB"
+                  :rules="[requiredRule]">
+                  
               </v-text-field>
 
               <v-text-field 
                   v-model="password" 
                   label="Password"
                   variant="solo"
-                  bg-color="#E8E9EB">
+                  bg-color="#E8E9EB"
+                  type = "password"
+                  :rules="[requiredRule]">
+                  
               </v-text-field>
               <p class="text-right text-subtitle-2 mt-n2">
                 <a href="/resetPassword_Email">Reset Password</a>
@@ -42,6 +47,7 @@
                 :disabled="userStore.isLoading" @click="handleLogin()">
                 Login
               </v-btn>
+              <span v-if="hasError">{{ error }}</span>
             </v-responsive>
           </v-form>
         </v-col>
@@ -51,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/user.js'
 import HomelyHubIconBlue from '@/assets/homelyHubIconBlue.png'
 import LoginCoverImg from "../assets/login-cover.png"
@@ -61,11 +67,32 @@ const password = ref("")
 
 const userStore = useUserStore()
 
-
-
 async function handleLogin() {
-  await userStore.signInWithEmail(email.value, password.value)
+  
+  if(isEmpty.value){
+    error.value = 'Please fill up all fields'
+  } else {
+    console.log('Error')
+    error.value = 'Submitted'
+    //await userStore.signInWithEmail(email.value, password.value)
+    // TODO check with keith
+  }
 }
+
+const requiredRule = (v) => !!v || 'Field is required';
+const hasError = computed(() => {
+  return error.value.length>0;
+});
+
+const error = ref('');
+const isEmpty = computed(() => {
+  return email.value === null ||
+  email.value === '' ||
+  password.value === null ||
+  password.value === '';
+});
+
+
 
 
 </script>

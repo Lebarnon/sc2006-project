@@ -63,6 +63,8 @@ const router = createRouter({
       path: "/search",
       name: "search",
       component: Search,
+    },
+    {
       path: "/resetPassword_Email",
       name: "resetPassword_Email",
       component: ResetPassword_Email,
