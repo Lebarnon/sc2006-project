@@ -7,6 +7,7 @@ import Listings from '../views/Listings.vue'
 import Compare from "../views/Compare.vue"
 import Detail from "../views/Detail.vue"
 import Favourites from "../views/Favourites.vue"
+import Search from "../views/Search.vue"
 import { useUserStore } from '../stores/user'
 import { useSnackbarStore } from '../stores/snackbar'
 
@@ -56,6 +57,11 @@ const router = createRouter({
       name: "favourites",
       component: Favourites,
     },
+    {
+      path: "/search",
+      name: "search",
+      component: Search,
+    }
   ]
 })
 

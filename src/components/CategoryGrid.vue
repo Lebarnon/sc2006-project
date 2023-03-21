@@ -13,7 +13,7 @@
             :key="card.title"
             :cols="card.flex"
           >
-            <v-card :to="'/'">
+            <v-card :to="'/search/' + '?town=' + card.title">
               <v-img
                 :src="card.src"
                 class="justify-center"
@@ -34,7 +34,7 @@
 
 <script setup>
 const cards= [
-  { title: 'Best Prices in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+  { title: 'Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
   { title: 'Nearest to MRT in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
   { title: 'Best value per square feet in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
   { title: 'Longer Bar', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 8 },

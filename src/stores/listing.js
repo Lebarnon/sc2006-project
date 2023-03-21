@@ -4,7 +4,7 @@ import { } from "firebase/auth";
 import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
-import { doc, collection, addDoc, getDocs, updateDoc, arrayUnion, getDoc } from "firebase/firestore"; 
+import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc } from "firebase/firestore"; 
 
 const storageRef = ref(storage)
 
@@ -33,6 +33,18 @@ export const useListingStore = defineStore('listing', {
           console.log("No document with id:", id);
           return null
         }
+      }
+    },
+    getListingsByTown: (state) => {
+      return async (town) => {
+        const q = query(collection(db, "listings"), where("town", "==", town));
+        const querySnapshot = await getDocs(q);
+        var result = []
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          result.push(doc.data())
+        })
+        return result
       }
     }
   },
