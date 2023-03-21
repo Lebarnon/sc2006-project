@@ -87,13 +87,29 @@ export const useListingStore = defineStore('listing', {
 
     },
 
-    async searchListing(searchValue){
-      console.log(searchValue)
-      // TODO: Kane
+    async searchListing(searchValue) {
+      console.log(searchValue);
+      // TO DO: Kane
       const filteredListings = this.listings.filter(listing => {
-        return listing.title.toLowerCase().includes(searchValue.toLowerCase())
-      })
-      return filteredListings
+        //converts properties of each listing object to lowercase to compare with search
+        const searchTerm = searchValue.toLowerCase();
+        const name = listing.name.toLowerCase();
+        const flatType = listing.flatType.toLowerCase();
+        const flatModel = listing.flatModel.toLowerCase();
+        const town = listing.town.toLowerCase();
+        const streetName = listing.streetName.toLowerCase();
+        const description = listing.description.toLowerCase();
+        return ( 
+          //returns listings if any one of the fields contain the search criteria
+          name.indexOf(searchTerm) !== -1 ||
+          flatType.indexOf(searchTerm) !== -1 ||
+          flatModel.indexOf(searchTerm) !== -1 ||
+          town.indexOf(searchTerm) !== -1 ||
+          streetName.indexOf(searchTerm) !== -1 ||
+          description.indexOf(searchTerm) !== -1
+        );
+      });
+      return filteredListings;
     }
   }
 })
