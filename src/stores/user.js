@@ -11,6 +11,7 @@ import { ref } from 'firebase/storage';
 import router from '../router';
 import {doc, setDoc, getDoc, updateDoc, arrayRemove, arrayUnion} from "firebase/firestore"; 
 import { useListingStore } from './listing.js';
+import { useSnackbarStore } from './snackbar';
 
 
 const auth = getAuth()
@@ -108,7 +109,10 @@ export const useUserStore = defineStore('user', {
       }
     },
     async toggleFavListing(listingId){
-      if(!this.isAuthenticated) return null // show error message
+      if(!this.isAuthenticated) {
+        useSnackbarStore().show("You need to be logged in to Favourite a listing!")
+        return null
+      } // show error message
       const docRef = doc(db, "users", this.user.id)
       let index = this.user.favListingIds.indexOf(listingId)
       if(index > -1){

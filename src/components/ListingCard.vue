@@ -57,10 +57,8 @@
 </template>
 
 <script setup>
-import { useUserStore } from '../stores/user';
 const props = defineProps(['listing', 'isFavListing', 'isOwnListing'])
 const emit = defineEmits(['onFavClicked'])
-const userStore = useUserStore()
 
 async function onFavouriteClicked() {
   emit('onFavClicked', props.listing.id)

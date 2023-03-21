@@ -34,7 +34,7 @@
 
 <script setup>
 const cards= [
-  { title: 'Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+  { title: 'Sembawang', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
   { title: 'Nearest to MRT in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
   { title: 'Best value per square feet in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
   { title: 'Longer Bar', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 8 },

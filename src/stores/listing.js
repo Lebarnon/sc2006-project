@@ -42,7 +42,7 @@ export const useListingStore = defineStore('listing', {
         var result = []
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          result.push(doc.data())
+          result.push({id: doc.id, ...doc.data()})
         })
         return result
       }
@@ -99,8 +99,16 @@ export const useListingStore = defineStore('listing', {
 
     },
 
-    async searchListing(searchValue){
-      console.log(searchValue)
+    async searchListing(searchObject){
+      var searchResults = []
+      for(var [key,value] of Object.entries(searchObject)){
+        if(key == "town"){
+          var result = await this.getListingsByTown(value)
+          console.log(result)
+          searchResults.push(...result)
+        }
+      }
+      return searchResults
       // TODO: Kane
     }
   }
