@@ -109,7 +109,7 @@
                 Lease Commence Date
             </p>
             <p>
-                {{ data.leaseCommencementDate.toDate().getFullYear() }}
+                {{ data.leaseCommencementDate }}
             </p>
             <v-divider></v-divider>
         </v-col>

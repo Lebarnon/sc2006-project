@@ -234,10 +234,9 @@ async function handleSubmit(){
     if (isEmpty.value) {
         error.value = 'Please fill up all fields';
     } else {
-        error.value = 'Submitted';
-        //isLoading.value = true  
-        //await listingStore.createListing(listingData.value)
-        //isLoading.value = false
+        isLoading.value = true  
+        await listingStore.createListing(listingData.value)
+        isLoading.value = false
     }
     
 }

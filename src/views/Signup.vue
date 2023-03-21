@@ -145,12 +145,12 @@ const userInfo = ref({
   confirmPassword: null
 })
 
+//TODO change to signup
 async function handleLogin() {
-  // TODO: Check with keith
   if (isEmpty.value){
     error.value = 'Please fill up all fields';
   } else {
-    error.value = "Submitted";
+    // error.value = "Submitted";
   }
 }
 
@@ -163,9 +163,6 @@ const addressRule = (v) => (v && v.length<=255) || 'Text must be less than 255 c
 const ageRule = (v) => v>=0 || 'Value must be a valid age';
 const characterToCheck = '@';
 const emailRule = (v) => (v && v.indexOf(characterToCheck) !== -1) || 'Please enter a valid email address'
-
-
-
 
 const hasError = computed(() => {
   return error.value.length >0;

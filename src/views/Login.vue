@@ -68,14 +68,11 @@ const password = ref("")
 const userStore = useUserStore()
 
 async function handleLogin() {
-  
   if(isEmpty.value){
     error.value = 'Please fill up all fields'
   } else {
-    console.log('Error')
-    error.value = 'Submitted'
-    //await userStore.signInWithEmail(email.value, password.value)
-    // TODO check with keith
+    await userStore.signInWithEmail(email.value, password.value)
+    // TODO: handle sign in error
   }
 }
 
