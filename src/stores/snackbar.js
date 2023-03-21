@@ -9,7 +9,6 @@ export const useSnackbarStore = defineStore("snackbar", {
   },
   actions:{
     display(message){
-      console.log("fired")
       this.message = message
       this.show = true
       setTimeout(() => {

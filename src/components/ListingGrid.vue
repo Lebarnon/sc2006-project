@@ -52,7 +52,6 @@ const numOfPages = computed(() => {
 })
 
 function handleFavClicked(listingId){
-  console.log("called", listingId)
   userStore.toggleFavListing(listingId)
 }
   
