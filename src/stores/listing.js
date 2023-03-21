@@ -90,6 +90,10 @@ export const useListingStore = defineStore('listing', {
     async searchListing(searchValue){
       console.log(searchValue)
       // TODO: Kane
+      const filteredListings = this.listings.filter(listing => {
+        return listing.title.toLowerCase().includes(searchValue.toLowerCase())
+      })
+      return filteredListings
     }
   }
 })
