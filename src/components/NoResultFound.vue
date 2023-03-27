@@ -1,5 +1,5 @@
 <template>
-<v-contianer class="align-center">
+<v-container class="align-center">
   <v-row class="mt-12">
     <v-img
       :src = "SearchImg"
@@ -21,7 +21,7 @@
       Go Back
     </v-btn>
   </v-row>
-</v-contianer>
+</v-container>
 </template>
 
 <script setup>

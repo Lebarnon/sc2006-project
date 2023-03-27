@@ -102,15 +102,17 @@ export const useListingStore = defineStore('listing', {
     async searchListing(searchObject){
       var searchResults = []
       for(var [key,value] of Object.entries(searchObject)){
+        value = value.trim()
         if(key == "town"){
           var result = await this.getListingsByTown(value)
           console.log(result)
           searchResults.push(...result)
         }
         if(key == "q"){
+          await this.setListings();
           const filteredListings = this.listings.filter(listing => {
             //converts properties of each listing object to lowercase to compare with search
-            const searchTerm = searchValue.toLowerCase();
+            const searchTerm = value.toLowerCase();
             const name = listing.name.toLowerCase();
             const flatType = listing.flatType.toLowerCase();
             const flatModel = listing.flatModel.toLowerCase();

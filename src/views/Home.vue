@@ -31,7 +31,7 @@
       >
         <template v-slot:append>
           <v-btn 
-            @click="listingStore.searchListing(searchValue)"
+            @click="handleSearch"
             class="mt-n2 text-white text-capitalize" 
             color="#2C3A61"
             >
@@ -79,7 +79,6 @@
         max-width="2000"
       >
         <v-slide-group
-          v-model="model"
           class="pa-4"
           center-active
           show-arrows
@@ -128,12 +127,24 @@
 <script setup>
 import LandingCoverImg from "../assets/landing-cover.jpg"
 import CategoryGrid from "@/components/CategoryGrid.vue"
-import { useListingStore } from "../stores/listing";
+import { useSnackbarStore } from "../stores/snackbar";
 import { ref } from 'vue'
+import { useRouter } from "vue-router";
 
-const listingStore = useListingStore()
 const searchValue = ref("")
+const sbStore = useSnackbarStore()
+const router = useRouter()
+
+function handleSearch(){
+  if(searchValue.value.trim().length == 0){
+    sbStore.display("Please enter a keyword to search")
+    return
+  }
+  router.push("/search" + '?q=' + searchValue.value)
+}
+
 </script>
+
 
 
 <style scoped>
