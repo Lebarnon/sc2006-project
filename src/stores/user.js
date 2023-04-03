@@ -44,6 +44,10 @@ export const useUserStore = defineStore('user', {
       if(state.user == null) return null
       return state.user.favListingIds
     },
+    getOwnListingIds: (state) => {
+      if(state.user == null) return null
+      return state.user.ownListingIds
+    },
     isFavListing: (state) => {
       return (listingId) => state.user && state.user.favListingIds.includes(listingId)
     },
@@ -138,6 +142,16 @@ export const useUserStore = defineStore('user', {
         }
       }
       return favListings
+    },
+    async getOwnListings(){
+      var ownListings = []
+      for(var id of this.getOwnListingIds){
+        var listing = await useListingStore().getListingById(id)
+        if(listing){
+          ownListings.push(listing)
+        }
+      }
+      return ownListings
     },
   }
 })

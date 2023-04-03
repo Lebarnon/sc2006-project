@@ -185,30 +185,50 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onBeforeMount } from 'vue';
 import Gallery from '@/components/gallery.vue'
 import { useListingStore } from '../stores/listing';
 import { usePricingStore } from '../stores/pricing';
+import { useUserStore } from '../stores/user';
+import { useRouter, useRoute } from 'vue-router';
 
+const listingStore = useListingStore()
+const userStore = useUserStore()
+const pricingStore = usePricingStore()
+const router = useRouter()
+const route = useRoute()
 const isLoading = ref(false)
+const listingData = ref({
+    name: null,
+    flatType: null,
+    flatModel: null,
+    town: null,
+    streetName: null,
+    remainingLease: null,
+    leaseCommencementDate: null,
+    description: null,
+    floorSize: null,
+    storeyRange: null,
+    noOfRoom: null,
+    noOfToilet: null,
+    price: null,
+    imageFiles: []
+})
+const estimatedPrice = ref(0)
 
-const props = defineProps(["listingData"])
-// const listingData = ref({
-//     name: null,
-//     flatType: null,
-//     flatModel: null,
-//     town: null,
-//     streetName: null,
-//     remainingLease: null,
-//     leaseCommencementDate: null,
-//     description: null,
-//     floorSize: null,
-//     storeyRange: null,
-//     noOfRoom: null,
-//     noOfToilet: null,
-//     price: null,
-//     imageFiles: []
-// })
+onBeforeMount(() => {
+    if(!userStore.isOwnListing(route.params.id)){
+        router.push("/")
+    }
+    listingStore.getListingById(route.params.id).then(result => {
+        if (result == null) router.push("/error")
+        console.log(result)
+        listingData.value = result
+        listingData.value["imageFiles"] = result.imageUrls
+    })
+})
+
+
 
 watch(() => listingData.value.leaseCommencementDate, (newDate, _) =>{
     const remainingLease = 99 - (new Date(Date.now()).getFullYear() - newDate)
@@ -230,20 +250,17 @@ const imageUrls = computed(() => {
 
 
 
-const listingStore = useListingStore()
 async function handleSubmit(){
     if (isEmpty.value) {
         error.value = 'Please fill up all fields';
     } else {
         isLoading.value = true  
-        await listingStore.createListing(listingData.value)
+        await listingStore.createListing(listingData.value, true)
         isLoading.value = false
     }
     
 }
 
-const estimatedPrice = ref(0)
-const pricingStore = usePricingStore()
 async function handleRefresh(){
     isLoading.value = true  
     estimatedPrice.value = await pricingStore.getEstimatedPrice(listingData.value)
@@ -280,7 +297,7 @@ const streets = ['Ang Mo Kio Ave 10', 'Ang Mo Kio Ave 4', 'Ang Mo Kio Ave 5', 'A
 const text = ref('')
 const requiredRule = (v) => !!v || 'Field is required';
 const nameRule = (v) => (v && v.length <=100) || 'Text must be less than 100 characters'
-const descRule = (v) => (v && v.length <=255) || 'Text must be less than 255 characters'
+const descRule = (v) => (v && v.split(" ").length <=255) || 'Text must be less than 255 words'
 const numberRule = (v) => !isNaN(v) || 'Value must be a number'
 const positivenumRule = (v) => v >= 0 || 'Value must be a positive number'
 

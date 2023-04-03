@@ -155,3 +155,5 @@
   const props = defineProps(['listing'])
     
   </script>
+
+  

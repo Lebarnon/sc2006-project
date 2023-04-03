@@ -12,6 +12,7 @@
           :isFavListing= "userStore.isFavListing(listing.id)"
           :isOwnListing= "userStore.isOwnListing(listing.id)"
           @on-fav-clicked = "handleFavClicked"
+          @on-edit-clicked = "handleEditClicked"
         />
       </v-col>
     </v-row> 
@@ -30,7 +31,8 @@ import NoResultFound from "@/components/NoResultFound.vue"
 import ListingCard from "@/components/ListingCard.vue"
 import { ref, computed} from 'vue'
 import { useUserStore } from "../stores/user";
-
+import { useRouter } from "vue-router";
+import router from "../router";
 const props = defineProps(["listings"])
 const page = ref(1)
 const numOfListingsPerPage = 9
@@ -53,6 +55,12 @@ const numOfPages = computed(() => {
 
 function handleFavClicked(listingId){
   userStore.toggleFavListing(listingId)
+}
+
+function handleEditClicked(listingsId){
+  if(userStore.isOwnListing(listingsId)){
+    router.push(`/updatelisting/${listingsId}`)
+  }
 }
   
 </script>

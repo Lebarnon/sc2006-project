@@ -9,7 +9,6 @@
 
     <Gallery :image-urls="data.imageUrls"/>
 
-
     <v-row class="mt-1">
         <v-col cols="8">
             <v-card width="200" variant="tonal" color="#2F58CD">
@@ -18,6 +17,7 @@
                 </h2>
             </v-card>
         </v-col>
+        
         <v-col cols="auto">
             <h2>
                 Favourite it!

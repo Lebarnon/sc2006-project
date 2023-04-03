@@ -498,7 +498,7 @@ const streets = ['Ang Mo Kio Ave 10', 'Ang Mo Kio Ave 4', 'Ang Mo Kio Ave 5', 'A
 const text = ref('')
 const requiredRule = (v) => !!v || 'Field is required';
 const nameRule = (v) => (v && v.length <=100) || 'Text must be less than 100 characters'
-const descRule = (v) => (v && v.length <=255) || 'Text must be less than 255 characters'
+const descRule = (v) => (v && v.split(" ").length <=255) || 'Text must be less than 255 words' // TODO: update SRS to reflect words instead of characters
 const numberRule = (v) => !isNaN(v) || 'Value must be a number'
 const positivenumRule = (v) => v >= 0 || 'Value must be a positive number'
 

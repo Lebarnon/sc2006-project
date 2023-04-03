@@ -10,6 +10,8 @@ import Favourites from "../views/Favourites.vue"
 import Search from "../views/Search.vue"
 import ResetPassword_Email from "../views/ResetPassword_Email.vue"
 import ResetPassword_Password from "../views/ResetPassword_Password.vue"
+import UpdateListing from "../views/UpdateListing.vue"
+import MyListings from "../views/MyListings.vue"
 import { useUserStore } from '../stores/user'
 import { useSnackbarStore } from '../stores/snackbar'
 
@@ -73,12 +75,23 @@ const router = createRouter({
       path: "/resetPassword_Password",
       name: "resetPassword_Password",
       component: ResetPassword_Password,
+    },
+    {
+      path: "/updatelisting/:id",
+      name: 'updatelisting',
+      component: UpdateListing
+    },
+    {
+      path: "/mylistings/",
+      name: "mylistings",
+      component: MyListings,
+
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  const privatePages = ["/create-listing", "/compare", "/favourites"]; 
+  const privatePages = ["/create-listing", "/compare", "/favourites", "/updatelisting", "/mylistings"]; 
   //check if the "to" path is a public page or not
   const authRequired = privatePages.includes(to.path); 
   

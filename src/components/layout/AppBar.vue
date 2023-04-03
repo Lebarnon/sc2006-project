@@ -104,8 +104,8 @@ const routes = [
     link: '/compare'
   },
   {
-    name: 'Forum',
-    link: ''
+    name: 'My Listings',
+    link: '/mylistings'
   }
 ]
 const userStore = useUserStore()

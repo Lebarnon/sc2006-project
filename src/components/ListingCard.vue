@@ -22,7 +22,16 @@
           ></v-icon>
         </v-card-subtitle>
         <v-btn
-        :disabled = "isOwnListing"
+          v-if="isOwnListing"
+          icon="edit"
+          size="large"
+          variant = "text"
+          @click.prevent="onEditClicked"
+        >
+
+        </v-btn>
+        <v-btn
+        v-else
         color="red-darken-4"
         :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
         size="large"
@@ -58,10 +67,13 @@
 
 <script setup>
 const props = defineProps(['listing', 'isFavListing', 'isOwnListing'])
-const emit = defineEmits(['onFavClicked'])
+const emit = defineEmits(['onFavClicked', 'onEditClicked'])
 
 async function onFavouriteClicked() {
   emit('onFavClicked', props.listing.id)
+}
+async function onEditClicked() {
+  emit('onEditClicked', props.listing.id)
 }
 
 

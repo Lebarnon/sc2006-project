@@ -4,7 +4,7 @@ import { } from "firebase/auth";
 import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
-import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc } from "firebase/firestore"; 
+import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc, setDoc } from "firebase/firestore"; 
 
 const storageRef = ref(storage)
 
@@ -46,7 +46,7 @@ export const useListingStore = defineStore('listing', {
         })
         return result
       }
-    }
+    },
   },
   actions: {
     async setListings(){
@@ -63,7 +63,7 @@ export const useListingStore = defineStore('listing', {
         )
       })
     },
-    async createListing(newListing) {
+    async createListing(newListing, update=false) {
       // receives a listing object
       const userStore = useUserStore()
       const userId = userStore.getUserId
@@ -89,13 +89,20 @@ export const useListingStore = defineStore('listing', {
       newListing.imageUrls = imageUrls
       const {imageFiles, ...listingData} = newListing
       // upload listing to db
-      const docRef = await addDoc(collection(db, "listings"), listingData)
-      console.log("Document written with ID: ", docRef.id)
-
-      // add listingId to user document
-      await updateDoc(doc(db,"users", userId), {
-        ownListingIds: arrayUnion(docRef.id)
-      })
+      if(!update){
+        const docRef = await addDoc(collection(db, "listings"), listingData)
+        console.log("Document written with ID: ", docRef.id)
+  
+        // add listingId to user document
+        await updateDoc(doc(db,"users", userId), {
+          ownListingIds: arrayUnion(docRef.id)
+        })
+      }else{
+        // update listing
+        const docRef = await setDoc(doc(db, "listings", newListing.id), listingData)
+        console.log("Updated document")
+        router.push(`/detail/${newListing.id}`)
+      }
 
       // return user to their listing page --> '/' for now as placeholder
       router.push('/')
