@@ -74,6 +74,10 @@ export const useListingStore = defineStore('listing', {
       // upload images and get firebase storage url 
       const imageUrls = []
       for await (var imageFile of newListing.imageFiles){
+        if(typeof imageFile.name != 'string'){
+          imageUrls.push(imageFile) //its already present in firebase
+          continue
+        }
         const imageStorageRef = ref(storageRef, `${userId}/${imageFile.name}`)
 
         const snapshot = await uploadBytes(imageStorageRef, imageFile)
