@@ -5,6 +5,7 @@
             cols="6"
         >
             <Gallery :imageUrls = "imageUrls"/>
+            <v-divider vertical></v-divider>
         </v-col>
         <v-col
             cols="6"

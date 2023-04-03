@@ -12,8 +12,8 @@
 
     <v-card-item>
       <v-card-title>{{listing.streetName}}</v-card-title>
-      <div class="d-flex justify-space-between">
-        <v-card-subtitle class="d-flex align-center">
+      <div class="d-flex justify-space-between align-center">
+        <v-card-subtitle :class="'d-flex ' + isValueBuy ? ' invisible': ''">
           <span class="mr-1">Value Buy</span>
            <v-icon
             color="error"
@@ -66,8 +66,16 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+import { usePricingStore } from '../stores/pricing';
+
 const props = defineProps(['listing', 'isFavListing', 'isOwnListing'])
 const emit = defineEmits(['onFavClicked', 'onEditClicked'])
+const pricingStore = usePricingStore()
+const isValueBuy = ref(false)
+onMounted(() => {
+  pricingStore.isValueBuy(props.listing).then((result) => isValueBuy.value = result)
+})
 
 async function onFavouriteClicked() {
   emit('onFavClicked', props.listing.id)
@@ -78,3 +86,9 @@ async function onEditClicked() {
 
 
 </script>
+
+<style scoped>
+.invisible{
+  visibility: hidden;
+}
+</style>

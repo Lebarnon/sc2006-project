@@ -26,6 +26,10 @@ export const usePricingStore = defineStore('pricing', {
     // }
   },
   actions: {
+    async isValueBuy(listingData) {
+      var estimatedPrice = await this.getEstimatedPrice(listingData)
+      return estimatedPrice > listingData.price
+    },
     // async setPrice(){
     //     this.estimatedPrice = querySnap.resalePrice
     // }
@@ -33,17 +37,7 @@ export const usePricingStore = defineStore('pricing', {
             listingData.floorSize = Math.floor(listingData.floorSize/10)
             listingData.floorSize = listingData.floorSize * 10
             const newremainingLease = Math.floor(((2023 + listingData.remainingLease) - 100 + 1)/10) *10
-
-
-            console.log("OK")
-            console.log(listingData.flatModel)
-            console.log(listingData.flatType)
-            console.log(listingData.town)
-            console.log(listingData.streetName)
-            console.log(listingData.floorSize)
-            console.log(listingData.storeyRange)
-            console.log(newremainingLease)
-
+            
             const q = await query(collection(db, 'grouped_data'), 
             where('flatModel', '==', String(listingData.flatModel)),
             where('flatType', '==', String(listingData.flatType)),
@@ -71,7 +65,9 @@ export const usePricingStore = defineStore('pricing', {
                 console.log(doc.id, " => ", doc.data());
                 a = doc.data().resalePrice
             });
+            console.log("Estimated Price", a)
             return Math.round(a);
+            
       },
     //   async getChartData(){
     //         var data = {

@@ -1,41 +1,48 @@
 <template>
-    <div class="text-left">
-        <p>
-        <h1>
-            {{ data.name }}
-        </h1>
-        </p>
-    </div>
-
+    <v-divider class="my-4"/>
     <Gallery :image-urls="data.imageUrls"/>
-
-    <v-row class="mt-1">
-        <v-col cols="8">
-            <v-card width="200" variant="tonal" color="#2F58CD">
-                <h2 class="text-center">
-                    Value Buy <v-icon icon="mdi:mdi-fire"></v-icon>
-                </h2>
-            </v-card>
-        </v-col>
-        
-        <v-col cols="auto">
-            <h2>
-                Favourite it!
-            </h2>
-        </v-col>
-        <v-col class="mt-n1">
-            <v-btn icon="mdi:mdi-heart" color="primary"></v-btn>
-        </v-col>
-        <v-col class="mt-n2" cols="auto">
-            <v-btn rounded="pill" size="x-large" color="primary">
-                <v-icon icon="mdi:mdi-phone"></v-icon>
-                9123 4567
-            </v-btn>
-        </v-col>
-    </v-row>
+    <v-divider/>
+    <div class="d-flex align-center mt-4">
+        <h1 v-if="!isValueBuy">
+            ${{ data.price }}
+        </h1>
+       <v-sheet :class="'py-1 px-3 bg-blue-darken-4 rounded ' + isValueBuy ? ' invisible': ''" >
+           <v-icon
+               color="red"
+               icon="whatshot"
+               size="small"
+           ></v-icon>
+           <span>
+             Value Buy
+           </span>
+       </v-sheet>
+       <v-spacer/>
+        <v-btn
+            class="mr-2"
+            v-if="isOwnListing"
+            append-icon="edit"
+            size="large"
+            variant = "text"
+            @click.prevent="onEditClicked"
+            >
+            Edit
+        </v-btn>
+        <v-btn
+            v-else
+            color="red-darken-4"
+            :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
+            size="large"
+            variant = "text"
+            @click.prevent="onFavouriteClicked"
+        />
+        <v-sheet class="py-1 px-3 bg-blue-darken-4 rounded">
+            <v-icon icon="phone"></v-icon>
+            9123 4567
+        </v-sheet>
+        </div>
 
     <p>
-    <h1>
+    <h1 v-if="isValueBuy">
         ${{ data.price }}
     </h1>
     </p>
@@ -173,10 +180,22 @@
 </template>
   
 <script setup>
-import { ref, onMounted, defineProps } from 'vue';
+import { ref, defineProps } from 'vue';
 import Gallery from './Gallery.vue';
 
-const isLoading = ref(true)
-const props = defineProps(["data"])
+const props = defineProps(["data", "isOwnListing", "isValueBuy", "isFavListing"])
+const emit = defineEmits(['onFavClicked', 'onEditClicked'])
 
+async function onFavouriteClicked() {
+  emit('onFavClicked', props.data.id)
+}
+async function onEditClicked() {
+  emit('onEditClicked', props.data.id)
+}
 </script>
+
+<style scoped>
+.invisible{
+  visibility: hidden;
+}
+</style>
