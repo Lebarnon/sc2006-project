@@ -1,6 +1,8 @@
 <template>
   <LoadingOverlay :is-loading="isLoading"/>
+ 
   <ListingGrid :listings="listingStore.listings" :is-loading="isLoading"/>
+
 </template>
 
 <script setup>
@@ -11,6 +13,7 @@ import { useListingStore } from "../stores/listing";
 
 const listingStore = useListingStore()
 const isLoading = ref(true)
+
 
 onBeforeMount(() => {
   listingStore.setListings().then(() => isLoading.value = false)
