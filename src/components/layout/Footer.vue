@@ -14,7 +14,7 @@
 
 <style scooped>
 .maxh{
-  max-height: 75px;
+  max-height: 50px;
 }
 
 </style>

@@ -1,11 +1,11 @@
 <template>
   <v-container class="d-flex justify-content-center fill-height">
-    <v-sheet class="mx-auto rounded" width="1000" height="600">
+    <v-sheet class="mx-auto rounded-lg" width="1000" height="600">
       <v-row>
         <v-col cols="auto">
           <v-img :src="LoginCoverImg" width="500" height="600" cover
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" 
-            class="coverImg d-flex text-left align-start text-white rounded">
+            class="coverImg d-flex text-left align-start text-white rounded-s-lg">
           </v-img>
         </v-col>
         <v-col align-self="center">
