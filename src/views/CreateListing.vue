@@ -151,6 +151,14 @@
                         Refresh
                     </v-btn>
                 </v-row>
+                <v-btn
+                        class="ml-auto"
+                        @click="handleChart()"
+                        size="large"
+                        :loading = isLoading
+                    >
+                        Chart
+                    </v-btn>
                 <v-row class="my-8">
                     <v-btn
                         class="ml-auto"
@@ -172,6 +180,7 @@ import { ref, computed, watch } from 'vue';
 import Gallery from '@/components/gallery.vue'
 import { useListingStore } from '../stores/listing';
 import { usePricingStore } from '../stores/pricing';
+import { useGraphStore } from '../stores/graphstore';
 
 const isLoading = ref(false)
 
@@ -212,6 +221,9 @@ async function handleSubmit(){
     await listingStore.createListing(listingData.value)
     isLoading.value = false
 }
+
+
+// TODO: get estimated price from database
 const estimatedPrice = ref(0)
 const pricingStore = usePricingStore()
 async function handleRefresh(){
@@ -220,7 +232,12 @@ async function handleRefresh(){
     isLoading.value = false
 }
 
-// TODO: get estimated price from database
+const chart = useGraphStore()
+async function handleChart(){
+    isLoading.value = true  
+    estimatedPrice.value = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
+    isLoading.value = false
+}
 
 // TODO: Add dropdown options
 const flatTypes = ['2 ROOM', '3 ROOM', '4 ROOM', '5 ROOM', 'EXECUTIVE', '1 ROOM',
