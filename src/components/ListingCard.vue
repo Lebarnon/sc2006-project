@@ -74,7 +74,7 @@ const emit = defineEmits(['onFavClicked', 'onEditClicked'])
 const pricingStore = usePricingStore()
 const isValueBuy = ref(false)
 onMounted(() => {
-  pricingStore.isValueBuy(props.listing).then((result) => isValueBuy.value = result)
+  // pricingStore.isValueBuy(props.listing).then((result) => isValueBuy.value = result)
 })
 
 async function onFavouriteClicked() {

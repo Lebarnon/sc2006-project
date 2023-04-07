@@ -1,10 +1,11 @@
 <template>
-  <v-container class="d-flex justify-content-center">
-    <v-sheet class="mx-auto" width="1200" height="750">
+  <v-container class="d-flex justify-content-center fill-height">
+    <v-sheet class="mx-auto rounded" width="1000" height="600">
       <v-row>
         <v-col cols="auto">
-          <v-img :src="LoginCoverImg" width="600" height="750" cover
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" class="coverImg d-flex text-left align-start text-white">
+          <v-img :src="LoginCoverImg" width="500" height="600" cover
+            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" 
+            class="coverImg d-flex text-left align-start text-white rounded">
           </v-img>
         </v-col>
         <v-col align-self="center">
@@ -37,13 +38,15 @@
                   :rules="[requiredRule]">
                   
               </v-text-field>
-              <p class="text-right text-subtitle-2 mt-n2">
-                <a href="/resetPassword_Email">Reset Password</a>
+              <router-link to="/resetPassword_Email" class="text-decoration-none">
+                  <p class="text-right text-subtitle-2 mt-n2 text-blue-darken-4">
+                    Reset Password
+                  </p>
+                </router-link>
+              <p class="text-right text-subtitle-2 mt-2 text-decoration-none">
+                <router-link to="/resetPassword_Password">To access confirming new password page (temp)</router-link>
               </p>
-              <p class="text-right text-subtitle-2 mt-2">
-                <a href="/resetPassword_Password">To access confirming new password page (temp)</a>
-              </p>
-              <v-btn color="primary" variant="outlined" type="submit" block class="mt-4" :loading="userStore.isLoading"
+              <v-btn color="blue-darken-4" type="submit" block class="mt-4 text-capitalized" :loading="userStore.isLoading"
                 :disabled="userStore.isLoading" @click="handleLogin()">
                 Login
               </v-btn>

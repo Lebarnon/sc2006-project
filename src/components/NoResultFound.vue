@@ -8,7 +8,7 @@
     ></v-img>
   </v-row>
   <v-row class="justify-center mt-6">
-    <p class="text-h4 "> Sorry! No Result Found :(</p>
+    <p class="text-h4 "> Sorry! No Results Found :(</p>
   </v-row>
   <v-row class="justify-center mt-6">
     <p class="text-subtitle">We couldn't find what you were looking for</p>
