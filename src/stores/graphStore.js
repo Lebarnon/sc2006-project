@@ -20,26 +20,39 @@ const graphStore = reactive({
 export const useGraphStore = defineStore('graph',{
     actions: {
       async fetchChartData(flatType, town){
-        graphStore.loading = true
+        this.loading = true
         try {
-          print('hihihii')
-          const response = await axios.get('https://data.gov.sg/api/action/datastore_search?resource_id=f1765b54-a209-4718-8d38-a39237f502b3&q=3ROOM')
-          const ResalePrice = response.data.result.records.map(record => record.resalePrice)
-          const labels = response.data.result.records.map(record => record.timestamp)
-          graphStore.chartData = {
-            labels,
-            datasets: [
-              {
-                label: 'Price History',
-                backgroundColor: '#f87979',
-                data: ResalePrice
-              }
-            ]
-          }
-          graphStore.loading = false
+          console.log('entered')
+          const response = await axios({
+            method: "get",
+            url: 'https://data.gov.sg/api/action/datastore_search?resource_id=f1765b54-a209-4718-8d38-a39237f502b3',
+            params:{
+              q: `{
+                "flat_type" : "3 ROOM",
+                "town" : "YISHUN"
+              }`,
+              limit: '10'
+            }
+          })
+          console.log(response.status)
+          console.log(response.data.help)
+          console.log(response.data)
+          // const ResalePrice = response.data.result.records.map(record => record.resalePrice)
+          // const labels = response.data.result.records.map(record => record.timestamp)
+          // graphStore.chartData = {
+          //   labels,
+          //   datasets: [
+          //     {
+          //       label: 'Price History',
+          //       backgroundColor: '#f87979',
+          //       data: ResalePrice
+          //     }
+          //   ]
+          // }
+          this.loading = false
         } catch (error) {
-          graphStore.loading = false
-          graphStore.error = error.message
+          this.loading = false
+          this.error = error.message
         }
       
     
@@ -54,4 +67,3 @@ export const useGraphStore = defineStore('graph',{
 }
 
 )
-
