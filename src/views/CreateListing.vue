@@ -2,6 +2,8 @@
     <v-container>
     <v-row>
         <v-col
+        ></v-col>
+        <v-col
             cols="6"
         >
             <Gallery :imageUrls = "imageUrls"/>
@@ -149,6 +151,7 @@
                 />
                 <!-- TODO: add help icon and functionality -->
                 <v-row>
+                    <graph-component></graph-component>
                     <p>Estimated Value: ${{ estimatedPrice }} </p>
                     <v-tooltip activator="parent" location="start">
                         <template v-slot:activator="{on}">
@@ -168,6 +171,14 @@
                     </v-btn>
                 </v-row>
                 
+                <v-btn
+                        class="ml-auto"
+                        @click="handleChart()"
+                        size="large"
+                        :loading = isLoading
+                    >
+                        Chart
+                </v-btn>
                 <v-row class="my-8">
                     <span v-if="hasError">{{ error }}</span>
                     <v-btn
@@ -178,6 +189,7 @@
                     >
                         submit
                     </v-btn>
+                    <PricingGraph :data="chartData"/>
                 </v-row>
                 <!-- <v-row class="my-8">
                     <v-btn
@@ -197,9 +209,12 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue';
-import Gallery from '@/components/gallery.vue'
+import Gallery from '@/components/Gallery.vue'
 import { useListingStore } from '../stores/listing';
 import { usePricingStore } from '../stores/pricing';
+import { useGraphStore } from '../stores/graphStore';
+import PricingGraph from "@/components/PricingGraph.vue"
+
 
 const isLoading = ref(false)
 
@@ -281,6 +296,9 @@ async function handleGenerateData(){
     // console.log(randomListingData)
     isLoading.value = false
 }
+
+
+// TODO: get estimated price from database
 const estimatedPrice = ref(0)
 const pricingStore = usePricingStore()
 async function handleRefresh(){
@@ -289,13 +307,19 @@ async function handleRefresh(){
     isLoading.value = false
 }
 
-
-
 const hasError = computed(() => {
     return error.value.length >0;
 });
 
 // TODO: get estimated price from database
+const chartData = ref(null)
+const chart = useGraphStore()
+//need some help with this function
+async function handleChart(){
+    isLoading.value = true  
+    chartData.value = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
+    isLoading.value = false
+}
 
 // TODO: Add dropdown options
 const flatTypes = ['2 ROOM', '3 ROOM', '4 ROOM', '5 ROOM', 'EXECUTIVE', '1 ROOM',

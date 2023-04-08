@@ -47,15 +47,6 @@ export const usePricingStore = defineStore('pricing', {
             where('leaseCommenceDateBin', '==', Number(newremainingLease)),
             );
 
-            // const q = await query(collection(db, 'grouped_data'), 
-            // where('flatModel', '==', "Premium Apartment"),
-            // where('flatType', '==', "4 ROOM"),
-            // where('town', '==', "WOODLANDS"),
-            // where('streetName', '==', "WOODLANDS DR 50"),
-            // where('floorAreaSqmBin', '==', 90),
-            // where('storeyRange', '==', "04 TO 06"),
-            // where('leaseCommenceDateBin', '==', 2010),
-            // );
             
             const querySnapshot = await getDocs(q);
             var a=0;
@@ -68,20 +59,5 @@ export const usePricingStore = defineStore('pricing', {
             return Math.round(a);
             
       },
-    //   async getChartData(){
-    //         var data = {
-    //             resource_id: 'f1765b54-a209-4718-8d38-a39237f502b3', // the resource id
-    //             limit: 5, // get 5 results
-    //             q: 'jones' // query for 'jones'
-    //         };
-    //         $.ajax({
-    //             url: 'https://data.gov.sg/api/action/datastore_search',
-    //             data: data,
-    //             dataType: 'jsonp',
-    //             success: function(data) {
-    //             alert('Total results found: ' + data.result.total)
-    //             }
-    //         });
-    //   }
   }
 })
