@@ -1,8 +1,5 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
-
-
 
 export const useGraphStore = defineStore('graph',{
     actions: {
@@ -22,9 +19,6 @@ export const useGraphStore = defineStore('graph',{
               limit: '10'
             }
           })
-          console.log(response.status)
-          console.log(response.data.help)
-          console.log(response.data)
           resalePrice = response.data.result.records.map(record => record.resale_price)
           labels = response.data.result.records.map(record => record.lease_commence_date)
 
@@ -34,7 +28,6 @@ export const useGraphStore = defineStore('graph',{
           this.error = error.message
         }
       
-    
       return ({
         resalePrice, labels
       })

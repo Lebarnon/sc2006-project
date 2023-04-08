@@ -1,63 +1,62 @@
 <template>
-  <div>
-    <h2>Graph Component</h2>
-    <canvas ref="canvas"></canvas>
-  </div>
+  <v-container>
+    <Line :data="chartData" :options="options"/>
+  </v-container>
 </template>
 
-<script>
-import Chart from 'chart.js/auto';
+<script setup>
+import { Line } from 'vue-chartjs'
+import { computed } from 'vue';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js'
 
-export default {
-  props: {
-    chartData: {
-      type: Object,
-      default: null
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
+const props = defineProps(["data"])
+
+const options = {
+  responsive: true,
+  maintainAspectRatio: false
+}
+
+const chartData = computed(() => {
+  if(props.data){
+    return {
+      labels: props.data.labels,
+      datasets: [
+        {
+          label: 'Price',
+          backgroundColor: '#f87979',
+          data: props.data.resalePrice
+        }
+      ]
     }
-  },
-  mounted() {
-    this.renderChart();
-  },
-  methods: {
-    renderChart() {
-      const canvas = this.$refs.canvas;
-      const chartData = this.chartData;
-
-      if (!canvas || !chartData) {
-        return;
+  }
+  return {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Data One',
+        backgroundColor: '#f87979',
+        data: [40, 39, 10, 40, 39, 80, 40]
       }
+    ]
+  }
+})
 
-      const chart = new Chart(canvas, {
-        type: 'line',
-        data: {
-          labels: chartData.labels,
-          datasets: [
-            {
-              label: chartData.label,
-              data: chartData.data,
-              borderColor: chartData.borderColor,
-              backgroundColor: chartData.backgroundColor,
-              fill: chartData.fill,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            xAxes: [
-              {
-                type: 'time',
-                time: {
-                  unit: 'month',
-                  tooltipFormat: 'll',
-                },
-              },
-            ],
-          },
-        },
-      });
-    },
-  },
-};
 </script>

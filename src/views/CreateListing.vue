@@ -171,8 +171,7 @@
                     >
                         submit
                     </v-btn>
-                <!-- TODO: I put the graph here to test first but i need help with the function below -->
-                    <pricing-graph></pricing-graph>
+                    <PricingGraph :data="chartData"/>
                 </v-row>
             </v-form>
         </v-col>
@@ -182,10 +181,10 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue';
-import Gallery from '@/components/gallery.vue'
+import Gallery from '@/components/Gallery.vue'
 import { useListingStore } from '../stores/listing';
 import { usePricingStore } from '../stores/pricing';
-import { useGraphStore } from '../stores/graphstore';
+import { useGraphStore } from '../stores/graphStore';
 import PricingGraph from "@/components/PricingGraph.vue"
 
 
@@ -244,8 +243,7 @@ const chart = useGraphStore()
 //need some help with this function
 async function handleChart(){
     isLoading.value = true  
-    chartData = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
-    
+    chartData.value = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
     isLoading.value = false
 }
 
