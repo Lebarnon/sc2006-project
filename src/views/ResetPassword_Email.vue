@@ -1,10 +1,10 @@
 <template>
     <v-container class="d-flex justify-content-center">
-        <v-sheet class="mx-auto" width="1000" height="600">
+        <v-sheet class="mx-auto rounded-lg" width="1000" height="600">
             <v-row>
                 <v-col cols="auto">
                     <v-img :src="LoginCoverImg" width="500" height="600" cover
-                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" class="coverImg d-flex text-left align-start text-white">
+                        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" class="coverImg d-flex text-left align-start text-white rounded-s-lg">
                     </v-img>
                 </v-col>
                 <v-col align-self="center" class="d-flex flex-column justify-space-between">
@@ -18,9 +18,14 @@
                         <p class="text-center">
                             Please key in the email that is associated with your account
                         </p>
-                        <v-form class="mt-16" @submit.prevent="handleResetPassword" :disabled="isLoading">
-                            <v-responsive class="mx-auto" max-width="344">
-                                <v-text-field v-model="email" variant="outlined" label="Email"></v-text-field>
+                        <v-form class="mt-14" @submit.prevent="handleResetPassword" :disabled="isLoading">
+                            <v-responsive class="mx-auto pt-2" max-width="344">
+                                <v-text-field 
+                                    v-model="email" 
+                                    variant="outlined" 
+                                    label="Email"
+                                    :rules="[emailRule]"
+                                    />
                                 <v-btn color="blue-darken-4" type="submit" block>
                                     Send Email
                                 </v-btn>
@@ -49,10 +54,12 @@ import LoginCoverImg from "../assets/login-cover.png"
 const email = ref("")
 const userStore = useUserStore()
 const isLoading = ref(false)
+const characterToCheck = '@';
+const emailRule = (v) => (v && v.indexOf(characterToCheck) !== -1) || 'Please enter a valid email address'
 
 function handleResetPassword(){
     isLoading.value = true
-    useUserStore
+    userStore.resetPassword(email.value).then(() => isLoading.value=false)
 }
 
 </script>

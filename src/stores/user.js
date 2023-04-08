@@ -5,7 +5,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword ,
-  signOut
+  signOut,
+  sendPasswordResetEmail 
 } from "firebase/auth";
 import { ref } from 'firebase/storage';
 import router from '../router';
@@ -63,6 +64,8 @@ export const useUserStore = defineStore('user', {
     },
     async setUser(user) {         
       if (user) {
+        useSnackbarStore().display("Signed in", "green-darken-2")
+
         console.log('User Store: user signed in...')
         // get user info from firestore
         const docRef = doc(db, "users", user.uid);
@@ -80,11 +83,11 @@ export const useUserStore = defineStore('user', {
       }
     },
     async signInWithEmail (email, password) {
-      signInWithEmailAndPassword(auth, email, password).then(() => 
-      router.push("/"))
+      signInWithEmailAndPassword(auth, email, password).then(() => {
+        router.push("/")
+      })
       .catch((error) => {
-        console.log(error.code);
-        console.log(error.message);
+        useSnackbarStore().display("Login Failed: " + error.code, "red-darken-2")
         return error.code
       })
       return true
@@ -104,13 +107,26 @@ export const useUserStore = defineStore('user', {
       return true
 
     },
-    async signOut () {
+    async signOut() {
       try {
         await auth.signOut()
         router.push("/")
       } catch (err) {
         console.error(err)
       }
+    },
+    async resetPassword(email){
+      if(email.trim() == ""){
+        useSnackbarStore().display("Please enter an email!", "red-darken-2")
+        return
+      }
+      sendPasswordResetEmail(auth, email)
+      .then(() => {
+        useSnackbarStore().display("Password reset email sent!", "green-darken-2")
+      })
+      .catch((error) => {
+        useSnackbarStore().display(error.code, "red-darken-2")
+      });
     },
     async toggleFavListing(listingId){
       if(!this.isAuthenticated) {

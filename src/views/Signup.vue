@@ -174,12 +174,9 @@ const show2 = ref(false)
 //TODO change to signup
 async function handleLogin() {
   if (isEmpty.value){
-    sbStore.display('Please fill up all fields')
+    sbStore.display('Please fill up all fields', 'red-darken-2')
   } else {
-    userStore.signUp(userInfo.value).then(() => {
-      sbStore.display('Sign up Successful!')
-    })
-
+    userStore.signUp(userInfo.value)
   }
 }
 

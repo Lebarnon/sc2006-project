@@ -50,7 +50,6 @@
                 :disabled="userStore.isLoading" @click="handleLogin()">
                 Login
               </v-btn>
-              <span v-if="hasError">{{ error }}</span>
             </v-responsive>
           </v-form>
         </v-col>
@@ -64,18 +63,19 @@ import { ref, computed } from 'vue';
 import { useUserStore } from '@/stores/user.js'
 import HomelyHubIconBlue from '@/assets/homelyHubIconBlue.png'
 import LoginCoverImg from "../assets/login-cover.png"
+import { useSnackbarStore } from '../stores/snackbar';
 
 const email = ref("")
 const password = ref("")
 
+const sbStore = useSnackbarStore()
 const userStore = useUserStore()
 
 async function handleLogin() {
   if(isEmpty.value){
-    error.value = 'Please fill up all fields'
+    sbStore.display("Missing Email or Password!", "red-darken-2")
   } else {
     await userStore.signInWithEmail(email.value, password.value)
-    // TODO: handle sign in error
   }
 }
 
