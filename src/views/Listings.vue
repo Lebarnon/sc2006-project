@@ -1,6 +1,6 @@
 <template>
   <LoadingOverlay v-if="listingStore.isLoading" :is-loading="listingStore.isLoading"/>
-  <ListingGrid v-else :listings="listingStore.listings"/>
+  <ListingGrid v-else :listings-data="listingStore.listings"/>
 </template>
 
 <script setup>

@@ -16,7 +16,7 @@ export const useGraphStore = defineStore('graph',{
                 "flat_type" : "${flatType}",
                 "town" : "${town}"
               }`,
-              limit: '10'
+              limit: '100'
             }
           })
           resalePrice = response.data.result.records.map(record => record.resale_price)

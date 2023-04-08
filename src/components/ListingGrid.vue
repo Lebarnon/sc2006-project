@@ -1,6 +1,5 @@
 <template>
-  <NoResultFound v-if="!listings || listings.length == 0" />
-  <v-container v-else class="justify-center">
+  <v-container class="justify-center">
     <v-row class="justify-center">
       <v-col cols="6">
         <v-text-field
@@ -29,7 +28,8 @@
         ></v-select>
       </v-col>
     </v-row>
-    <v-row class="mt-n6">
+    <NoResultFound v-if="!listings || listings.length == 0" />
+    <v-row v-else class="mt-n6">
       <v-col 
         v-for="(listing, index) in listings"
         v-show="index >= startingInd && index < endingInd"
@@ -62,7 +62,7 @@ import { ref, computed} from 'vue'
 import { useUserStore } from "../stores/user";
 import router from "../router";
 import { useListingStore } from "../stores/listing";
-const props = defineProps([""])
+const props = defineProps(["listingsData"])
 const page = ref(1)
 const numOfListingsPerPage = 9
 const userStore = useUserStore()
@@ -71,7 +71,7 @@ const searchValue = ref("")
 const filterValue = ref("Default")
 const filters = ['Default','Street Name', 'Price']
 
-const listings = computed(() => listingStore.filterListings(searchValue.value, filterValue.value))
+const listings = computed(() => listingStore.filterListings(props.listingsData, searchValue.value, filterValue.value))
 const listingLength = computed(() => listings.value.length)
 
 const startingInd = computed(() => {

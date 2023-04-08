@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="listingStore.isLoading == false">
     <AppBar :isLanding="isLanding" :opacity="opacity"/>
     <v-main class="bg-grey-lighten-3">
       <RouterView/>

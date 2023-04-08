@@ -1,6 +1,6 @@
 <template>
   <LoadingOverlay :is-loading="isLoading"/>
-  <ListingGrid :listings="listings" :is-loading="isLoading"/>
+  <ListingGrid :listings-data="listings" :is-loading="isLoading"/>
 </template>
 
 <script setup>

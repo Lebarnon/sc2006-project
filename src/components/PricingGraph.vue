@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <Line :data="chartData" :options="options"/>
+    <Line :data="chartData" :options="options" :style="styles"/>
   </v-container>
 </template>
 
@@ -34,6 +34,9 @@ const options = {
   maintainAspectRatio: false
 }
 
+const styles = {
+  height: '500px'
+}
 const chartData = computed(() => {
   if(props.data){
     return {
@@ -48,12 +51,12 @@ const chartData = computed(() => {
     }
   }
   return {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: [],
     datasets: [
       {
-        label: 'Data One',
+        label: 'Price',
         backgroundColor: '#f87979',
-        data: [40, 39, 10, 40, 39, 80, 40]
+        data: []
       }
     ]
   }

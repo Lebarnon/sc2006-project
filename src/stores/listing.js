@@ -20,24 +20,8 @@ export const useListingStore = defineStore('listing', {
   getters: {
     getListingById: (state) => {
       return async (listingId) => {
-        // check if listing exist in state first
-        var listing = state.listings.find(e => e.id == listingId)
-        if(listing) return listing
-        // else get it from db
-        const docRef = doc(db, "listings", listingId);
-        const snapshot = await getDoc(docRef);
-  
-        if (snapshot.exists()) {
-          listing = {id: snapshot.id, ...snapshot.data()}
-          var estimatedPrice = await usePricingStore().getEstimatedPrice(listing)
-          listing = {...listing, estimatedPrice: estimatedPrice}
-          state.listings.push(listing)
-          return listing
-        } else {
-          // snapshot.data() will be undefined in this case
-          console.log("No document with id:", id);
-          return null
-        }
+        var listing = state.listings.find(element => element.id == listingId)
+        return listing
       }
     },
     getListingsByTown: (state) => {
@@ -162,13 +146,13 @@ export const useListingStore = defineStore('listing', {
       }
       return searchResults
     },
-    filterListings(searchKey = null, filter = null){
+    filterListings(listingsData, searchKey = null, filter = null){
       if(searchKey == "" && !filter){
-        return this.listings
+        return listingsData
       }
       let filteredListings;
       if(searchKey && searchKey != ""){
-        filteredListings = this.listings.filter(listing => {
+        filteredListings = listingsData.filter(listing => {
           //converts properties of each listing object to lowercase to compare with search
           const searchTerm = searchKey.toLowerCase();
           const name = listing.name.toLowerCase();
@@ -188,7 +172,7 @@ export const useListingStore = defineStore('listing', {
           );
         });
       }else{
-        filteredListings = this.listings
+        filteredListings = listingsData
       }
     
       if(filter =="Default"){
