@@ -15,10 +15,10 @@
                         <h1 class="text-center">
                             Reset Password
                         </h1>
-                        <p class="text-center">
-                            Please key in the email that is associated with your account
+                        <p class="text-center mt-2">
+                            Please key in the email that is  <br/> associated with your account
                         </p>
-                        <v-form class="mt-14" @submit.prevent="handleResetPassword" :disabled="isLoading">
+                        <v-form class="mt-12" @submit.prevent="handleResetPassword" :disabled="isLoading">
                             <v-responsive class="mx-auto pt-2" max-width="344">
                                 <v-text-field 
                                     v-model="email" 

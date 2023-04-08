@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container color="bg-white">
     <v-row justify="center">
       <v-col cols="9" v-if="listing != null">
         <DetailCard 

@@ -43,10 +43,8 @@
                     Reset Password
                   </p>
                 </router-link>
-              <p class="text-right text-subtitle-2 mt-2 text-decoration-none">
-                <router-link to="/resetPassword_Password">To access confirming new password page (temp)</router-link>
-              </p>
-              <v-btn color="blue-darken-4" type="submit" block class="mt-4 text-capitalized" :loading="userStore.isLoading"
+             
+              <v-btn color="blue-darken-4" type="submit" block class="mt-8 text-capitalized" :loading="userStore.isLoading"
                 :disabled="userStore.isLoading" @click="handleLogin()">
                 Login
               </v-btn>

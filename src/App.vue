@@ -1,14 +1,11 @@
 <template>
-  <v-app v-if="!userStore.isloading">
+  <v-app>
     <AppBar :isLanding="isLanding" :opacity="opacity"/>
     <v-main class="bg-grey-lighten-3">
       <RouterView/>
       <Snackbar />
     </v-main>
     <Footer/>
-  </v-app>
-  <v-app v-else>
-    <LoadingOverlay />
   </v-app>
 </template>
 
@@ -21,8 +18,9 @@ import Footer from "./components/layout/Footer.vue";
 import Snackbar from "./components/Snackbar.vue"
 import { useRoute } from 'vue-router';
 import {useUserStore} from './stores/user.js'
+import { useListingStore } from './stores/listing';
 
-const userStore = useUserStore()
+const listingStore = useListingStore()
 const route = useRoute()
 const isLanding = ref(false)
 const opacity = ref("00")
@@ -31,14 +29,13 @@ watch(() => route.path, (newpath, _) => {
   isLanding.value = route.path == '/'
 })
 
-onBeforeMount(() => {
-  // userStore.setUser()
-})
 onMounted(() => {
+  listingStore.setListings()
   isLanding.value = route.path == '/'
   window.addEventListener("scroll", onScroll)
 })
 onBeforeUnmount(() => {
+  
   window.removeEventListener("scroll", onScroll)
 })
 

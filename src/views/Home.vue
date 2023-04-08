@@ -73,42 +73,7 @@
   <div class="bg-grey-lighten-2 py-8 text-center">
     <v-container>
       <h1 class="mb-8">Recommended Properties</h1>
-      <v-sheet
-        class="mx-auto"
-        elevation="8"
-        max-width="2000"
-      >
-        <v-slide-group
-          class="pa-4"
-          center-active
-          show-arrows
-        >
-          <v-slide-group-item
-            v-for="n in 15"
-            :key="n"
-            v-slot="{ isSelected, toggle }"
-          >
-            <v-card
-              :color="isSelected ? 'primary' : 'grey-lighten-1'"
-              class="ma-4"
-              height="200"
-              width="120"
-              @click="toggle"
-            >
-              <div class="d-flex fill-height align-center justify-center">
-                <v-scale-transition>
-                  <v-icon
-                    v-if="isSelected"
-                    color="white"
-                    size="48"
-                    icon="mdi-close-circle-outline"
-                  ></v-icon>
-                </v-scale-transition>
-              </div>
-            </v-card>
-          </v-slide-group-item>
-        </v-slide-group>
-      </v-sheet>
+      <ListingCarousell :listings="listingStore.listings"/>
   
       <v-row class="justify-center my-8">
         <v-btn
@@ -128,12 +93,17 @@
 import LandingCoverImg from "../assets/landing-cover.jpg"
 import CategoryGrid from "@/components/CategoryGrid.vue"
 import { useSnackbarStore } from "../stores/snackbar";
-import { ref } from 'vue'
+import { useListingStore } from "../stores/listing";
+import { onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
+import ListingCarousell from "../components/ListingCarousell.vue";
 
 const searchValue = ref("")
 const sbStore = useSnackbarStore()
+const listingStore = useListingStore()
 const router = useRouter()
+
+onMounted(() => listingStore.setListings())
 
 function handleSearch(){
   if(searchValue.value.trim().length == 0){
@@ -144,8 +114,6 @@ function handleSearch(){
 }
 
 </script>
-
-
 
 <style scoped>
 .coverImg{

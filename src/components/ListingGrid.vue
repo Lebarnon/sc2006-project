@@ -31,8 +31,9 @@
     </v-row>
     <v-row class="mt-n6">
       <v-col 
-        v-for="listing in filterFunction(listings).slice(startingInd, endingInd)"
-        :key="listing.id"
+        v-for="(listing, index) in listings"
+        v-show="index >= startingInd && index < endingInd"
+        :key="index"
         cols="4"
       >
         <ListingCard  
@@ -60,14 +61,18 @@ import ListingCard from "@/components/ListingCard.vue"
 import { ref, computed} from 'vue'
 import { useUserStore } from "../stores/user";
 import router from "../router";
-const props = defineProps(["listings"])
+import { useListingStore } from "../stores/listing";
+const props = defineProps([""])
 const page = ref(1)
 const numOfListingsPerPage = 9
 const userStore = useUserStore()
+const listingStore = useListingStore()
 const searchValue = ref("")
 const filterValue = ref("Default")
-const listingLength = ref(props.listings.length)
 const filters = ['Default','Street Name', 'Price']
+
+const listings = computed(() => listingStore.filterListings(searchValue.value, filterValue.value))
+const listingLength = computed(() => listings.value.length)
 
 const startingInd = computed(() => {
   return (page.value-1) * numOfListingsPerPage
@@ -83,39 +88,6 @@ const endingInd = computed(() => {
 const numOfPages = computed(() => {
   return Math.ceil(listingLength.value / 9)
 })
-
-function filterFunction(listings){
-  const filteredListings = listings.filter(listing => {
-    //converts properties of each listing object to lowercase to compare with search
-    const searchTerm = searchValue.value.toLowerCase();
-    const name = listing.name.toLowerCase();
-    const flatType = listing.flatType.toLowerCase();
-    const flatModel = listing.flatModel.toLowerCase();
-    const town = listing.town.toLowerCase();
-    const streetName = listing.streetName.toLowerCase();
-    const description = listing.description.toLowerCase();
-    return ( 
-      //returns listings if any one of the fields contain the search criteria
-      name.indexOf(searchTerm) !== -1 ||
-      flatType.indexOf(searchTerm) !== -1 ||
-      flatModel.indexOf(searchTerm) !== -1 ||
-      town.indexOf(searchTerm) !== -1 ||
-      streetName.indexOf(searchTerm) !== -1 ||
-      description.indexOf(searchTerm) !== -1
-    );
-  });
-
-  if(filterValue.value =="Default"){
-    filteredListings.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-  }else if(filterValue.value == "Street Name"){
-    filteredListings.sort((a,b) => (a.streetName > b.streetName) ? 1 : ((b.streetName > a.streetName) ? -1 : 0))
-  }else if(filterValue.value == "Price"){
-    filteredListings.sort((a,b) => a.price - b.price)
-  }
-  console.log(filteredListings.length)
-  listingLength.value = filteredListings.length
-  return [...filteredListings];
-} 
 
 function handleFavClicked(listingId){
   userStore.toggleFavListing(listingId)

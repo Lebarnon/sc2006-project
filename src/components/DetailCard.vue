@@ -1,4 +1,7 @@
 <template>
+    <h1>
+        {{ data.name }}
+    </h1>
     <v-divider class="my-4"/>
     <Gallery :image-urls="data.imageUrls"/>
     <v-divider/>

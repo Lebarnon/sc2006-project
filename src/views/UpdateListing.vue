@@ -175,7 +175,7 @@
                         size="large"
                         :loading = isLoading
                     >
-                        submit
+                        Update
                     </v-btn>
                 </v-row>
             </v-form>

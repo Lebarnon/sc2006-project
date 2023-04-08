@@ -9,7 +9,6 @@ import Detail from "../views/Detail.vue"
 import Favourites from "../views/Favourites.vue"
 import Search from "../views/Search.vue"
 import ResetPassword_Email from "../views/ResetPassword_Email.vue"
-import ResetPassword_Password from "../views/ResetPassword_Password.vue"
 import UpdateListing from "../views/UpdateListing.vue"
 import MyListings from "../views/MyListings.vue"
 import { useUserStore } from '../stores/user'
@@ -70,11 +69,6 @@ const router = createRouter({
       path: "/resetPassword_Email",
       name: "resetPassword_Email",
       component: ResetPassword_Email,
-    },
-    {
-      path: "/resetPassword_Password",
-      name: "resetPassword_Password",
-      component: ResetPassword_Password,
     },
     {
       path: "/updatelisting/:id",

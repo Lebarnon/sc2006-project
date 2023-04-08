@@ -64,8 +64,6 @@ export const useUserStore = defineStore('user', {
     },
     async setUser(user) {         
       if (user) {
-        useSnackbarStore().display("Signed in", "green-darken-2")
-
         console.log('User Store: user signed in...')
         // get user info from firestore
         const docRef = doc(db, "users", user.uid);
@@ -84,6 +82,7 @@ export const useUserStore = defineStore('user', {
     },
     async signInWithEmail (email, password) {
       signInWithEmailAndPassword(auth, email, password).then(() => {
+        useSnackbarStore().display("Successfully Signed in!", "green-darken-2")
         router.push("/")
       })
       .catch((error) => {

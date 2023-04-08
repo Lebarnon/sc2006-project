@@ -6,10 +6,10 @@
             </div>
             <v-card-title>
                 <p class="text-center">
-                    Estimated Value
+                    Estimated Price
                 </p>
                 <p class="text-center">
-                    ${{ estimatedValue }}
+                    ${{ listing.estimatedPrice }}
                 </p>
             </v-card-title>
         </v-card-item>

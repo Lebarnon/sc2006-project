@@ -26,9 +26,8 @@ export const usePricingStore = defineStore('pricing', {
     // }
   },
   actions: {
-    async isValueBuy(listingData) {
-      var estimatedPrice = await this.getEstimatedPrice(listingData)
-      return estimatedPrice > listingData.price
+    isValueBuy(listingData) {
+      return listingData.estimatedPrice > listingData.price
     },
     // async setPrice(){
     //     this.estimatedPrice = querySnap.resalePrice

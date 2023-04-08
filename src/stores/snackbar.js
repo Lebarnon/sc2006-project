@@ -15,7 +15,7 @@ export const useSnackbarStore = defineStore("snackbar", {
       this.color = color
       setTimeout(() => {
         this.show = false
-      }, 1500);
+      }, 2000);
     }
   }
 })

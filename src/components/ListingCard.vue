@@ -66,16 +66,8 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
-import { usePricingStore } from '../stores/pricing';
-
-const props = defineProps(['listing', 'isFavListing', 'isOwnListing'])
+const props = defineProps(['listing', 'isFavListing', 'isOwnListing', 'isValueBuy'])
 const emit = defineEmits(['onFavClicked', 'onEditClicked'])
-const pricingStore = usePricingStore()
-const isValueBuy = ref(false)
-onMounted(() => {
-  // pricingStore.isValueBuy(props.listing).then((result) => isValueBuy.value = result)
-})
 
 async function onFavouriteClicked() {
   emit('onFavClicked', props.listing.id)

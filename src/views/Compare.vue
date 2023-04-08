@@ -43,7 +43,10 @@
         cols="3"
         :key = "i"
       >
-      <CompareDetailCard :listing="selectedListings[i]" :is-best-value="bestValueIndex == i" :estimated-value="estimatedValues[i]"/>
+      <CompareDetailCard 
+        :listing="selectedListings[i]" 
+        :is-best-value="bestValueIndex == i" 
+        />
         </v-col>
       </v-row>
   </v-container>
@@ -60,7 +63,6 @@ import { useUserStore } from "../stores/user";
 import { usePricingStore } from "../stores/pricing"
 
 const userStore = useUserStore()
-const pricingStore = usePricingStore()
 const isLoading = ref(true)
 const numOfCompareCards = ref(3)
 
@@ -69,23 +71,19 @@ const selectedListings = ref([
   null,
   null
 ])
-const estimatedValues = ref([
-  0,
-  0,
-  0
-])
+
 const bestValueIndex = ref(0)
 watch(() => selectedListings.value, (newSelected, oldSelected)=> {
   var curBestI = 0
+  var largestPercentageDiff = -1
+  
   for(let i=0; i<newSelected.length; i++){
-    if(newSelected[i] == null) continue
-    if(newSelected[i] && newSelected[curBestI] == null){
+    var curListing = newSelected[i]
+    if(curListing == null) continue
+    var curPercentageDiff = Math.round((curListing.price - curListing.estimatedPrice) / curListing.price * 100)
+    if(curPercentageDiff > largestPercentageDiff){
       curBestI = i
-      continue
-    }
-    // compare the difference in estimated price and actual price
-    if(newSelected[i].price > newSelected[curBestI].price){
-      curBestI = i
+      largestPercentageDiff = curPercentageDiff
     }
   }
   bestValueIndex.value = curBestI
@@ -110,7 +108,7 @@ function handleFavouriteSelected(name, index) {
   // e is the listing name
   // index is which card is this selection for
   selectedListings.value[index] = favListings.value.find(e => e.name == name)
-  pricingStore.getEstimatedPrice(selectedListings.value[index]).then(result => estimatedValues.value[index] = result)
+  
 }
 const data = ref({
   showListing: false
