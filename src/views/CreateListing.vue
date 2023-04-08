@@ -234,6 +234,7 @@ const estimatedPrice = ref(0)
 const pricingStore = usePricingStore()
 async function handleRefresh(){
     isLoading.value = true  
+    console.log(listingData.value)
     estimatedPrice.value = await pricingStore.getEstimatedPrice(listingData.value)
     isLoading.value = false
 }

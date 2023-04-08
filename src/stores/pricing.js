@@ -34,35 +34,61 @@ export const usePricingStore = defineStore('pricing', {
             listingData.floorSize = listingData.floorSize * 10
             const newremainingLease = Math.floor(((2023 + listingData.remainingLease) - 100 + 1)/10) *10
 
-
-            console.log("OK")
-            console.log(listingData.flatModel)
-            console.log(listingData.flatType)
-            console.log(listingData.town)
-            console.log(listingData.streetName)
-            console.log(listingData.floorSize)
-            console.log(listingData.storeyRange)
-            console.log(newremainingLease)
-
-            const q = await query(collection(db, 'grouped_data'), 
-            where('flatModel', '==', String(listingData.flatModel)),
-            where('flatType', '==', String(listingData.flatType)),
-            where('town', '==', String(listingData.town)),
-            where('streetName', '==', String(listingData.streetName)),
-            where('floorAreaSqmBin', '==', Number(listingData.floorSize)),
-            where('storeyRange', '==', String(listingData.storeyRange)),
-            where('leaseCommenceDateBin', '==', Number(newremainingLease)),
+            const q1 = await query(collection(db, 'remaining_lease'), 
+            where('coefficient', '==', String(listingData.remainingLease+ ' years')),
             );
 
-            
-            const querySnapshot = await getDocs(q);
-            var a=0;
-            querySnapshot.forEach((doc) => {
+            const querySnapshot1 = await getDocs(q1);
+            var lease=0;
+            querySnapshot1.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
                 console.log(doc.id, " => ", doc.data());
-                a = doc.data().resalePrice
+                lease = doc.data().value
             });
-            return Math.round(a);
+
+
+            const q2 = await query(collection(db, 'storeyRange'), 
+            where('coefficient', '==', String(listingData.storeyRange)),
+            );
+            const querySnapshot2 = await getDocs(q2);
+            var storey=0;
+            querySnapshot2.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                storey = doc.data().value
+            });
+
+            const q3 = await query(collection(db, 'streetNames'), 
+            where('coefficient', '==', String(listingData.streetName).toUpperCase()),
+            );
+
+            const querySnapshot3 = await getDocs(q3);
+            var street=0;
+            querySnapshot3.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                street = doc.data().value
+            });
+
+
+            const q4 = await query(collection(db, 'towns'), 
+            where('coefficient', '==', String(listingData.town).toUpperCase()),
+            );
+
+            const querySnapshot4 = await getDocs(q4);
+            var town=0;
+            querySnapshot4.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                town = doc.data().value
+            });
+
+
+
+            var estimated = lease + town + street + storey
+            return Math.round(estimated);
+            
       },
+
   }
 })
