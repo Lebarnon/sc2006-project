@@ -2,6 +2,8 @@
     <v-container>
     <v-row>
         <v-col
+        ></v-col>
+        <v-col
             cols="6"
         >
             <Gallery :imageUrls = "imageUrls"/>
@@ -133,6 +135,7 @@
                 />
                 <!-- TODO: add help icon and functionality -->
                 <v-row>
+                    <graph-component></graph-component>
                     <p>Estimated Value: ${{ estimatedPrice }} </p>
                     <v-tooltip activator="parent" location="start">
                         <template v-slot:activator="{on}">
@@ -168,6 +171,8 @@
                     >
                         submit
                     </v-btn>
+                <!-- TODO: I put the graph here to test first but i need help with the function below -->
+                    <pricing-graph></pricing-graph>
                 </v-row>
             </v-form>
         </v-col>
@@ -181,6 +186,8 @@ import Gallery from '@/components/gallery.vue'
 import { useListingStore } from '../stores/listing';
 import { usePricingStore } from '../stores/pricing';
 import { useGraphStore } from '../stores/graphstore';
+import PricingGraph from "@/components/PricingGraph.vue"
+
 
 const isLoading = ref(false)
 
@@ -232,10 +239,13 @@ async function handleRefresh(){
     isLoading.value = false
 }
 
+const chartData = ref(null)
 const chart = useGraphStore()
+//need some help with this function
 async function handleChart(){
     isLoading.value = true  
-    estimatedPrice.value = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
+    chartData = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
+    
     isLoading.value = false
 }
 
