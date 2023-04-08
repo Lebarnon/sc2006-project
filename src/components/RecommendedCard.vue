@@ -1,27 +1,66 @@
 <template>
 <v-card
   class="ma-4"
-  height="300"
-  width="200"
+  height="325"
+  width="225"
   @click="handleCardSelected"
 >
   <v-img
     :src="listing.imageUrls[0]"
-    height="300"
+    height="325"
     cover
-    gradient="to top, rgba(146,146,166,.5), rgba(0,0,0,.01)"
+    gradient="0deg, rgba(25,25,25,1) 0%, rgba(25,25,25,.8) 10%, rgba(25,25,25,.4) 25%, rgba(146,146,166,0.2) 50%, rgba(146,146,166,0.2) 0%"
+    class="d-flex "
     >
-    <div>test</div>
-    <div class="mt-auto">test1</div>
-  
+    <v-sheet height="325" class="d-flex flex-column justify-space-between bg-transparent">
+      <div class="mt-2 d-flex justify-left">
+        <span v-if="isValueBuy" class="ml-2 px-2 py-1 bg-blue-darken-3 rounded text-caption font-weight-medium">Value Buy</span> 
+      </div>
+      <div class="my-2 d-flex text-white">
+          <v-btn
+          class="text-capitalize text-truncate"
+          text
+          size="small"
+          variant="plain"
+        >
+          <v-icon
+            start
+            icon="location_on"
+            size="x-small"
+          ></v-icon>
+          <span
+          class="text-truncate"
+          style="max-width: 150px;"
+          
+          >
+            {{ listing.town }}
+
+          </span>
+          </v-btn>
+          <v-btn
+          class="text-capitalize"
+          text
+          size="small"
+          variant="plain"
+        >
+          <v-icon
+            start
+            icon="straighten"
+            size="x-small"
+          ></v-icon>
+          {{ listing.floorSize }}
+        </v-btn>
+      </div>
+
+    </v-sheet>
+          
   </v-img>
-    
 </v-card>
 </template>
 
 <script setup>
 
-const props = defineProps(["listing"])
+const props = defineProps(["listing", "isValueBuy"])
 const emits = defineEmits(["handleCardSelected"])
 
 function handleCardSelected(){

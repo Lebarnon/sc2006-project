@@ -12,11 +12,10 @@
     <v-slide-group-item
       v-for="listing in listings"
       :key="listing.id"
-      v-slot="{ isSelected, toggle }"
     >
       <RecommendedCard 
-        :is-selected="isSelected" 
         :listing="listing"
+        :is-value-buy="pricingStore.isValueBuy(listing)"
         @handle-card-selected="handleCardSelected"
       />
     </v-slide-group-item>
@@ -27,8 +26,10 @@
 <script setup>
 import RecommendedCard from './RecommendedCard.vue';
 import { useRouter } from 'vue-router';
+import { usePricingStore } from '../stores/pricing';
 
 const props = defineProps(["listings"])
+const pricingStore = usePricingStore()
 const router = useRouter()
 function handleCardSelected(index){
   router.push(`/details/${props.listings[index].id}`)

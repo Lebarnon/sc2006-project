@@ -40,7 +40,7 @@ useUserStore().initAuth()
 setTimeout(() => {
   app.use(router)
   app.mount('#app')
-}, 1500);
+}, 1100);
 
 
 
