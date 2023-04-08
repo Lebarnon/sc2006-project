@@ -14,7 +14,11 @@
       :key="listing.id"
       v-slot="{ isSelected, toggle }"
     >
-      <RecommendedCard :is-selected="isSelected" @handle-card-selected="handleCardSelected"/>
+      <RecommendedCard 
+        :is-selected="isSelected" 
+        :listing="listing"
+        @handle-card-selected="handleCardSelected"
+      />
     </v-slide-group-item>
   </v-slide-group>
 </v-sheet>

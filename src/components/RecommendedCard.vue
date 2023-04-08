@@ -1,27 +1,27 @@
 <template>
 <v-card
-  :color="isSelected ? 'primary' : 'grey-lighten-1'"
   class="ma-4"
-  height="200"
-  width="120"
+  height="300"
+  width="200"
   @click="handleCardSelected"
 >
-  <div class="d-flex fill-height align-center justify-center">
-    <v-scale-transition>
-      <v-icon
-        v-if="isSelected"
-        color="white"
-        size="48"
-        icon="mdi-close-circle-outline"
-      ></v-icon>
-    </v-scale-transition>
-  </div>
+  <v-img
+    :src="listing.imageUrls[0]"
+    height="300"
+    cover
+    gradient="to top, rgba(146,146,166,.5), rgba(0,0,0,.01)"
+    >
+    <div>test</div>
+    <div class="mt-auto">test1</div>
+  
+  </v-img>
+    
 </v-card>
 </template>
 
 <script setup>
 
-const props = defineProps(["isSelected"])
+const props = defineProps(["listing"])
 const emits = defineEmits(["handleCardSelected"])
 
 function handleCardSelected(){

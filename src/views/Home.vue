@@ -96,14 +96,12 @@ import { useSnackbarStore } from "../stores/snackbar";
 import { useListingStore } from "../stores/listing";
 import { onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
-import ListingCarousell from "../components/ListingCarousell.vue";
+import ListingCarousell from "../components/RecommendedCarousell.vue";
 
 const searchValue = ref("")
 const sbStore = useSnackbarStore()
 const listingStore = useListingStore()
 const router = useRouter()
-
-onMounted(() => listingStore.setListings())
 
 function handleSearch(){
   if(searchValue.value.trim().length == 0){
