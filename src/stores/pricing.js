@@ -97,14 +97,29 @@ export const usePricingStore = defineStore('pricing', {
           console.log(doc.id, " => ", doc.data());
           remainingLease = doc.data().coefficient
       });
+
+      const q7 = await query(collection(db, 'flatType1'), 
+      where('variable', '==', String(listingData.flatType)),
+      );
+
+      const querySnapshot7 = await getDocs(q7);
+      var Type=0;
+      querySnapshot7.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          Type = doc.data().coefficient
+      });
+      
+
       console.log('remainingLease is' + remainingLease)
       console.log('years left is '+ listingData.remainingLease)
       console.log('town is' + town)
       console.log('street is' + street)
       console.log('storey is' + storey)
       console.log('Intercept is' + Intercept)
+      console.log('Type is' + Type)
 
-      var estimated = town + street + storey + Intercept  + remainingLease*listingData.remainingLease
+      var estimated = town + street + storey + Intercept  + remainingLease*listingData.remainingLease + Type
       console.log("estimated is" + estimated)
       return Math.round(estimated);
             
