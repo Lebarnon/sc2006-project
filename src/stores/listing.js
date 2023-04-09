@@ -245,6 +245,22 @@ export const useListingStore = defineStore('listing', {
       }
       return recommended
       
+    },
+    findCommonTown(){
+      const townFreq = new Map()
+      for(const listing of this.listings){
+        if(townFreq.has(listing.town)){
+          townFreq.set(listing.town, townFreq.get(listing.town) +1)
+        }else{
+          townFreq.set(listing.town, 1)
+        }
+      }
+      const sortedTowns = new Map([...townFreq].sort((a, b) => b[1] - a[1]));
+      var towns = []
+      for (const [key,value] of sortedTowns){
+        towns.push(key)
+      }
+      return towns.slice(0,5)
     }
   }
 })
