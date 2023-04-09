@@ -17,7 +17,7 @@
               <v-img
                 :src="card.src"
                 class="justify-center"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.1)"
                 height="200px"
                 width ="2000px"
                 cover
@@ -33,11 +33,26 @@
   </template>
 
 <script setup>
+import amk from "@/assets/town/amk.jpeg"
+import bb from "@/assets/town/bb.jpg"
+import bedok from "@/assets/town/bedok.png"
+import bishan from "@/assets/town/bishan.png"
+import bm from "@/assets/town/bm.jpg"
+
+
 const cards= [
-  { title: 'Sembawang', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
-  { title: 'Nearest to MRT in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
-  { title: 'Best value per square feet in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-  { title: 'Longer Bar', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 8 },
-  { title: 'Best Prices in Potong Pasir', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 }
+  { title: 'Ang Mo Kio', src: amk, flex: 4 },
+  { title: 'Bedok', src:bedok, flex: 4 },
+  { title: 'Bishan', src: bishan, flex: 4 },
+  { title: 'Bukit Batok', src: bb, flex: 8 },
+  { title: 'Bukit Merah', src: bm, flex: 4 },
+  // { title: 'Bukit Panjang', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+  // { title: 'Bukit Timah', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+  // { title: 'Central Area', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+  // { title: 'Choa Chu Kang', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+  // { title: 'Clementi', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
 ]
 </script>
+
+
+['Ang Mo Kio', 'Bedok', 'Bishan', 'Bukit Batok', 'Bukit Merah', 'Bukit Panjang', 'Bukit Timah', 'Central Area', 'Choa Chu Kang', 'Clementi', 'Geylang', 'Hougang', 'Jurong East', 'Jurong West', 'Kallang/Whampoa', 'Marine Parade', 'Pasir Ris', 'Punggol', 'Queenstown', 'Sembawang', 'Sengkang', 'Serangoon', 'Tampines', 'Toa Payoh', 'Woodlands', 'Yishun']

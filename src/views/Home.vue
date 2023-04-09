@@ -7,7 +7,7 @@
     class="coverImg d-flex text-center align-center text-white"
   >
     <h1 class="mb-5">Find Your Dream Home</h1>
-    <p>Lorem ipsum dolor sit amet elit. Molestiae, non! Lorem ipsum, dolor sit amet <br/>  consectetur adipisicing elit. Voluptates, excepturi?</p>
+    <p>Finding your dream home with our extensive list of resale properties. <br/>  Start browsing today and find your perfect resale property!</p>
   </v-img>
   <!-- Search Bar -->
   <v-row text-xs-center
@@ -45,9 +45,9 @@
 
   <!-- Description -->
   <div
-    class="text-center my-4">
+    class="text-center mt-4 mb-2">
     <h1>Properties by Area</h1>
-    <p>Lorem ipsum dolor sit amet elit. Molestiae, non! Lorem ipsum, <br/> dolor sit amet consectetur adipisicing elit. Voluptates, excepturi?</p>
+   
   </div>
 
   <!-- Grid -->
@@ -59,7 +59,7 @@
         <CategoryGrid/>
       </v-col>
     </v-row>
-    <v-row class="justify-center my-8">
+    <!-- <v-row class="justify-center my-8">
       <v-btn
         @click=""
         size="large"
@@ -68,7 +68,7 @@
       >
         View More
       </v-btn>
-    </v-row>
+    </v-row> -->
   </v-container>
 
   <!-- Carousell -->
