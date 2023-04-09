@@ -11,8 +11,13 @@
     ></v-img>
 
     <v-card-item>
-      <v-card-title class="py-1">
+      <v-card-title class="py-1 d-flex text-capitalize">
+        <span
+        class="text-truncate text-capitalize"
+        style="max-width: 220px;"
+        >
         {{listing.name}} 
+        </span>
         <ValueBuyLogo class="ml-2" v-if="isValueBuy" :icon="true"/> 
       </v-card-title>
     </v-card-item>

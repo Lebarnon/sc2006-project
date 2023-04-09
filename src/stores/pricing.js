@@ -16,26 +16,13 @@ export const usePricingStore = defineStore('pricing', {
   },
   actions: {
     isValueBuy(listingData) {
-      return listingData.estimatedPrice < listingData.price
+      return listingData.estimatedPrice > listingData.price
     },
     async getEstimatedPrice(listing) {
       var listingData = {...listing}
       listingData.floorSize = Math.floor(listingData.floorSize/10)
       listingData.floorSize = listingData.floorSize * 10
       const newremainingLease = Math.floor(((2023 + listingData.remainingLease) - 100 + 1)/10) *10
-
-      // const q1 = await query(collection(db, 'remaining_lease'), 
-      // where('coefficient', '==', String(listingData.remainingLease+ ' years')),
-      // );
-
-      // const querySnapshot1 = await getDocs(q1);
-      // var lease=0;
-      // querySnapshot1.forEach((doc) => {
-      //   // doc.data() is never undefined for query doc snapshots
-      //     console.log(doc.id, " => ", doc.data());
-      //     lease = doc.data().value
-      // });
-
 
       const q2 = await query(collection(db, 'storeyRange1'), 
       where('variable', '==', String(listingData.storeyRange)),
@@ -44,7 +31,6 @@ export const usePricingStore = defineStore('pricing', {
       var storey=0;
       querySnapshot2.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           storey = doc.data().coefficient
       });
 
@@ -56,7 +42,6 @@ export const usePricingStore = defineStore('pricing', {
       var street=0;
       querySnapshot3.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           street = doc.data().coefficient
       });
 
@@ -69,7 +54,6 @@ export const usePricingStore = defineStore('pricing', {
       var town=0;
       querySnapshot4.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           town = doc.data().coefficient
       });
 
@@ -81,7 +65,6 @@ export const usePricingStore = defineStore('pricing', {
       var Intercept=0;
       querySnapshot5.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           Intercept = doc.data().coefficient
       });
       //console.log('intercept is' + Intercept)
@@ -94,7 +77,6 @@ export const usePricingStore = defineStore('pricing', {
       var remainingLease=0;
       querySnapshot6.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           remainingLease = doc.data().coefficient
       });
 
@@ -106,21 +88,10 @@ export const usePricingStore = defineStore('pricing', {
       var Type=0;
       querySnapshot7.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           Type = doc.data().coefficient
       });
-      
-
-      console.log('remainingLease is' + remainingLease)
-      console.log('years left is '+ listingData.remainingLease)
-      console.log('town is' + town)
-      console.log('street is' + street)
-      console.log('storey is' + storey)
-      console.log('Intercept is' + Intercept)
-      console.log('Type is' + Type)
 
       var estimated = town + street + storey + Intercept  + remainingLease*listingData.remainingLease + Type
-      console.log("estimated is" + estimated)
       return Math.round(estimated);
             
       },
