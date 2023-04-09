@@ -1,6 +1,6 @@
 <template>
-  <LoadingOverlay :is-loading="isLoading"/>
-  <ListingGrid :listings="searchResults" />
+  <LoadingOverlay v-if="isLoading" :is-loading="isLoading"/>
+  <ListingGrid v-else :listings="searchResults" />
 </template>
 
 <script setup>
@@ -10,7 +10,7 @@ import { ref, onBeforeMount, computed} from 'vue'
 import { useListingStore } from "../stores/listing";
 import { useRoute } from "vue-router";
 const listingStore = useListingStore()
-const searchResults = ref([])
+const searchResults = ref(null)
 const isLoading = ref(true)
 const route = useRoute()
 

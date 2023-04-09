@@ -63,6 +63,8 @@
       <v-btn
         @click=""
         size="large"
+        class="text-white"
+        color="#2C3A61"
       >
         View More
       </v-btn>
@@ -77,7 +79,9 @@
   
       <v-row class="justify-center my-8">
         <v-btn
-          @click=""
+          :to="'/recommended'"
+          class="text-white"
+          color="#2C3A61"
           size="large"
         >
           View All

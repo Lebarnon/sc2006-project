@@ -5,7 +5,7 @@ import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
 import { usePricingStore } from './pricing';
-import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc, setDoc } from "firebase/firestore"; 
+import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc, setDoc, or } from "firebase/firestore"; 
 import { useSnackbarStore } from './snackbar';
 
 const storageRef = ref(storage)
@@ -26,7 +26,14 @@ export const useListingStore = defineStore('listing', {
     },
     getListingsByTown: (state) => {
       return async (town) => {
-        const q = query(collection(db, "listings"), where("town", "==", town));
+        const townUpper = town.toUpperCase()
+        const townLower = town.toLowerCase()
+        const q = query(collection(db, "listings"), 
+          or(
+            where("town", "==", town),
+            where("town", "==", townUpper),
+            where("town", "==", townLower),
+            ));
         const querySnapshot = await getDocs(q);
         var result = []
         querySnapshot.forEach(async doc => {
@@ -153,8 +160,9 @@ export const useListingStore = defineStore('listing', {
       return searchResults
     },
     filterListings(listingsData, searchKey = null, filter = null){
-      if(searchKey == "" && !filter){
-        return listingsData
+      console.log(listingsData)
+      if(!listingsData || listingsData.length == 0 || searchKey == "" && !filter){
+        return []
       }
       let filteredListings;
       if(searchKey && searchKey != ""){
