@@ -112,11 +112,13 @@ export const useListingStore = defineStore('listing', {
         await updateDoc(doc(db,"users", userId), {
           ownListingIds: arrayUnion(docRef.id)
         })
+        await this.setListings()
         useSnackbarStore().display("Created Listing Successfully!", "green-darken-2")
       }else{
         // update listing
         const docRef = await setDoc(doc(db, "listings", id), listingData)
         useSnackbarStore().display("Updated Listing Successfully!", "green-darken-2")
+        await this.setListings()
         router.push(`/detail/${id}`)
         return true
       }
@@ -211,7 +213,7 @@ export const useListingStore = defineStore('listing', {
       const userStore = useUserStore()
       var recommended = []
       for(const listing of this.listings){
-        if(listing.estimatedPrice < listing.price){
+        if(listing.estimatedPrice > listing.price){
           recommended.push(listing)
         }
       }

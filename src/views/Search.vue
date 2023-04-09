@@ -17,8 +17,8 @@ const route = useRoute()
 
 onBeforeMount(() => {
   listingStore.searchListing(route.query).then((result) => {
-    searchResults.value = result
-    isLoading.value = false
+    // searchResults.value = result
+    // isLoading.value = false
   })
 })
 

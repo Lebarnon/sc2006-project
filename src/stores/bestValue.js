@@ -15,7 +15,7 @@ export const useBestValueStore = defineStore("bestvalue", {
       for(let i=0; i<newSelectedListings.length; i++){
         var curListing = newSelectedListings[i]
         if(curListing == null) continue
-        var curPercentageDiff = Math.round((curListing.price - curListing.estimatedPrice) / curListing.price * 100)
+        var curPercentageDiff = Math.round((curListing.estimatedPrice - curListing.price) / curListing.price * 100)
         percentageDiffs[i] = curPercentageDiff
         if(curPercentageDiff > largestPercentageDiff){
           curBestI = i
