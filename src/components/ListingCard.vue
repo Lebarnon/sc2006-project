@@ -49,6 +49,7 @@
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions >
+      <v-icon icon="account_circle" color="grey-darken-2" class="mx-1"></v-icon>
       <span  
         class="text-truncate"
         style="max-width: 150px;">
