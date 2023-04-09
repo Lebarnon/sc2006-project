@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
+import { useSnackbarStore } from './snackbar';
 
 export const useGraphStore = defineStore('graph', {
   actions: {
@@ -50,7 +51,10 @@ export const useGraphStore = defineStore('graph', {
         this.loading = false;
         this.error = error.message;
       }
-      console.log(resalePrice,labels)
+      if(resalePrice.length==0){
+        useSnackbarStore().display("No Resale Price History Found", "red-darken-2")
+      }
+
       return {
         resalePrice,
         labels,

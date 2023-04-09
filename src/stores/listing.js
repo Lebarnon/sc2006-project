@@ -5,7 +5,7 @@ import router from '../router';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useUserStore } from './user';
 import { usePricingStore } from './pricing';
-import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc, setDoc, or } from "firebase/firestore"; 
+import { doc, collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, getDoc, setDoc, or, deleteDoc } from "firebase/firestore"; 
 import { useSnackbarStore } from './snackbar';
 
 const storageRef = ref(storage)
@@ -125,6 +125,16 @@ export const useListingStore = defineStore('listing', {
       router.push('/')
       return true
 
+    },
+    async deleteListing(listing){
+      console.log(listing)
+      if(!listing || !listing.hasOwnProperty('id')){
+        useSnackbarStore().display("Delete Failed", "red-darken-2")
+        return
+      }
+      await deleteDoc(doc(db, "listings", `${listing.id}`))
+      this.listings = this.listings.filter(function(el) { return el.id != listing.id })
+      useSnackbarStore().display("Delete Successfully", "green-darken-2")
     },
     async searchListing(searchObject){
       var searchResults = []

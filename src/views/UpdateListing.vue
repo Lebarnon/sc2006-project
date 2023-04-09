@@ -163,6 +163,15 @@
                 
                 <v-row class="my-8 px-2">
                     <v-btn
+                        class=""
+                        color="red-darken-4"
+                        @click="handleDelete()"
+                        size="large"
+                        :loading = isLoading
+                    >
+                        Delete
+                    </v-btn>
+                    <v-btn
                         class="ml-auto"
                         color="blue-darken-4"
                         @click="handleSubmit()"
@@ -264,6 +273,12 @@ async function handleSubmit(){
         await listingStore.createListing(listingData.value, true)
         isLoading.value = false
     }
+    
+}
+
+async function handleDelete(){
+    await listingStore.deleteListing(listingData.value)
+    router.push("./mylistings")
     
 }
 

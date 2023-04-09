@@ -49,27 +49,22 @@
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions >
-      <v-btn
-        variant="text"
-        @click=""
-      >
-        Learn More
-      </v-btn>
+      <span  
+        class="text-truncate"
+        style="max-width: 150px;">
+        {{ listing.ownerName ?? "Name" }}
+      </span>
       <div class="ml-auto">
         <v-btn
           v-if="isOwnListing"
           icon="edit"
-          size="large"
           variant = "text"
           @click.prevent="onEditClicked"
-        >
-
-        </v-btn>
+        />
         <v-btn
         v-else
         color="red-darken-4"
         :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
-        size="large"
         variant = "text"
         @click.prevent="onFavouriteClicked"
         />
@@ -80,6 +75,8 @@
 
 <script setup>
 import ValueBuyLogo from './ValueBuyLogo.vue';
+import { useListingStore } from '../stores/listing';
+
 const props = defineProps(['listing', 'isFavListing', 'isOwnListing', 'isValueBuy'])
 const emit = defineEmits(['onFavClicked', 'onEditClicked'])
 

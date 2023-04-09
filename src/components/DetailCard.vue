@@ -11,29 +11,37 @@
         </h1>
        <ValueBuyLogo v-show="isValueBuy" :icon="true"/>
        <v-spacer/>
-        <v-btn
-            class="mr-2"
-            v-if="isOwnListing"
-            append-icon="edit"
-            size="large"
-            variant = "text"
-            @click.prevent="onEditClicked"
-            >
-            Edit
+       <v-btn
+        class="mr-2"
+        color="grey-darken-3"
+        v-if="isOwnListing"
+        append-icon="edit"
+        @click.prevent="onEditClicked"
+        >
+        Edit
         </v-btn>
         <v-btn
-            v-else
+        color="red-darken-1"
+        v-if="isOwnListing"
+        append-icon="delete"
+        @click.prevent="onDeleteClicked()"
+        >
+        Delete
+        </v-btn>
+        <div v-else>
+            <v-btn
             color="red-darken-4"
             :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
             size="large"
             variant = "text"
             @click.prevent="onFavouriteClicked"
-        />
-        <v-sheet class="py-1 px-3 bg-blue-darken-4 rounded">
-            <v-icon icon="phone"></v-icon>
-            {{data.phoneNo ?? 91234567}}
-        </v-sheet>
+            />
+            <v-sheet class="py-1 px-3 bg-blue-darken-4 rounded">
+                <v-icon icon="phone"></v-icon>
+                {{data.phoneNo ?? 91234567}}
+            </v-sheet>
         </div>
+    </div>
 
     <p>
     <h1 v-if="isValueBuy">
@@ -158,7 +166,6 @@
         </v-col>
     </v-row>
 
-
     <h1 class="mt-10">
         Description
     </h1>
@@ -169,18 +176,27 @@
 
     <h1 class="mt-10">
         Pricing History
-        <!-- TODO: insert pricing history graph here -->
     </h1>
 </template>
   
 <script setup>
 import ValueBuyLogo from './ValueBuyLogo.vue';
 import { ref, defineProps } from 'vue';
+import { useListingStore } from '../stores/listing';
+import { useRouter } from 'vue-router';
 import Gallery from './Gallery.vue';
 
 const props = defineProps(["data", "isOwnListing", "isValueBuy", "isFavListing"])
 const emit = defineEmits(['onFavClicked', 'onEditClicked'])
+const isDeleting = ref("false")
+const listingStore = useListingStore()
+const router = useRouter()
 
+function onDeleteClicked(){
+    listingStore.deleteListing(props.data).then(() => {
+        router.push("./mylistings")
+    })
+}
 async function onFavouriteClicked() {
   emit('onFavClicked', props.data.id)
 }
