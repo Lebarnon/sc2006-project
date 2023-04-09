@@ -28,7 +28,7 @@
         >
         Delete
         </v-btn>
-        <div v-else>
+        <div v-else class="d-flex align-center">
             <v-btn
             color="red-darken-4"
             :icon="isFavListing ? 'mdi:mdi-heart' :'mdi:mdi-heart-outline'" 
