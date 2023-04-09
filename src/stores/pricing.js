@@ -19,7 +19,8 @@ export const usePricingStore = defineStore('pricing', {
     isValueBuy(listingData) {
       return listingData.estimatedPrice < listingData.price
     },
-    async getEstimatedPrice(listingData) {
+    async getEstimatedPrice(listing) {
+      var listingData = {...listing}
       listingData.floorSize = Math.floor(listingData.floorSize/10)
       listingData.floorSize = listingData.floorSize * 10
       const newremainingLease = Math.floor(((2023 + listingData.remainingLease) - 100 + 1)/10) *10

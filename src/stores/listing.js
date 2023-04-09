@@ -49,7 +49,6 @@ export const useListingStore = defineStore('listing', {
       const querySnapshot = await getDocs(collection(db, "listings"));
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id)
         this.listings.push(
           {
             id: doc.id,
@@ -57,7 +56,6 @@ export const useListingStore = defineStore('listing', {
           }
         )
       })
-      console.log(this.listings)
       const withEstimatedPrice = await Promise.all(this.listings.map(async (listing) => {
         const estimatedPrice = await usePricingStore().getEstimatedPrice(listing)
         return({
@@ -66,7 +64,6 @@ export const useListingStore = defineStore('listing', {
         })
       }))
       this.listings = withEstimatedPrice
-      console.log(withEstimatedPrice)
       this.isLoading = false
     },
     async createListing(newListing, update=false) {
@@ -223,12 +220,10 @@ export const useListingStore = defineStore('listing', {
             mostFreqTown = key
           }
         }
-        console.log(mostFreqTown)
         if(mostFreqTown){
           recommended.sort((x,y) => x.town == mostFreqTown ? -1 : y.town == mostFreqTown ? 1 : 0)
         }
       }
-      console.log(recommended)
       return recommended
       
     }

@@ -3,7 +3,8 @@ import { defineStore } from 'pinia';
 
 export const useGraphStore = defineStore('graph', {
   actions: {
-    async fetchChartData(flatType, town) {
+    async fetchChartData(listing) {
+      const {flatType, town, storeyRange} = listing
       this.loading = true;
       let resalePrice;
       let labels;
@@ -42,13 +43,14 @@ export const useGraphStore = defineStore('graph', {
           (value) => value.resalePriceSum / value.count
         );
         labels = Object.keys(aggregatedData);
+        
 
         this.loading = false;
       } catch (error) {
         this.loading = false;
         this.error = error.message;
       }
-
+      console.log(resalePrice,labels)
       return {
         resalePrice,
         labels,

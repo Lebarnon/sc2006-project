@@ -263,7 +263,7 @@ const chart = useGraphStore()
 //need some help with this function
 async function handleChart(){
     updateIsLoading.value = true  
-    chartData.value = await chart.fetchChartData(listingData.value.flatType,listingData.value.town)
+    chartData.value = await chart.fetchChartData(listingData.value)
     updateIsLoading.value = false
 }
 
