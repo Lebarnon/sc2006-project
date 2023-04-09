@@ -27,7 +27,6 @@
             @click="onImageSelect(n-1)"
             >
             <v-img 
-                :gradient="selectedClass"
                 height="100"
                 width="100"
                 :src="imageUrls[n-1]"

@@ -10,6 +10,18 @@
     show-arrows="always"
   >
     <v-slide-group-item
+      v-if="isLoading"
+      v-for="i in 5"
+      :key="i"
+    >
+      <v-card
+        class="ma-4"
+        height="325"
+        width="225"
+      />
+    </v-slide-group-item>
+    <v-slide-group-item
+      v-else
       v-for="listing in listings"
       :key="listing.id"
     >
@@ -28,10 +40,10 @@ import RecommendedCard from './RecommendedCard.vue';
 import { useRouter } from 'vue-router';
 import { usePricingStore } from '../stores/pricing';
 
-const props = defineProps(["listings"])
+const props = defineProps(["listings", "isLoading"])
 const pricingStore = usePricingStore()
 const router = useRouter()
-function handleCardSelected(index){
-  router.push(`/details/${props.listings[index].id}`)
+function handleCardSelected(id){
+  router.push(`/detail/${id}`)
 }
 </script>

@@ -17,7 +17,7 @@ export const usePricingStore = defineStore('pricing', {
   },
   actions: {
     isValueBuy(listingData) {
-      return listingData.estimatedPrice > listingData.price
+      return listingData.estimatedPrice < listingData.price
     },
     async getEstimatedPrice(listingData) {
       listingData.floorSize = Math.floor(listingData.floorSize/10)
@@ -32,7 +32,6 @@ export const usePricingStore = defineStore('pricing', {
       var lease=0;
       querySnapshot1.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           lease = doc.data().value
       });
 
@@ -44,7 +43,6 @@ export const usePricingStore = defineStore('pricing', {
       var storey=0;
       querySnapshot2.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           storey = doc.data().value
       });
 
@@ -56,7 +54,6 @@ export const usePricingStore = defineStore('pricing', {
       var street=0;
       querySnapshot3.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           street = doc.data().value
       });
 
@@ -69,12 +66,10 @@ export const usePricingStore = defineStore('pricing', {
       var town=0;
       querySnapshot4.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
           town = doc.data().value
       });
 
       var estimated = lease + town + street + storey
-      console.log(estimated)
       return Math.round(estimated);
             
       },

@@ -49,6 +49,7 @@ export const useListingStore = defineStore('listing', {
       const querySnapshot = await getDocs(collection(db, "listings"));
       querySnapshot.forEach(doc => {
         // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id)
         this.listings.push(
           {
             id: doc.id,
@@ -56,13 +57,16 @@ export const useListingStore = defineStore('listing', {
           }
         )
       })
-      this.listings = await Promise.all(this.listings.map(async (listing) => {
+      console.log(this.listings)
+      const withEstimatedPrice = await Promise.all(this.listings.map(async (listing) => {
         const estimatedPrice = await usePricingStore().getEstimatedPrice(listing)
         return({
           estimatedPrice: estimatedPrice,
           ...listing
         })
       }))
+      this.listings = withEstimatedPrice
+      console.log(withEstimatedPrice)
       this.isLoading = false
     },
     async createListing(newListing, update=false) {
@@ -73,6 +77,7 @@ export const useListingStore = defineStore('listing', {
         console.log("user not logged in")
         return null
       } 
+      const ownerName = userStore.getUserName()
       // upload images and get firebase storage url 
       const imageUrls = []
       for await (var imageFile of newListing.imageFiles){
@@ -89,7 +94,9 @@ export const useListingStore = defineStore('listing', {
       }
 
       newListing.imageUrls = imageUrls
-      const {imageFiles, ...listingData} = newListing
+      newListing.ownerName = ownerName
+
+      const {id, imageFiles, ...listingData} = newListing
       // upload listing to db
       if(!update){
         const docRef = await addDoc(collection(db, "listings"), listingData)
@@ -102,7 +109,7 @@ export const useListingStore = defineStore('listing', {
         useSnackbarStore().display("Created Listing Successfully!", "green-darken-2")
       }else{
         // update listing
-        const docRef = await setDoc(doc(db, "listings", newListing.id), listingData)
+        const docRef = await setDoc(doc(db, "listings", id), listingData)
         useSnackbarStore().display("Updated Listing Successfully!", "green-darken-2")
         router.push(`/detail/${newListing.id}`)
       }
@@ -185,7 +192,43 @@ export const useListingStore = defineStore('listing', {
       return filteredListings
     },
     async findRecommendedListings(){
-
+      const userStore = useUserStore()
+      var recommended = []
+      for(const listing of this.listings){
+        if(listing.estimatedPrice < listing.price){
+          recommended.push(listing)
+        }
+      }
+      if(!userStore.isAuthenticated){
+        return recommended
+      }else{
+        const favListings = await userStore.getFavListings()
+        const townFreq = new Map()
+        for(const listing of favListings){
+          if(townFreq.has(listing.town)){
+            townFreq.set(listing.town, townFreq.get(listing.town) +1)
+          }else{
+            townFreq.set(listing.town, 1)
+          }
+        }
+        let mostFreqTown = null
+        for(const [key, value] of townFreq){
+          if(mostFreqTown == null){
+            mostFreqTown = key
+            continue
+          }
+          if(value > townFreq.get(mostFreqTown)){
+            mostFreqTown = key
+          }
+        }
+        console.log(mostFreqTown)
+        if(mostFreqTown){
+          recommended.sort((x,y) => x.town == mostFreqTown ? -1 : y.town == mostFreqTown ? 1 : 0)
+        }
+      }
+      console.log(recommended)
+      return recommended
+      
     }
   }
 })

@@ -102,7 +102,6 @@ onBeforeMount(() => {
   })
 })
   
-
 //e contains the payload, index is for which column
 function handleFavouriteSelected(name, index) {
   // e is the listing name

@@ -40,6 +40,7 @@
           :listing = "listing" 
           :isFavListing= "userStore.isFavListing(listing.id)"
           :isOwnListing= "userStore.isOwnListing(listing.id)"
+          :isValueBuy="pricingStore.isValueBuy(listing)"
           @on-fav-clicked = "handleFavClicked"
           @on-edit-clicked = "handleEditClicked"
         />
@@ -62,6 +63,9 @@ import { ref, computed} from 'vue'
 import { useUserStore } from "../stores/user";
 import router from "../router";
 import { useListingStore } from "../stores/listing";
+import { usePricingStore } from "../stores/pricing";
+
+const pricingStore = usePricingStore()
 const props = defineProps(["listingsData"])
 const page = ref(1)
 const numOfListingsPerPage = 9

@@ -9,7 +9,7 @@
         <h1 v-if="!isValueBuy">
             ${{ data.price }}
         </h1>
-       <v-sheet :class="'py-1 px-3 bg-blue-darken-4 rounded ' + isValueBuy ? ' invisible': ''" >
+       <v-sheet :class="'py-1 px-3 bg-blue-darken-4 rounded ' + isValueBuy ? '': 'invisible'" >
            <v-icon
                color="red"
                icon="whatshot"

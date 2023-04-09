@@ -54,6 +54,10 @@ export const useUserStore = defineStore('user', {
     },
     isOwnListing: (state) => {
       return (listingId) => state.user && state.user.ownListingIds.includes(listingId)
+    },
+    getUserName: (state) => {
+      return () => state.user.firstName ?? state.user.email ?? state.user.id
+      
     }
   },
   actions: {

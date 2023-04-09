@@ -13,8 +13,8 @@
     class="d-flex "
     >
     <v-sheet height="325" class="d-flex flex-column justify-space-between bg-transparent">
-      <div class="mt-2 d-flex justify-left">
-        <span v-if="isValueBuy" class="ml-2 px-2 py-1 bg-blue-darken-3 rounded text-caption font-weight-medium">Value Buy</span> 
+      <div v-show="isValueBuy" class="ml-2 mt-2 d-flex justify-left">
+        <ValueBuyLogo/> 
       </div>
       <div class="my-2 d-flex text-white">
           <v-btn
@@ -59,12 +59,12 @@
 </template>
 
 <script setup>
-
+import ValueBuyLogo from "./ValueBuyLogo.vue"
 const props = defineProps(["listing", "isValueBuy"])
 const emits = defineEmits(["handleCardSelected"])
 
 function handleCardSelected(){
-  emits("handleCardSelected")
+  emits("handleCardSelected", props.listing.id)
 }
 
 </script>

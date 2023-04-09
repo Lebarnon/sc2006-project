@@ -11,6 +11,7 @@ import Search from "../views/Search.vue"
 import ResetPassword_Email from "../views/ResetPassword_Email.vue"
 import UpdateListing from "../views/UpdateListing.vue"
 import MyListings from "../views/MyListings.vue"
+import Recommended from "../views/Recommended.vue"
 import { useUserStore } from '../stores/user'
 import { useSnackbarStore } from '../stores/snackbar'
 
@@ -79,8 +80,12 @@ const router = createRouter({
       path: "/mylistings/",
       name: "mylistings",
       component: MyListings,
-
-    }
+    },
+    {
+      path: "/recommended/",
+      name: "recommended",
+      component: Recommended,
+    },
   ]
 })
 

@@ -73,7 +73,7 @@
   <div class="bg-grey-lighten-2 py-8 text-center">
     <v-container>
       <h1 class="mb-8">Recommended Properties</h1>
-      <ListingCarousell :listings="listingStore.listings"/>
+      <ListingCarousell :listings="recommendedListings" :is-loading="isRecommendedLoading"/>
   
       <v-row class="justify-center my-8">
         <v-btn
@@ -94,7 +94,7 @@ import LandingCoverImg from "../assets/landing-cover.jpg"
 import CategoryGrid from "@/components/CategoryGrid.vue"
 import { useSnackbarStore } from "../stores/snackbar";
 import { useListingStore } from "../stores/listing";
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed, onBeforeMount } from 'vue'
 import { useRouter } from "vue-router";
 import ListingCarousell from "../components/RecommendedCarousell.vue";
 
@@ -102,6 +102,15 @@ const searchValue = ref("")
 const sbStore = useSnackbarStore()
 const listingStore = useListingStore()
 const router = useRouter()
+const isRecommendedLoading = ref(true)
+const recommendedListings = ref([])
+
+onBeforeMount(() => {
+  listingStore.findRecommendedListings().then((result) => {
+    recommendedListings.value = result
+  })
+  isRecommendedLoading.value = false
+})
 
 function handleSearch(){
   if(searchValue.value.trim().length == 0){

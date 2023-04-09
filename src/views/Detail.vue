@@ -37,7 +37,6 @@ onMounted(async () => {
   if (result == null) router.push("/error")
   listing.value = result
   isValueBuy.value = await pricingStore.isValueBuy(result)
-  console.log(isValueBuy.value)
 })
 
 function handleFavClicked(listingId){

@@ -11,16 +11,51 @@
     ></v-img>
 
     <v-card-item>
-      <v-card-title>{{listing.streetName}}</v-card-title>
-      <div class="d-flex justify-space-between align-center">
-        <v-card-subtitle :class="'d-flex ' + isValueBuy ? ' invisible': ''">
-          <span class="mr-1">Value Buy</span>
-           <v-icon
-            color="error"
-            icon="whatshot"
-            size="small"
-          ></v-icon>
-        </v-card-subtitle>
+      <v-card-title class="py-1">
+        {{listing.streetName}} 
+        <ValueBuyLogo class="ml-2" v-if="isValueBuy" :icon="true"/> 
+      </v-card-title>
+    </v-card-item>
+    
+    <v-card-text class="my-2 text-h6 font-weight-bold text-blue-darken-3">
+      ${{ listing.price }}
+    </v-card-text>
+
+    <div class="d-flex text-grey-darken-2 text-subtitle-2 align-center ml-4 mb-4">
+      <span>
+        <v-icon
+          icon="bed"
+          size="small"
+        />
+        {{ listing.noOfRoom }}
+      </span>
+      <span class="ml-4">
+        <v-icon
+          icon="mdi:mdi-bathtub-outline"
+          size="small"
+        />
+        {{ listing.noOfToilet }}
+      </span>
+      <span class="ml-4">
+        <v-icon
+          icon="mdi:mdi-arrow-expand-all"
+          size="small"
+        />
+        {{ listing.floorSize }} sqft
+      </span>
+
+    </div>
+
+    <v-divider class="mx-4"></v-divider>
+
+    <v-card-actions >
+      <v-btn
+        variant="text"
+        @click=""
+      >
+        Learn More
+      </v-btn>
+      <div class="ml-auto">
         <v-btn
           v-if="isOwnListing"
           icon="edit"
@@ -39,33 +74,12 @@
         @click.prevent="onFavouriteClicked"
         />
       </div>
-    </v-card-item>
-    
-    <v-card-text class="my-4 text-subtitle-1">
-      ${{ listing.price }}
-    </v-card-text>
-    
-    <v-row>
-      <v-col>
-        
-      </v-col>
-    </v-row>
-    
-
-    <v-divider class="mx-4 mb-1"></v-divider>
-
-    <v-card-actions >
-      <v-btn
-        variant="text"
-        @click=""
-      >
-        Learn More
-      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script setup>
+import ValueBuyLogo from './ValueBuyLogo.vue';
 const props = defineProps(['listing', 'isFavListing', 'isOwnListing', 'isValueBuy'])
 const emit = defineEmits(['onFavClicked', 'onEditClicked'])
 

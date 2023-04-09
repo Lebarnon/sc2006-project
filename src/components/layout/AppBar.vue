@@ -89,7 +89,7 @@ defineProps({
 const routes = [
   {
     name: 'Recommended',
-    link: ''
+    link: '/recommended'
   }, 
   {
     name: 'All',
