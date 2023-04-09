@@ -13,7 +13,7 @@
             :key="card.title"
             :cols="card.flex"
           >
-            <v-card :to="'/search' + '?town=' + card.title">
+            <v-card :to="'/search' + '?q=' + card.title">
               <v-img
                 :src="card.src"
                 class="justify-center"
