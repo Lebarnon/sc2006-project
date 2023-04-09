@@ -9,16 +9,7 @@
         <h1 v-if="!isValueBuy">
             ${{ data.price }}
         </h1>
-       <v-sheet :class="'py-1 px-3 bg-blue-darken-4 rounded ' + isValueBuy ? '': 'invisible'" >
-           <v-icon
-               color="red"
-               icon="whatshot"
-               size="small"
-           ></v-icon>
-           <span>
-             Value Buy
-           </span>
-       </v-sheet>
+       <ValueBuyLogo v-show="isValueBuy" :icon="true"/>
        <v-spacer/>
         <v-btn
             class="mr-2"
@@ -40,7 +31,7 @@
         />
         <v-sheet class="py-1 px-3 bg-blue-darken-4 rounded">
             <v-icon icon="phone"></v-icon>
-            {{data.phoneNo}}
+            {{data.phoneNo ?? 91234567}}
         </v-sheet>
         </div>
 
@@ -183,6 +174,7 @@
 </template>
   
 <script setup>
+import ValueBuyLogo from './ValueBuyLogo.vue';
 import { ref, defineProps } from 'vue';
 import Gallery from './Gallery.vue';
 
