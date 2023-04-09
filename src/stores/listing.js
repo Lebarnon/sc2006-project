@@ -171,7 +171,6 @@ export const useListingStore = defineStore('listing', {
       return searchResults
     },
     filterListings(listingsData, searchKey = null, filter = null){
-      console.log(listingsData)
       if(!listingsData || listingsData.length == 0 || searchKey == "" && !filter){
         return []
       }
