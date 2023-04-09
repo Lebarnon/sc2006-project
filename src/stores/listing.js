@@ -102,7 +102,7 @@ export const useListingStore = defineStore('listing', {
       newListing.ownerName = ownerName
       newListing.phoneNo = phoneNo
 
-      const {id, imageFiles, ...listingData} = newListing
+      const {id, imageFiles, estimatedPrice, ...listingData} = newListing
       // upload listing to db
       if(!update){
         const docRef = await addDoc(collection(db, "listings"), listingData)
@@ -117,7 +117,8 @@ export const useListingStore = defineStore('listing', {
         // update listing
         const docRef = await setDoc(doc(db, "listings", id), listingData)
         useSnackbarStore().display("Updated Listing Successfully!", "green-darken-2")
-        router.push(`/detail/${newListing.id}`)
+        router.push(`/detail/${id}`)
+        return true
       }
 
       // return user to their listing page --> '/' for now as placeholder
