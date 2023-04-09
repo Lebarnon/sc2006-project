@@ -49,16 +49,12 @@
       <span class="text-h4">
         ${{ data.price }}
       </span>
-      <span class="text-h5">
-        | Estimated Price: ${{ data.estimatedPrice }}
-      </span>
+     
     </v-text>
     </h1>
     </p>
 
-
     <v-row>
-
         <v-col cols="auto">
             <v-icon icon="mdi:mdi-bed">
             </v-icon>
@@ -73,9 +69,15 @@
     </v-row>
 
     <h1 class="mt-10">
+        Estimated Price
+    </h1>
+    <p class="text-h6">
+        ${{ data.estimatedPrice }}
+    </p>
+
+    <h1 class="mt-10">
         Unit Details
     </h1>
-
 
     <v-row>
         <v-col>
