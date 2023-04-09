@@ -12,7 +12,7 @@
 
     <v-card-item>
       <v-card-title class="py-1">
-        {{listing.streetName}} 
+        {{listing.name}} 
         <ValueBuyLogo class="ml-2" v-if="isValueBuy" :icon="true"/> 
       </v-card-title>
     </v-card-item>
