@@ -45,7 +45,14 @@
 
     <p>
     <h1 v-if="isValueBuy">
+    <v-text v-if="isValueBuy">
+      <span class="text-h4">
         ${{ data.price }}
+      </span>
+      <span class="text-h5">
+        | Estimated Price: ${{ data.estimatedPrice }}
+      </span>
+    </v-text>
     </h1>
     </p>
 
