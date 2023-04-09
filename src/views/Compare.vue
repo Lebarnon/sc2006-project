@@ -62,7 +62,6 @@ import CompareDetailCard from "@/components/CompareDetailCard.vue"
 import { ref, onBeforeMount, computed, watch} from 'vue'
 import { useUserStore } from "../stores/user";
 import { useBestValueStore } from "../stores/bestValue"
-import { usePricingStore } from "../stores/pricing"
 
 const bestValueStore = useBestValueStore()
 const userStore = useUserStore()

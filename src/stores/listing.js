@@ -127,7 +127,6 @@ export const useListingStore = defineStore('listing', {
 
     },
     async deleteListing(listing){
-      console.log(listing)
       if(!listing || !listing.hasOwnProperty('id')){
         useSnackbarStore().display("Delete Failed", "red-darken-2")
         return
@@ -171,7 +170,6 @@ export const useListingStore = defineStore('listing', {
       return searchResults
     },
     filterListings(listingsData, searchKey = null, filter = null){
-      console.log(listingsData)
       if(!listingsData || listingsData.length == 0 || searchKey == "" && !filter){
         return []
       }

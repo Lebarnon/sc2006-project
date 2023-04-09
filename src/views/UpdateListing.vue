@@ -242,7 +242,6 @@ onBeforeMount(() => {
     }
     listingStore.getListingById(route.params.id).then(result => {
         if (result == null) router.push("/error")
-        console.log(result)
         listingData.value = result
         listingData.value["imageFiles"] = result.imageUrls
     })

@@ -104,8 +104,7 @@ export const useUserStore = defineStore('user', {
       createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
           await setDoc(doc(db, "users", userCredential.user.uid), {email, ...otherInfo})
       }).catch((err) => {
-        console.log(err.code);
-        console.log(err.message);
+        useSnackbarStore().display(err.code, "red-darken-2")
         return err.code
       })
       router.push("/")
