@@ -4,7 +4,7 @@
     :color="isLanding ? '#2C3A61' + opacity : '#2C3A61'"
     flat
   >
-    <router-link to="/" class="text-decoration-none">
+    <router-link to="/" class="text-decoration-none ml-2">
       <div class="d-flex no-wrap align-center">
         <img
           class="logo mr-2"
