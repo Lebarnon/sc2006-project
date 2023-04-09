@@ -78,6 +78,7 @@ export const useListingStore = defineStore('listing', {
         return null
       } 
       const ownerName = userStore.getUserName()
+      const phoneNo = userStore.getPhoneNo()
       // upload images and get firebase storage url 
       const imageUrls = []
       for await (var imageFile of newListing.imageFiles){
@@ -95,6 +96,7 @@ export const useListingStore = defineStore('listing', {
 
       newListing.imageUrls = imageUrls
       newListing.ownerName = ownerName
+      newListing.phoneNo = phoneNo
 
       const {id, imageFiles, ...listingData} = newListing
       // upload listing to db

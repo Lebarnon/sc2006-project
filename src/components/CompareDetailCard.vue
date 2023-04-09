@@ -6,10 +6,19 @@
             </div>
             <v-card-title>
                 <p class="text-center">
-                    Estimated Price
+                    Estimated Price 
+                    <v-tooltip activator="parent" location="start">
+                        <template v-slot:activator="{on}">
+                        <v-icon icon="mdi:mdi-help-circle-outline" size="small" color="grey-darken-2"></v-icon>
+                        </template>
+                        <span>This is our estimated on the value for this unit.<br/></span>
+                        <span>Our estimate is based on: <br/></span> 
+                        <span>- Price History, Location, Size, Age, etc </span>
+                    </v-tooltip>
                 </p>
                 <p class="text-center">
                     ${{ listing.estimatedPrice }}
+                    <span :class="`text-subtitle-1 ${percentageDiff > 0 ? 'text-green' : 'text-red'}`"> ({{percentageDiff}}%) </span>
                 </p>
             </v-card-title>
         </v-card-item>
@@ -152,8 +161,10 @@
 </template>
 
 <script setup>
-const props = defineProps(['listing', 'isBestValue', 'estimatedValue'])
+import { ref } from 'vue';
 
+const props = defineProps(['listing', 'isBestValue', 'estimatedValue', 'percentageDiff'])
+const show= ref(false)
 
 </script>
 

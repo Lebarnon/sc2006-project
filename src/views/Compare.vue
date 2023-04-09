@@ -46,6 +46,7 @@
       <CompareDetailCard 
         :listing="selectedListings[i]" 
         :is-best-value="bestValueIndex == i" 
+        :percentage-diff="percentageDiff[i]"
         />
         </v-col>
       </v-row>
@@ -72,6 +73,10 @@ const selectedListings = ref([
   null
 ])
 
+const percentageDiff = ref([
+  0,0,0
+])
+
 const bestValueIndex = ref(0)
 watch(() => selectedListings.value, (newSelected, oldSelected)=> {
   var curBestI = 0
@@ -81,6 +86,7 @@ watch(() => selectedListings.value, (newSelected, oldSelected)=> {
     var curListing = newSelected[i]
     if(curListing == null) continue
     var curPercentageDiff = Math.round((curListing.price - curListing.estimatedPrice) / curListing.price * 100)
+    percentageDiff.value[i] = curPercentageDiff
     if(curPercentageDiff > largestPercentageDiff){
       curBestI = i
       largestPercentageDiff = curPercentageDiff

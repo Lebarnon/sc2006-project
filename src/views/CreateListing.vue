@@ -154,9 +154,9 @@
                         <template v-slot:activator="{on}">
                         <v-icon icon="mdi:mdi-help-circle-outline"></v-icon>
                         </template>
-                        <span>This is our estimated on the value for this unit</span>
-                        <br>
-                        <span>Our estimated is based on: Price History, Location, Size, Age, etc.</span>
+                        <span>This is our estimated on the value for this unit.<br/></span>
+                        <span>Our estimate is based on: <br/></span> 
+                        <span>- Price History, Location, Size, Age, etc </span>
                     </v-tooltip>
                     
                 </v-row>

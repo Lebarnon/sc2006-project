@@ -40,7 +40,7 @@
         />
         <v-sheet class="py-1 px-3 bg-blue-darken-4 rounded">
             <v-icon icon="phone"></v-icon>
-            9123 4567
+            {{data.phoneNo}}
         </v-sheet>
         </div>
 

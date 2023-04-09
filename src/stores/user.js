@@ -57,8 +57,10 @@ export const useUserStore = defineStore('user', {
     },
     getUserName: (state) => {
       return () => state.user.firstName ?? state.user.email ?? state.user.id
-      
-    }
+    },
+    getPhoneNo: (state) => {
+      return () => state.user.phoneNo ?? 91234567
+    },
   },
   actions: {
     async initAuth() {
