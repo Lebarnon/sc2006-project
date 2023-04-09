@@ -61,8 +61,10 @@ import CompareListingCard from "@/components/CompareListingCard.vue"
 import CompareDetailCard from "@/components/CompareDetailCard.vue"
 import { ref, onBeforeMount, computed, watch} from 'vue'
 import { useUserStore } from "../stores/user";
+import { useBestValueStore } from "../stores/bestValue"
 import { usePricingStore } from "../stores/pricing"
 
+const bestValueStore = useBestValueStore()
 const userStore = useUserStore()
 const isLoading = ref(true)
 const numOfCompareCards = ref(3)
@@ -79,19 +81,8 @@ const percentageDiff = ref([
 
 const bestValueIndex = ref(0)
 watch(() => selectedListings.value, (newSelected, oldSelected)=> {
-  var curBestI = 0
-  var largestPercentageDiff = -1
-  
-  for(let i=0; i<newSelected.length; i++){
-    var curListing = newSelected[i]
-    if(curListing == null) continue
-    var curPercentageDiff = Math.round((curListing.price - curListing.estimatedPrice) / curListing.price * 100)
-    percentageDiff.value[i] = curPercentageDiff
-    if(curPercentageDiff > largestPercentageDiff){
-      curBestI = i
-      largestPercentageDiff = curPercentageDiff
-    }
-  }
+  const [percentageDiffs, curBestI] = bestValueStore.getBestValue(newSelected)
+  percentageDiff.value = percentageDiffs
   bestValueIndex.value = curBestI
 },{deep:true})
 

@@ -12,7 +12,6 @@ const storageRef = ref(storage)
 export const usePricingStore = defineStore('pricing', {
   state: () => {
     return {
-      estimatedPrice: []
     }
   },
   actions: {
