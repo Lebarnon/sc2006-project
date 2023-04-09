@@ -73,7 +73,7 @@ const userStore = useUserStore()
 const listingStore = useListingStore()
 const searchValue = ref("")
 const filterValue = ref("Default")
-const filters = ['Default','Street Name', 'Price']
+const filters = ['Default','Street Name', 'Price', 'Town', 'Flat Model', 'Flat Type', 'Floor Area', 'Storey Range', 'Num Of Toilet', 'Remaining Lease']
 
 const listings = computed(() => listingStore.filterListings(props.listingsData, searchValue.value, filterValue.value))
 const listingLength = computed(() => listings.value.length)

@@ -205,6 +205,20 @@ export const useListingStore = defineStore('listing', {
         filteredListings.sort((a,b) => (a.streetName > b.streetName) ? 1 : ((b.streetName > a.streetName) ? -1 : 0))
       }else if(filter == "Price"){
         filteredListings.sort((a,b) => a.price - b.price)
+      }else if(filter == "Town"){
+        filteredListings.sort((a,b) => (a.town > b.town) ? 1 : ((b.town > a.town) ? -1 : 0))
+      }else if(filter == "Flat Model"){
+        filteredListings.sort((a,b) => (a.flatModel > b.flatModel) ? 1 : ((b.flatModel > a.flatModel) ? -1 : 0))
+      }else if(filter == "Flat Type"){
+        filteredListings.sort((a,b) => (a.flatType > b.flatType) ? 1 : ((b.flatType > a.flatType) ? -1 : 0))
+      }else if(filter == "Floor Area"){
+        filteredListings.sort((a,b) => (a.floorSize > b.floorSize) ? 1 : ((b.floorSize > a.floorSize) ? -1 : 0))
+      }else if(filter == "Storey Range"){
+        filteredListings.sort((a,b) => (a.storeyRange > b.storeyRange) ? 1 : ((b.storeyRange > a.storeyRange) ? -1 : 0))
+      }else if(filter == "Num Of Toilet"){
+        filteredListings.sort((a,b) => a.noOfToilet - b.noOfToilet)
+      }else if(filter == "Remaining Lease"){
+        filteredListings.sort((a,b) => a.remainingLease - b.remainingLease)
       }
       return filteredListings
     },
