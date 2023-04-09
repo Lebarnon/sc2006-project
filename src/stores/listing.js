@@ -146,7 +146,6 @@ export const useListingStore = defineStore('listing', {
           searchResults.push(...result)
         }
         if(key == "q"){
-          await this.setListings();
           const filteredListings = this.listings.filter(listing => {
             //converts properties of each listing object to lowercase to compare with search
             const searchTerm = value.toLowerCase();
@@ -172,6 +171,7 @@ export const useListingStore = defineStore('listing', {
       return searchResults
     },
     filterListings(listingsData, searchKey = null, filter = null){
+      console.log(listingsData)
       if(!listingsData || listingsData.length == 0 || searchKey == "" && !filter){
         return []
       }

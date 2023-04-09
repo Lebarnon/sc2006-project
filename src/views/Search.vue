@@ -1,6 +1,6 @@
 <template>
   <LoadingOverlay v-if="isLoading" :is-loading="isLoading"/>
-  <ListingGrid v-else :listings="searchResults" />
+  <ListingGrid v-else :listings-data="searchResults" />
 </template>
 
 <script setup>
@@ -17,8 +17,8 @@ const route = useRoute()
 
 onBeforeMount(() => {
   listingStore.searchListing(route.query).then((result) => {
-    // searchResults.value = result
-    // isLoading.value = false
+    searchResults.value = result
+    isLoading.value = false
   })
 })
 
