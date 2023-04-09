@@ -15,48 +15,67 @@ export const usePricingStore = defineStore('pricing', {
       estimatedPrice: []
     }
   },
-  getters: {
-    
-  },
-  methods: {
-    // async getData() {
-    //   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-    //   const finalRes = await res.json();
-    //   this.listItems = finalRes;
-    // }
-  },
   actions: {
     isValueBuy(listingData) {
       return listingData.estimatedPrice > listingData.price
     },
-    // async setPrice(){
-    //     this.estimatedPrice = querySnap.resalePrice
-    // }
     async getEstimatedPrice(listingData) {
-            listingData.floorSize = Math.floor(listingData.floorSize/10)
-            listingData.floorSize = listingData.floorSize * 10
-            const newremainingLease = Math.floor(((2023 + listingData.remainingLease) - 100 + 1)/10) *10
-            
-            const q = await query(collection(db, 'grouped_data'), 
-            where('flatModel', '==', String(listingData.flatModel)),
-            where('flatType', '==', String(listingData.flatType)),
-            where('town', '==', String(listingData.town)),
-            where('streetName', '==', String(listingData.streetName)),
-            where('floorAreaSqmBin', '==', Number(listingData.floorSize)),
-            where('storeyRange', '==', String(listingData.storeyRange)),
-            where('leaseCommenceDateBin', '==', Number(newremainingLease)),
-            );
+      listingData.floorSize = Math.floor(listingData.floorSize/10)
+      listingData.floorSize = listingData.floorSize * 10
+      const newremainingLease = Math.floor(((2023 + listingData.remainingLease) - 100 + 1)/10) *10
 
-            
-            const querySnapshot = await getDocs(q);
-            var a=0;
-            querySnapshot.forEach((doc) => {
-              // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                a = doc.data().resalePrice
-            });
-            console.log("Estimated Price", a)
-            return Math.round(a);
+      const q1 = await query(collection(db, 'remaining_lease'), 
+      where('coefficient', '==', String(listingData.remainingLease+ ' years')),
+      );
+
+      const querySnapshot1 = await getDocs(q1);
+      var lease=0;
+      querySnapshot1.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          lease = doc.data().value
+      });
+
+
+      const q2 = await query(collection(db, 'storeyRange'), 
+      where('coefficient', '==', String(listingData.storeyRange)),
+      );
+      const querySnapshot2 = await getDocs(q2);
+      var storey=0;
+      querySnapshot2.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          storey = doc.data().value
+      });
+
+      const q3 = await query(collection(db, 'streetNames'), 
+      where('coefficient', '==', String(listingData.streetName).toUpperCase()),
+      );
+
+      const querySnapshot3 = await getDocs(q3);
+      var street=0;
+      querySnapshot3.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          street = doc.data().value
+      });
+
+
+      const q4 = await query(collection(db, 'towns'), 
+      where('coefficient', '==', String(listingData.town).toUpperCase()),
+      );
+
+      const querySnapshot4 = await getDocs(q4);
+      var town=0;
+      querySnapshot4.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          town = doc.data().value
+      });
+
+      var estimated = lease + town + street + storey
+      console.log(estimated)
+      return Math.round(estimated);
             
       },
   }

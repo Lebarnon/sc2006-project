@@ -56,7 +56,7 @@ export const useListingStore = defineStore('listing', {
           }
         )
       })
-      await Promise.all(this.listings.map(async (listing) => {
+      this.listings = await Promise.all(this.listings.map(async (listing) => {
         const estimatedPrice = await usePricingStore().getEstimatedPrice(listing)
         return({
           estimatedPrice: estimatedPrice,

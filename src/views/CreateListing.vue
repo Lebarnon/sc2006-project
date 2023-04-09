@@ -321,7 +321,7 @@ const flatModel = ['Improved', 'New Generation', 'DBSS', 'Standard', 'Apartment'
        'Model A2', 'Terrace', 'Improved-Maisonette', 'Premium Maisonette',
        'Multi Generation', 'Premium Apartment Loft', '2-room', '3Gen']
 
-const storeyRange = ['10 TO 12', '01 TO 03', '04 TO 06', '07 TO 09', '13 TO 15',
+const storeyRange = ['01 TO 03', '10 TO 12', '04 TO 06', '07 TO 09', '13 TO 15',
        '19 TO 21', '22 TO 24', '16 TO 18', '34 TO 36', '28 TO 30',
        '37 TO 39', '49 TO 51', '25 TO 27', '40 TO 42', '31 TO 33',
        '46 TO 48', '43 TO 45']
