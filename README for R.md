@@ -10,7 +10,7 @@ jsonlite
 ## How to run 
 
 1. Ensure that you have R installed on your system.
-2. Install the required libraries by running the following commands in R: install.packages(“caret”), install.packages(“jsonlite”)
+2. Install the required libraries by running the following commands in R: install.packages(caret), install.packages(jsonlite)
 3. Download the dataset resale-flat-prices-based-on-registration-date-from-jan-2017-onwards.csv and place it in the same directory as the R script.
 4. Run the R Script, which will perform the following:
 5. Load the dataset
