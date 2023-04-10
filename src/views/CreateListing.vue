@@ -225,6 +225,22 @@ watch(() => listingData.value.leaseCommencementDate, (newDate, _) =>{
     listingData.value.remainingLease = remainingLease
 })
 
+watch(() => listingData.value.imageFiles, (newVal) => {
+    if (newVal.length >10) {
+        alert('Please select not more than 10 images')
+        listingData.value.imageFiles=newVal.slice(0,10);
+    }
+
+    for (let i=0; i<newVal.length; i++){
+        const file = newVal[i];
+        if(!['image/jpeg','image/png'].includes(file.type)){
+            alert('Invalid file type. Only JPEG and PNG are allowed.')
+            listingData.value.imageFiles.splice(i,1);
+            continue
+        }
+    }
+})
+
 const imageUrls = computed(() => {
     var imageUrls = []
     for(var imageFile of listingData.value.imageFiles){
