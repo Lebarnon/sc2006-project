@@ -18,6 +18,6 @@ jsonlite
 7. Train the linear regression model
 8. Clean up variable names
 9. Extract and save significant variables
-After running the script, the output files are uploaded to our database, firebase for the coefficients to be used when computing the “Estimated Price” on our website
+After running the script, the output files are uploaded to our database, firebase for the coefficients to be used when computing the Estimated Price on our website
 
 
