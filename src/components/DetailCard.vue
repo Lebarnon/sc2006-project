@@ -45,12 +45,12 @@
 
     <p>
     <h1 v-if="isValueBuy">
-    <v-text v-if="isValueBuy">
+    <div v-if="isValueBuy">
       <span class="text-h4">
         ${{ data.price }}
       </span>
      
-    </v-text>
+    </div>
     </h1>
     </p>
 

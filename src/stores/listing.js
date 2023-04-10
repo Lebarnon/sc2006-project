@@ -131,11 +131,12 @@ export const useListingStore = defineStore('listing', {
     async deleteListing(listing){
       if(!listing || !listing.hasOwnProperty('id')){
         useSnackbarStore().display("Delete Failed", "red-darken-2")
-        return
+      }else{
+        await deleteDoc(doc(db, "listings", `${listing.id}`))
+        this.listings = this.listings.filter(function(el) { return el.id != listing.id })
+        useSnackbarStore().display("Delete Successfully", "green-darken-2")
       }
-      await deleteDoc(doc(db, "listings", `${listing.id}`))
-      this.listings = this.listings.filter(function(el) { return el.id != listing.id })
-      useSnackbarStore().display("Delete Successfully", "green-darken-2")
+      router.go(-1)
     },
     async searchListing(searchObject){
       var searchResults = []
