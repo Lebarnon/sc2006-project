@@ -120,7 +120,6 @@ export const useListingStore = defineStore('listing', {
         // update listing
         const docRef = await setDoc(doc(db, "listings", id), listingData)
         useSnackbarStore().display("Updated Listing Successfully!", "green-darken-2")
-        userStore.addListingId(docRef.id)
         await this.setListings()
         router.push(`/detail/${id}`)
         return true

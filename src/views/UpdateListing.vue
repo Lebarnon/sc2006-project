@@ -259,15 +259,6 @@ watch(() => listingData.value.imageFiles, (newVal, oldVal) => {
     if (newVal.length >10) {
         listingData.value.imageFiles=newVal.slice(0,10);
     }
-
-    for (let i=0; i<newVal.length; i++){
-        const file = newVal[i];
-        if(!['image/jpeg','image/png'].includes(file.type)){
-            sbStore.display('Invalid file type. Only JPEG and PNG are allowed.', 'red-darken-2')
-            listingData.value.imageFiles.splice(i,1);
-            continue
-        }
-    }
 })
 
 const imageUrls = computed(() => {
@@ -287,7 +278,7 @@ async function handleSubmit(){
         sbStore.display('Please fill up all fields', 'red-darken-2');
     } else {
         isLoading.value = true  
-        await listingStore.createListing(listingData.value, true)
+        await listingStore.createListing({...listingData.value}, true)
         isLoading.value = false
     }
     
