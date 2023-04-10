@@ -75,7 +75,10 @@
                     label="Add Images"
                     variant="filled"
                     prepend-icon="mdi:mdi-camera"
+                    accept="image/png, image/jpeg"
+                    :rules="[imageRule,imageMaxRule]"
                     v-model="listingData.imageFiles"
+                    chips
                     multiple
                 ></v-file-input>
 
@@ -252,6 +255,21 @@ watch(() => listingData.value.leaseCommencementDate, (newDate, _) =>{
     listingData.value.remainingLease = remainingLease
 })
 
+watch(() => listingData.value.imageFiles, (newVal, oldVal) => {
+    if (newVal.length >10) {
+        listingData.value.imageFiles=newVal.slice(0,10);
+    }
+
+    for (let i=0; i<newVal.length; i++){
+        const file = newVal[i];
+        if(!['image/jpeg','image/png'].includes(file.type)){
+            sbStore.display('Invalid file type. Only JPEG and PNG are allowed.', 'red-darken-2')
+            listingData.value.imageFiles.splice(i,1);
+            continue
+        }
+    }
+})
+
 const imageUrls = computed(() => {
     var imageUrls = []
     for(var imageFile of listingData.value.imageFiles){
@@ -309,6 +327,8 @@ const nameRule = (v) => (v && v.length <=100) || 'Text must be less than 100 cha
 const descRule = (v) => (v && v.split(" ").length <=255) || 'Text must be less than 255 words' // TODO: update SRS to reflect words instead of characters
 const numberRule = (v) => !isNaN(v) || 'Value must be a number'
 const positivenumRule = (v) => v >= 0 || 'Value must be a positive number'
+const imageRule = (v) => !!v.length || 'Please select at least 1 image!'
+const imageMaxRule = (v) => !!(v.length < 10) || 'Please select at most 10 images!'
 
 //For validation
 const isEmpty = computed(() => {

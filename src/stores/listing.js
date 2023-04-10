@@ -50,6 +50,7 @@ export const useListingStore = defineStore('listing', {
   },
   actions: {
     async setListings(){
+      console.log("setlistings called")
       // getListings from db and store it in state
       this.isLoading = true
       this.listings = []
@@ -112,17 +113,18 @@ export const useListingStore = defineStore('listing', {
         await updateDoc(doc(db,"users", userId), {
           ownListingIds: arrayUnion(docRef.id)
         })
+        userStore.addListingId(docRef.id)
         await this.setListings()
         useSnackbarStore().display("Created Listing Successfully!", "green-darken-2")
       }else{
         // update listing
         const docRef = await setDoc(doc(db, "listings", id), listingData)
         useSnackbarStore().display("Updated Listing Successfully!", "green-darken-2")
+        userStore.addListingId(docRef.id)
         await this.setListings()
         router.push(`/detail/${id}`)
         return true
       }
-
       // return user to their listing page --> '/' for now as placeholder
       router.push('/')
       return true

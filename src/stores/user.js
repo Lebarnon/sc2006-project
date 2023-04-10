@@ -164,6 +164,8 @@ export const useUserStore = defineStore('user', {
       return favListings
     },
     async getOwnListings(){
+      console.log('test')
+      console.log(this.getOwnListingIds)
       var ownListings = []
       for(var id of this.getOwnListingIds){
         var listing = await useListingStore().getListingById(id)
@@ -171,7 +173,11 @@ export const useUserStore = defineStore('user', {
           ownListings.push(listing)
         }
       }
+      console.log(ownListings)
       return ownListings
     },
+    addListingId(listingId){
+      this.user.ownListingIds.push(listingId)
+    }
   }
 })
