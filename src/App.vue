@@ -52,6 +52,8 @@ function onScroll(e) {
 
 </script>
 
-<style scoped>
-
+<style>
+html, body {
+    overflow-x:hidden;
+}
 </style>

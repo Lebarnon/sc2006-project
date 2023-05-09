@@ -14,7 +14,7 @@
             Listed Price
           </p>
           <p class="text-center">
-            {{ listing.price }}
+            ${{ listing.price }}
           </p>
       </v-card-title>
     </v-card-item>
@@ -22,6 +22,7 @@
     <div class="text-center">
       <v-card-item>
       <v-btn 
+        class="text-capitalize"
         :to="'/detail/' + listing.id"
         rounded="pill"
         color="blue-darken-4">

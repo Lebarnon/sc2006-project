@@ -4,14 +4,14 @@
             :src="imageUrls.length > 0 ? imageUrls[curImgIndex] : ImagePlaceholder "
             height="400"
             max-width="400"
-            cover
+            contain
             class="mx-auto"
         />
     </v-sheet>
     <v-slide-group
         v-model="curImgIndex"
         class="pa-4"
-        show-arrows="always"
+        show-arrows="desktop"
     >
         <v-slide-group-item
             v-for="n in imageUrls.length"

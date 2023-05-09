@@ -1,7 +1,7 @@
 <template>
   <v-container class="justify-center">
     <v-row class="justify-center">
-      <v-col cols="6">
+      <v-col md="8" lg="6">
         <v-text-field
           variant="outlined"
           density="comfortable"
@@ -13,12 +13,12 @@
     </v-row>
     <v-divider/>
     <v-row class="align-center my-1" no-gutters>
-      <v-col class="mt-n2 mr-n8" cols="1">
+      <v-col class="mt-n2 mr-n8" md="2" lg="1">
         <p class="text-caption text-grey-darken-2">
           Sort by:
         </p>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="4" sm="3" md="2">
         <v-select
           v-model="filterValue"
           density="compact"
@@ -29,12 +29,15 @@
       </v-col>
     </v-row>
     <NoResultFound v-if="!listings || listings.length == 0" />
-    <v-row v-else class="mt-n6">
+    <v-row v-else class="mt-n6" >
       <v-col 
         v-for="(listing, index) in listings"
         v-show="index >= startingInd && index < endingInd"
         :key="index"
-        cols="4"
+        cols="12"
+        sm="6"
+        md="4"
+        xl="2"
       >
         <ListingCard  
           :listing = "listing" 

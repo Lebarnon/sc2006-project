@@ -36,13 +36,7 @@ app.use(createVuetify({
 app.component('VueDatePicker', VueDatePicker);
 
 
-useUserStore().initAuth()
-setTimeout(() => {
+useUserStore().initAuth().then(() => {
   app.use(router)
   app.mount('#app')
-}, 1100);
-
-
-
-
-
+})

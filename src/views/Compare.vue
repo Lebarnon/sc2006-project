@@ -4,7 +4,8 @@
     <v-row justify = "center">
       <v-col
         v-for="i in [...Array(numOfCompareCards).keys()]"
-        cols="3"
+        cols="6"
+        sm="4"
         :key = "i"
       >
         <DropdownMenu 
@@ -18,7 +19,8 @@
     <v-row justify = "center">
       <v-col 
         v-for="i in [...Array(numOfCompareCards).keys()]"
-        cols="3"
+        cols="6"
+        sm="4"
         :key="i"
       >
         <CompareListingCard :listing="selectedListings[i]"/>
@@ -40,7 +42,8 @@
     <v-row justify = "center">
       <v-col
         v-for="i in [...Array(numOfCompareCards).keys()]"
-        cols="3"
+        cols="6"
+        sm="4"
         :key = "i"
       >
       <CompareDetailCard 
@@ -62,11 +65,13 @@ import CompareDetailCard from "@/components/CompareDetailCard.vue"
 import { ref, onBeforeMount, computed, watch} from 'vue'
 import { useUserStore } from "../stores/user";
 import { useBestValueStore } from "../stores/bestValue"
+import { useDisplay } from 'vuetify'
 
 const bestValueStore = useBestValueStore()
 const userStore = useUserStore()
 const isLoading = ref(true)
-const numOfCompareCards = ref(3)
+const { mobile } = useDisplay()
+const numOfCompareCards = computed(() => mobile.value ? 2 :3)
 
 const selectedListings = ref([
   null,

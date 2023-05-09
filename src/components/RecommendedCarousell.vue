@@ -2,12 +2,12 @@
 <v-sheet
   class="mx-auto"
   elevation="8"
-  max-width="2000"
+  max-width="1500"
 >
   <v-slide-group
-    class="pa-4"
+    class="pa-md-4"
     center-active
-    show-arrows="always"
+    show-arrows="desktop"
   >
     <v-slide-group-item
       v-if="isLoading"
@@ -15,7 +15,7 @@
       :key="i"
     >
       <v-card
-        class="ma-4"
+        class="ma-md-4"
         height="325"
         width="225"
       />

@@ -1,9 +1,13 @@
 <template>
+<v-hover v-slot="{isHovering, props}">
+  
 <v-card
   class="ma-4"
   height="325"
   width="225"
   @click="handleCardSelected"
+  :elevation="isHovering ? 12 : 2"
+  v-bind="props"
 >
   <v-img
     :src="listing.imageUrls[0]"
@@ -56,6 +60,8 @@
           
   </v-img>
 </v-card>
+</v-hover>
+
 </template>
 
 <script setup>
@@ -68,4 +74,6 @@ function handleCardSelected(){
 }
 
 </script>
+
+
 

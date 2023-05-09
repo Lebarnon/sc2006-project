@@ -18,6 +18,7 @@
                 </p>
                 <p class="text-center">
                     ${{ listing.estimatedPrice }}
+                    <p class="d-block d-sm-none"></p>
                     <span :class="`text-subtitle-1 ${percentageDiff > 0 ? 'text-green' : 'text-red'}`"> ({{percentageDiff}}%) </span>
                 </p>
             </v-card-title>

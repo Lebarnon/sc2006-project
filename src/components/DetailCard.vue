@@ -80,7 +80,7 @@
     </h1>
 
     <v-row>
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Flat Type
             </p>
@@ -90,7 +90,7 @@
             <v-divider></v-divider>
         </v-col>
 
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Flat Model
             </p>
@@ -100,7 +100,7 @@
             <v-divider></v-divider>
         </v-col>
 
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Floor Size
             </p>
@@ -109,10 +109,7 @@
             </p>
             <v-divider></v-divider>
         </v-col>
-    </v-row>
-
-    <v-row>
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Remaining Lease
             </p>
@@ -122,7 +119,7 @@
             <v-divider></v-divider>
         </v-col>
 
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Lease Commence Date
             </p>
@@ -132,7 +129,7 @@
             <v-divider></v-divider>
         </v-col>
 
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Storey Range
             </p>
@@ -141,10 +138,7 @@
             </p>
             <v-divider></v-divider>
         </v-col>
-    </v-row>
-
-    <v-row>
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Town
             </p>
@@ -154,7 +148,7 @@
             <v-divider></v-divider>
         </v-col>
 
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Street Name
             </p>
@@ -164,7 +158,7 @@
             <v-divider></v-divider>
         </v-col>
 
-        <v-col>
+        <v-col cols="6" sm="4">
             <p>
                 Price Per SqFt
             </p>

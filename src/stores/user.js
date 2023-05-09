@@ -31,7 +31,7 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       user: null,
-      isloading: false
+      isloading: false,
     }
   },
   getters: {
@@ -64,9 +64,7 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async initAuth() {
-      initializeAuth.then((value) => {
-        return value
-      })
+      return initializeAuth
     },
     async setUser(user) {         
       if (user) {

@@ -2,7 +2,7 @@
   <v-container>
     <LoadingOverlay v-if="isLoading"/>
     <v-row v-else justify="center">
-      <v-col cols="9" v-if="listing != null">
+      <v-col cols="12" sm="9" v-if="listing != null">
         <DetailCard 
           :data = "listing" 
           :is-value-buy="isValueBuy" 

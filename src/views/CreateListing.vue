@@ -2,14 +2,27 @@
     <v-container>
     <v-row>
         <v-col
-            cols="6"
+            cols="12"
+            sm="6"
         >
             <Gallery :imageUrls = "imageUrls"/>
+            <v-file-input
+                label="Add Images"
+                variant="filled"
+                prepend-icon="mdi:mdi-camera"
+                accept="image/png, image/jpeg"
+                :rules="[imageRule,imageMaxRule]"
+                v-model="listingData.imageFiles"
+                chips
+                multiple
+            ></v-file-input>
         </v-col>
         <v-col
-            cols="6"
+            cols="12"
+            sm="6"
         >
             <v-form class="mt-6">
+               
                 <v-text-field
                     v-model="listingData.name"
                     label="Name of Listing"
@@ -72,16 +85,7 @@
                     min-date="1924"
                 ></VueDatePicker>
 
-                <v-file-input
-                    label="Add Images"
-                    variant="filled"
-                    prepend-icon="mdi:mdi-camera"
-                    accept="image/png, image/jpeg"
-                    :rules="[imageRule,imageMaxRule]"
-                    v-model="listingData.imageFiles"
-                    chips
-                    multiple
-                ></v-file-input>
+               
 
                 <v-textarea
                     v-model="listingData.description"

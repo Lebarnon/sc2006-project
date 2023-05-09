@@ -1,34 +1,47 @@
 <template>
+<v-lazy
+  :options="{'threshold':0.5}"
+  transition="slide-y-reverse-transition"
+>
   <v-sheet
     class="mx-auto bg-transparent"
-    max-width="2700"
+    max-width="1500"
   >
     <v-container 
-      width="2000px"
       fluid
       >
       <v-row dense>
         <v-col
           v-for="card in cards"
           :key="card.title"
-          :cols="card.flex"
+          cpls="12"
+          :sm="card.flex"
         >
-          <v-card :to="'/search' + '?q=' + card.title">
-            <v-img
-              :src="card.src"
-              class="justify-center"
-              gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.1)"
-              height="200px"
-              width ="2000px"
-              cover
+        
+          <v-hover v-slot="{isHovering, props}">
+            <v-card 
+            :to="'/search' + '?q=' + card.title"
+            :elevation="isHovering ? 12 : 2"
+            :class="{ 'on-hover': isHovering }"
+            v-bind="props"
             >
-              <v-card-title class="text-white" v-text="card.title"></v-card-title>
-            </v-img>
-          </v-card>
+              <v-img
+                :src="card.src"
+                class="justify-center"
+                gradient="to bottom, rgba(0,0,0,.5), rgba(0,0,0,.1)"
+                height="200px"
+                cover
+              >
+                <v-card-title class="text-white" v-text="card.title"></v-card-title>
+              </v-img>
+            </v-card>
+          </v-hover>
         </v-col>
       </v-row>
     </v-container>
   </v-sheet>
+</v-lazy>
+
 </template>
 
 <script setup>
@@ -56,3 +69,13 @@ const cards= computed(() => {
   return townsObj
 })
 </script>
+
+<style scoped>
+  .v-card {
+    transition: opacity .4s ease-in-out;
+  }
+
+  .v-card:not(.on-hover) {
+    opacity: 0.9;
+  }
+</style>

@@ -2,7 +2,7 @@
   <v-card
     :to="`/detail/${listing.id}`"
     class="mx-auto"
-    width="370"
+    max-width="370"
   >
     <v-img
       cover
